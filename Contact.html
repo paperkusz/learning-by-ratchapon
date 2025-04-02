@@ -1,0 +1,606 @@
+ <!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ติดต่อเรา | โรงเรียนตัวอย่าง</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* นำ CSS จากหน้า index.html มาใช้ทั้งหมด */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', 'Sarabun', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        /* Login Button */
+        .login-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .login-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 0.5rem;
+        }
+        
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb .separator {
+            margin: 0 0.3rem;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 4rem 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 1rem auto 0;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-right: 1rem;
+            margin-top: 0.3rem;
+        }
+        
+        .contact-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--primary-color);
+        }
+        
+        .contact-text p, .contact-text a {
+            color: #666;
+            text-decoration: none;
+        }
+        
+        .contact-text a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-media h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--light-color);
+            border-radius: 50%;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .contact-form h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .submit-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        /* Map Section */
+        .map {
+            margin-top: 3rem;
+            height: 400px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-col a {
+            display: block;
+            color: #ddd;
+            margin-bottom: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-col a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .social-links-footer {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links-footer a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links-footer a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="https://via.placeholder.com/50x50?text=LOGO" alt="โรงเรียนตัวอย่าง">
+                <span class="logo-text">โรงเรียนตัวอย่าง</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html">หน้าหลัก</a></li>
+                <li><a href="about.html">ประวัติครู</a></li>
+                <li><a href="achievements.html">ผลงาน</a></li>
+                <li><a href="courses.html">วิชาทั้งหมด</a></li>
+                <li><a href="knowledge.html">คลังความรู้</a></li>
+                <li><a href="contact.html" class="active">ติดต่อเรา</a></li>
+            </ul>
+            
+            <button class="login-btn" onclick="window.location.href='auth/login.html'">
+                <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
+            </button>
+        </div>
+    </header>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>ติดต่อเรา</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">หน้าหลัก</a></li>
+                <li class="separator">/</li>
+                <li>ติดต่อเรา</li>
+            </ul>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>ติดต่อโรงเรียนตัวอย่าง</h2>
+                <p>เรายินดีตอบคำถามและรับฟังความคิดเห็นจากคุณ</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>ข้อมูลติดต่อ</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>ที่อยู่</h4>
+                                <p>123 ถนนตัวอย่าง ตำบลตัวอย่าง อำเภอตัวอย่าง จังหวัดตัวอย่าง 12345</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>โทรศัพท์</h4>
+                                <p><a href="tel:012345678">0-1234-5678</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>อีเมล</h4>
+                                <p><a href="mailto:contact@example-school.ac.th">contact@example-school.ac.th</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>เวลาทำการ</h4>
+                                <p>จันทร์ - ศุกร์: 08:00 - 16:30 น.</p>
+                                <p>เสาร์ - อาทิตย์: ปิดทำการ</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-media">
+                        <h4>ติดตามเราบนโซเชียลมีเดีย</h4>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-line"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>ส่งข้อความถึงเรา</h3>
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name">ชื่อ-นามสกุล</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">อีเมล</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">โทรศัพท์</label>
+                            <input type="tel" id="phone" name="phone" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">หัวข้อ</label>
+                            <input type="text" id="subject" name="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">ข้อความ</label>
+                            <textarea id="message" name="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">ส่งข้อความ</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.566487735209!2d100.50126731532613!3d13.75629080139999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2990f9b8f8e3f%3A0x32a7a3e8b7a3e3d4!2sExample%20School!5e0!3m2!1sen!2sth!4v1620000000000!5m2!1sen!2sth" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>เกี่ยวกับเรา</h3>
+                    <p>ระบบสื่อการสอนออนไลน์ โรงเรียนตัวอย่าง จังหวัดตัวอย่าง</p>
+                    <div class="social-links-footer">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-line"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ลิงก์ด่วน</h3>
+                    <a href="index.html">หน้าหลัก</a>
+                    <a href="about.html">ประวัติครู</a>
+                    <a href="achievements.html">ผลงาน</a>
+                    <a href="courses.html">วิชาทั้งหมด</a>
+                    <a href="knowledge.html">คลังความรู้</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ระบบสมาชิก</h3>
+                    <a href="auth/login.html">เข้าสู่ระบบ</a>
+                    <a href="auth/register.html">สมัครสมาชิก</a>
+                    <a href="#">ลืมรหัสผ่าน</a>
+                    <a href="#">คำถามที่พบบ่อย</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ติดต่อเรา</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 ถนนตัวอย่าง ตำบลตัวอย่าง อำเภอตัวอย่าง จังหวัดตัวอย่าง</p>
+                    <p><i class="fas fa-phone"></i> 0-1234-5678</p>
+                    <p><i class="fas fa-envelope"></i> contact@example-school.ac.th</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 โรงเรียนตัวอย่าง. สงวนลิขสิทธิ์ทุกประการ.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

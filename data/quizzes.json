@@ -1,0 +1,94 @@
+{
+  "quizzes": [
+    {
+      "id": 1,
+      "icon": "calculator",
+      "title": "แบบทดสอบอนุพันธ์เบื้องต้น",
+      "category": "คณิตศาสตร์",
+      "questions": 10,
+      "total_score": 20,
+      "status": "published",
+      "status_text": "เผยแพร่",
+      "participants": 125,
+      "rating": 4.5,
+      "created_at": "2023-06-15"
+    },
+    {
+      "id": 2,
+      "icon": "atom",
+      "title": "แบบทดสอบกฎการเคลื่อนที่",
+      "category": "วิทยาศาสตร์",
+      "questions": 15,
+      "total_score": 30,
+      "status": "published",
+      "status_text": "เผยแพร่",
+      "participants": 98,
+      "rating": 4.2,
+      "created_at": "2023-06-10"
+    },
+    {
+      "id": 3,
+      "icon": "language",
+      "title": "แบบทดสอบคำศัพท์ภาษาอังกฤษ",
+      "category": "ภาษาอังกฤษ",
+      "questions": 20,
+      "total_score": 40,
+      "status": "published",
+      "status_text": "เผยแพร่",
+      "participants": 156,
+      "rating": 4.7,
+      "created_at": "2023-06-05"
+    },
+    {
+      "id": 4,
+      "icon": "landmark",
+      "title": "แบบทดสอบประวัติศาสตร์ไทย",
+      "category": "ประวัติศาสตร์",
+      "questions": 12,
+      "total_score": 24,
+      "status": "draft",
+      "status_text": "แบบร่าง",
+      "participants": 87,
+      "rating": 4.0,
+      "created_at": "2023-05-28"
+    },
+    {
+      "id": 5,
+      "icon": "dna",
+      "title": "แบบทดสอบพันธุศาสตร์",
+      "category": "วิทยาศาสตร์",
+      "questions": 18,
+      "total_score": 36,
+      "status": "archived",
+      "status_text": "เก็บถาวร",
+      "participants": 64,
+      "rating": 3.8,
+      "created_at": "2023-05-20"
+    }
+  ],
+  "categories": [
+    {"value": "", "text": "ทั้งหมด"},
+    {"value": "math", "text": "คณิตศาสตร์"},
+    {"value": "science", "text": "วิทยาศาสตร์"},
+    {"value": "english", "text": "ภาษาอังกฤษ"},
+    {"value": "history", "text": "ประวัติศาสตร์"}
+  ],
+  "status_options": [
+    {"value": "", "text": "ทั้งหมด"},
+    {"value": "published", "text": "เผยแพร่"},
+    {"value": "draft", "text": "แบบร่าง"},
+    {"value": "archived", "text": "เก็บถาวร"}
+  ],
+  "sort_options": [
+    {"value": "newest", "text": "ใหม่ล่าสุด"},
+    {"value": "oldest", "text": "เก่าที่สุด"},
+    {"value": "most-questions", "text": "จำนวนคำถามมากสุด"},
+    {"value": "least-questions", "text": "จำนวนคำถามน้อยสุด"}
+  ],
+  "stats": {
+    "total_quizzes": 5,
+    "published_quizzes": 3,
+    "average_questions": 15,
+    "average_rating": 4.24
+  }
+}

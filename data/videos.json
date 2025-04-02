@@ -1,0 +1,203 @@
+{
+  "videos": [
+    {
+      "id": 101,
+      "title": "ความหมายและชนิดของเซต",
+      "title_en": "Sets: Definition and Types",
+      "description": "การเรียนรู้พื้นฐานเกี่ยวกับเซตในคณิตศาสตร์ รวมถึงชนิดของเซตและการนำไปใช้",
+      "description_en": "Fundamental concepts of sets in mathematics, including types of sets and their applications",
+      "course_id": 1,
+      "section_id": 1,
+      "duration": 932,
+      "duration_display": "15:32",
+      "thumbnail": "https://i.ytimg.com/vi/abc123/mqdefault.jpg",
+      "video_url": "https://example.com/videos/math101-set-theory",
+      "resolution": "1080p",
+      "file_size": 256,
+      "file_format": "mp4",
+      "categories": ["คณิตศาสตร์", "เซต"],
+      "tags": ["พื้นฐาน", "ม.4"],
+      "teacher_id": 2,
+      "view_count": 1245,
+      "upload_date": "2023-05-20T09:00:00Z",
+      "last_updated": "2023-06-01T14:30:00Z",
+      "status": "published",
+      "privacy": "public",
+      "downloadable": true,
+      "transcript": "https://example.com/transcripts/101.vtt",
+      "chapters": [
+        {
+          "time": "00:00",
+          "title": "บทนำ",
+          "title_en": "Introduction"
+        },
+        {
+          "time": "01:30",
+          "title": "นิยามของเซต",
+          "title_en": "Definition of Sets"
+        }
+      ]
+    },
+    {
+      "id": 201,
+      "title": "กฎการเคลื่อนที่ของนิวตัน",
+      "title_en": "Newton's Laws of Motion",
+      "description": "การศึกษาและทำความเข้าใจกฎการเคลื่อนที่ 3 ข้อของนิวตันพร้อมตัวอย่างการนำไปใช้",
+      "description_en": "Study and understanding of Newton's 3 Laws of Motion with application examples",
+      "course_id": 2,
+      "section_id": 2,
+      "duration": 1335,
+      "duration_display": "22:15",
+      "thumbnail": "https://i.ytimg.com/vi/def456/mqdefault.jpg",
+      "video_url": "https://example.com/videos/sci201-newton-laws",
+      "resolution": "720p",
+      "file_size": 189,
+      "file_format": "mp4",
+      "categories": ["วิทยาศาสตร์", "ฟิสิกส์"],
+      "tags": ["กฎของนิวตัน", "ม.5"],
+      "teacher_id": 3,
+      "view_count": 876,
+      "upload_date": "2023-05-22T10:30:00Z",
+      "last_updated": "2023-05-30T11:15:00Z",
+      "status": "published",
+      "privacy": "public",
+      "downloadable": true,
+      "transcript": "https://example.com/transcripts/201.vtt",
+      "chapters": [
+        {
+          "time": "00:00",
+          "title": "บทนำ",
+          "title_en": "Introduction"
+        },
+        {
+          "time": "02:15",
+          "title": "กฎข้อที่ 1: กฎของความเฉื่อย",
+          "title_en": "Law 1: Inertia"
+        }
+      ]
+    },
+    {
+      "id": 301,
+      "title": "การแนะนำตัวเป็นภาษาอังกฤษ",
+      "title_en": "Self-Introduction in English",
+      "description": "เรียนรู้วิธีการแนะนำตัวเองเป็นภาษาอังกฤษอย่างถูกต้องและเป็นธรรมชาติ",
+      "description_en": "Learn how to properly and naturally introduce yourself in English",
+      "course_id": 3,
+      "section_id": 3,
+      "duration": 1125,
+      "duration_display": "18:45",
+      "thumbnail": "https://i.ytimg.com/vi/ghi789/mqdefault.jpg",
+      "video_url": "https://example.com/videos/eng301-introduction",
+      "resolution": "1080p",
+      "file_size": 215,
+      "file_format": "mp4",
+      "categories": ["ภาษาอังกฤษ", "การสื่อสาร"],
+      "tags": ["พื้นฐาน", "ม.6"],
+      "teacher_id": 4,
+      "view_count": 1567,
+      "upload_date": "2023-05-18T13:45:00Z",
+      "last_updated": "2023-05-25T16:20:00Z",
+      "status": "published",
+      "privacy": "public",
+      "downloadable": true,
+      "transcript": "https://example.com/transcripts/301.vtt",
+      "chapters": [
+        {
+          "time": "00:00",
+          "title": "บทนำ",
+          "title_en": "Introduction"
+        },
+        {
+          "time": "01:45",
+          "title": "โครงสร้างการแนะนำตัว",
+          "title_en": "Introduction Structure"
+        }
+      ]
+    },
+    {
+      "id": 401,
+      "title": "การเขียนเรียงความภาษาไทย",
+      "title_en": "Thai Essay Writing",
+      "description": "เทคนิคและวิธีการเขียนเรียงความภาษาไทยอย่างมีประสิทธิภาพ",
+      "description_en": "Techniques and methods for effective Thai essay writing",
+      "course_id": 4,
+      "section_id": null,
+      "duration": 1512,
+      "duration_display": "25:12",
+      "thumbnail": "https://i.ytimg.com/vi/jkl012/mqdefault.jpg",
+      "video_url": "https://example.com/videos/tha401-essay",
+      "resolution": "720p",
+      "file_size": 178,
+      "file_format": "mp4",
+      "categories": ["ภาษาไทย", "การเขียน"],
+      "tags": ["เรียงความ", "ม.4"],
+      "teacher_id": 5,
+      "view_count": 432,
+      "upload_date": "2023-06-05T11:15:00Z",
+      "last_updated": "2023-06-10T10:45:00Z",
+      "status": "draft",
+      "privacy": "private",
+      "downloadable": false,
+      "transcript": null,
+      "chapters": []
+    },
+    {
+      "id": 501,
+      "title": "การก่อตั้งราชวงศ์จักรี",
+      "title_en": "The Establishment of Chakri Dynasty",
+      "description": "ประวัติความเป็นมาและความสำคัญของการสถาปนาราชวงศ์จักรี",
+      "description_en": "Historical background and significance of the establishment of Chakri Dynasty",
+      "course_id": 5,
+      "section_id": 5,
+      "duration": 1510,
+      "duration_display": "25:10",
+      "thumbnail": "https://i.ytimg.com/vi/mno345/mqdefault.jpg",
+      "video_url": "https://example.com/videos/soc501-chakri",
+      "resolution": "480p",
+      "file_size": 145,
+      "file_format": "mp4",
+      "categories": ["สังคมศึกษา", "ประวัติศาสตร์"],
+      "tags": ["รัตนโกสินทร์", "ม.5"],
+      "teacher_id": 8,
+      "view_count": 765,
+      "upload_date": "2022-05-15T09:30:00Z",
+      "last_updated": "2022-12-01T08:00:00Z",
+      "status": "archived",
+      "privacy": "unlisted",
+      "downloadable": true,
+      "transcript": "https://example.com/transcripts/501.vtt",
+      "chapters": [
+        {
+          "time": "00:00",
+          "title": "บทนำ",
+          "title_en": "Introduction"
+        },
+        {
+          "time": "03:20",
+          "title": "ภูมิหลังทางประวัติศาสตร์",
+          "title_en": "Historical Background"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "total_videos": 5,
+    "published": 3,
+    "draft": 1,
+    "archived": 1,
+    "categories": [
+      "คณิตศาสตร์",
+      "วิทยาศาสตร์",
+      "ภาษาอังกฤษ",
+      "ภาษาไทย",
+      "สังคมศึกษา"
+    ],
+    "duration_stats": {
+      "total_duration": 6414,
+      "average_duration": 1282,
+      "longest_video": 1512,
+      "shortest_video": 932
+    },
+    "last_updated": "2023-06-15T11:30:00Z"
+  }
+}

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการแบบทดสอบ | ระบบผู้ดูแล</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', 'Sarabun', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background: var(--primary-color);
+            color: white;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+        
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .sidebar-logo img {
+            height: 40px;
+        }
+        
+        .sidebar-logo-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .sidebar-menu {
+            padding: 1.5rem 0;
+        }
+        
+        .sidebar-menu h3 {
+            padding: 0 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .sidebar-menu a i {
+            margin-right: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            transition: var(--transition);
+        }
+        
+        /* Top Navigation */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        
+        .search-bar {
+            position: relative;
+            width: 300px;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .notification-icon, .user-profile {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notification-icon i {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+        }
+        
+        .notification-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        /* Content Styles */
+        .content-container {
+            padding: 2rem;
+        }
+        
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .content-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.7rem 1.2rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        /* Quiz Table */
+        .quiz-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .quiz-table th, .quiz-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .quiz-table th {
+            background-color: #f8f9fa;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .quiz-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .quiz-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .quiz-thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            object-fit: cover;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-published {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success-color);
+        }
+        
+        .status-draft {
+            background-color: rgba(241, 196, 15, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .status-archived {
+            background-color: rgba(149, 165, 166, 0.1);
+            color: #95a5a6;
+        }
+        
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+        
+        .action-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        /* Quiz Stats */
+        .quiz-stats {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .stat-item {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .stat-item i {
+            margin-right: 0.3rem;
+            color: var(--secondary-color);
+        }
+        
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .filter-group {
+            flex: 1;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .filter-select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+        
+        .page-item {
+            display: inline-flex;
+        }
+        
+        .page-link {
+            padding: 0.5rem 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .page-link:hover, .page-link.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+                overflow: hidden;
+            }
+            
+            .sidebar-logo-text, .sidebar-menu h3, .sidebar-menu a span {
+                display: none;
+            }
+            
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 0.8rem 0;
+            }
+            
+            .sidebar-menu a i {
+                margin-right: 0;
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 200px;
+            }
+            
+            .quiz-table th:nth-child(4),
+            .quiz-table td:nth-child(4),
+            .quiz-table th:nth-child(5),
+            .quiz-table td:nth-child(5) {
+                display: none;
+            }
+            
+            .filter-bar {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 0;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .top-nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .user-menu {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .quiz-table th:nth-child(3),
+            .quiz-table td:nth-child(3) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">
+                <img src="https://via.placeholder.com/40x40?text=LOGO" alt="โรงเรียนตัวอย่าง">
+                <span class="sidebar-logo-text">โรงเรียนตัวอย่าง</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-menu">
+            <h3>เมนูหลัก</h3>
+            <a href="admin-dashboard.html">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>แดชบอร์ด</span>
+            </a>
+            <a href="admin-videos.html">
+                <i class="fas fa-video"></i>
+                <span>วิดีโอ</span>
+            </a>
+            <a href="admin-materials.html">
+                <i class="fas fa-file-alt"></i>
+                <span>เอกสารประกอบ</span>
+            </a>
+            <a href="admin-quizzes.html" class="active">
+                <i class="fas fa-question-circle"></i>
+                <span>แบบทดสอบ</span>
+            </a>
+            
+            <h3>การจัดการ</h3>
+            <a href="admin-users.html">
+                <i class="fas fa-users"></i>
+                <span>ผู้ใช้งาน</span>
+            </a>
+            <a href="admin-courses.html">
+                <i class="fas fa-book"></i>
+                <span>หลักสูตร</span>
+            </a>
+            <a href="admin-settings.html">
+                <i class="fas fa-cog"></i>
+                <span>ตั้งค่าระบบ</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="ค้นหาแบบทดสอบ...">
+            </div>
+            
+            <div class="user-menu">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">2</span>
+                </div>
+                
+                <div class="user-profile">
+                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="ผู้ดูแลระบบ">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content Container -->
+        <div class="content-container">
+            <div class="content-header">
+                <h1 class="content-title">จัดการแบบทดสอบ</h1>
+                <a href="admin-quizzes-add.html" class="btn">
+                    <i class="fas fa-plus"></i> สร้างแบบทดสอบใหม่
+                </a>
+            </div>
+            
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="category-filter">หมวดหมู่</label>
+                    <select id="category-filter" class="filter-select">
+                        <option value="">ทั้งหมด</option>
+                        <option value="math">คณิตศาสตร์</option>
+                        <option value="science">วิทยาศาสตร์</option>
+                        <option value="english">ภาษาอังกฤษ</option>
+                        <option value="history">ประวัติศาสตร์</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="status-filter">สถานะ</label>
+                    <select id="status-filter" class="filter-select">
+                        <option value="">ทั้งหมด</option>
+                        <option value="published">เผยแพร่</option>
+                        <option value="draft">แบบร่าง</option>
+                        <option value="archived">เก็บถาวร</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="sort-filter">เรียงตาม</label>
+                    <select id="sort-filter" class="filter-select">
+                        <option value="newest">ใหม่ล่าสุด</option>
+                        <option value="oldest">เก่าที่สุด</option>
+                        <option value="most-questions">จำนวนคำถามมากสุด</option>
+                        <option value="least-questions">จำนวนคำถามน้อยสุด</option>
+                    </select>
+                </div>
+            </div>
+            
+            <table class="quiz-table">
+                <thead>
+                    <tr>
+                        <th width="80">ไอคอน</th>
+                        <th>ชื่อแบบทดสอบ</th>
+                        <th>หมวดหมู่</th>
+                        <th>คำถาม</th>
+                        <th>คะแนนเต็ม</th>
+                        <th>สถานะ</th>
+                        <th width="120">การจัดการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="quiz-thumbnail">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>แบบทดสอบอนุพันธ์เบื้องต้น</strong>
+                            <div class="quiz-stats">
+                                <span class="stat-item"><i class="fas fa-user"></i> 125</span>
+                                <span class="stat-item"><i class="fas fa-star"></i> 4.5</span>
+                            </div>
+                        </td>
+                        <td>คณิตศาสตร์</td>
+                        <td>10</td>
+                        <td>20</td>
+                        <td>
+                            <span class="status-badge status-published">เผยแพร่</span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <a href="admin-quizzes-edit.html" class="action-btn" title="แก้ไข">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ลบ">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ดูผลลัพธ์">
+                                    <i class="fas fa-chart-bar"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="quiz-thumbnail">
+                                <i class="fas fa-atom"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>แบบทดสอบกฎการเคลื่อนที่</strong>
+                            <div class="quiz-stats">
+                                <span class="stat-item"><i class="fas fa-user"></i> 98</span>
+                                <span class="stat-item"><i class="fas fa-star"></i> 4.2</span>
+                            </div>
+                        </td>
+                        <td>วิทยาศาสตร์</td>
+                        <td>15</td>
+                        <td>30</td>
+                        <td>
+                            <span class="status-badge status-published">เผยแพร่</span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <a href="admin-quizzes-edit.html" class="action-btn" title="แก้ไข">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ลบ">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ดูผลลัพธ์">
+                                    <i class="fas fa-chart-bar"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="quiz-thumbnail">
+                                <i class="fas fa-language"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>แบบทดสอบคำศัพท์ภาษาอังกฤษ</strong>
+                            <div class="quiz-stats">
+                                <span class="stat-item"><i class="fas fa-user"></i> 156</span>
+                                <span class="stat-item"><i class="fas fa-star"></i> 4.7</span>
+                            </div>
+                        </td>
+                        <td>ภาษาอังกฤษ</td>
+                        <td>20</td>
+                        <td>40</td>
+                        <td>
+                            <span class="status-badge status-published">เผยแพร่</span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <a href="admin-quizzes-edit.html" class="action-btn" title="แก้ไข">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ลบ">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ดูผลลัพธ์">
+                                    <i class="fas fa-chart-bar"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="quiz-thumbnail">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>แบบทดสอบประวัติศาสตร์ไทย</strong>
+                            <div class="quiz-stats">
+                                <span class="stat-item"><i class="fas fa-user"></i> 87</span>
+                                <span class="stat-item"><i class="fas fa-star"></i> 4.0</span>
+                            </div>
+                        </td>
+                        <td>ประวัติศาสตร์</td>
+                        <td>12</td>
+                        <td>24</td>
+                        <td>
+                            <span class="status-badge status-draft">แบบร่าง</span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <a href="admin-quizzes-edit.html" class="action-btn" title="แก้ไข">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ลบ">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ดูผลลัพธ์">
+                                    <i class="fas fa-chart-bar"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="quiz-thumbnail">
+                                <i class="fas fa-dna"></i>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>แบบทดสอบพันธุศาสตร์</strong>
+                            <div class="quiz-stats">
+                                <span class="stat-item"><i class="fas fa-user"></i> 64</span>
+                                <span class="stat-item"><i class="fas fa-star"></i> 3.8</span>
+                            </div>
+                        </td>
+                        <td>วิทยาศาสตร์</td>
+                        <td>18</td>
+                        <td>36</td>
+                        <td>
+                            <span class="status-badge status-archived">เก็บถาวร</span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <a href="admin-quizzes-edit.html" class="action-btn" title="แก้ไข">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ลบ">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ดูผลลัพธ์">
+                                    <i class="fas fa-chart-bar"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="pagination">
+                <div class="page-item">
+                    <a href="#" class="page-link">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </div>
+                <div class="page-item">
+                    <a href="#" class="page-link active">1</a>
+                </div>
+                <div class="page-item">
+                    <a href="#" class="page-link">2</a>
+                </div>
+                <div class="page-item">
+                    <a href="#" class="page-link">3</a>
+                </div>
+                <div class="page-item">
+                    <a href="#" class="page-link">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

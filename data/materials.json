@@ -1,0 +1,79 @@
+{
+  "materials": [
+    {
+      "id": 1,
+      "file_icon": "pdf",
+      "title": "แบบฝึกหัดคณิตศาสตร์บทที่ 1",
+      "upload_date": "15 มิ.ย. 2566",
+      "category": "คณิตศาสตร์",
+      "file_type": "PDF",
+      "file_size": "2.5 MB",
+      "status": "published",
+      "status_text": "เผยแพร่"
+    },
+    {
+      "id": 2,
+      "file_icon": "word",
+      "title": "สรุปเนื้อหาฟิสิกส์",
+      "upload_date": "10 มิ.ย. 2566",
+      "category": "วิทยาศาสตร์",
+      "file_type": "DOCX",
+      "file_size": "3.1 MB",
+      "status": "published",
+      "status_text": "เผยแพร่"
+    },
+    {
+      "id": 3,
+      "file_icon": "powerpoint",
+      "title": "การเขียนเรียงความภาษาอังกฤษ",
+      "upload_date": "5 มิ.ย. 2566",
+      "category": "ภาษาอังกฤษ",
+      "file_type": "PPTX",
+      "file_size": "5.8 MB",
+      "status": "draft",
+      "status_text": "แบบร่าง"
+    },
+    {
+      "id": 4,
+      "file_icon": "archive",
+      "title": "แบบฝึกหัดเคมีทั้งหมด",
+      "upload_date": "1 มิ.ย. 2566",
+      "category": "วิทยาศาสตร์",
+      "file_type": "ZIP",
+      "file_size": "12.4 MB",
+      "status": "published",
+      "status_text": "เผยแพร่"
+    },
+    {
+      "id": 5,
+      "file_icon": "pdf",
+      "title": "ประวัติศาสตร์ไทยสมัยรัตนโกสินทร์",
+      "upload_date": "28 พ.ค. 2566",
+      "category": "ประวัติศาสตร์",
+      "file_type": "PDF",
+      "file_size": "4.2 MB",
+      "status": "archived",
+      "status_text": "เก็บถาวร"
+    }
+  ],
+  "categories": [
+    {"value": "", "text": "ทั้งหมด"},
+    {"value": "math", "text": "คณิตศาสตร์"},
+    {"value": "science", "text": "วิทยาศาสตร์"},
+    {"value": "english", "text": "ภาษาอังกฤษ"},
+    {"value": "history", "text": "ประวัติศาสตร์"}
+  ],
+  "file_types": [
+    {"value": "", "text": "ทั้งหมด"},
+    {"value": "pdf", "text": "PDF"},
+    {"value": "docx", "text": "Word"},
+    {"value": "pptx", "text": "PowerPoint"},
+    {"value": "zip", "text": "Zip"}
+  ],
+  "sort_options": [
+    {"value": "newest", "text": "ใหม่ล่าสุด"},
+    {"value": "oldest", "text": "เก่าที่สุด"},
+    {"value": "largest", "text": "ขนาดใหญ่สุด"},
+    {"value": "smallest", "text": "ขนาดเล็กสุด"}
+  ]
+}

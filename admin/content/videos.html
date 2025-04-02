@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการวิดีโอ | ระบบผู้ดูแล</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', 'Sarabun', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background: var(--primary-color);
+            color: white;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+        
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .sidebar-logo img {
+            height: 40px;
+        }
+        
+        .sidebar-logo-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .sidebar-menu {
+            padding: 1.5rem 0;
+        }
+        
+        .sidebar-menu h3 {
+            padding: 0 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .sidebar-menu a i {
+            margin-right: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            transition: var(--transition);
+        }
+        
+        /* Top Navigation */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        
+        .search-bar {
+            position: relative;
+            width: 300px;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .notification-icon, .user-profile {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notification-icon i {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+        }
+        
+        .notification-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        /* Content Styles */
+        .content-container {
+            padding: 2rem;
+        }
+        
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .content-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.7rem 1.2rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        /* Video Table */
+        .video-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .video-table th, .video-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .video-table th {
+            background-color: #f8f9fa;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .video-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .video-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .video-thumbnail {
+            width: 80px;
+            height: 45px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-published {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success-color);
+        }
+        
+        .status-draft {
+            background-color: rgba(241, 196, 15, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .status-archived {
+            background-color: rgba(149, 165, 166, 0.1);
+            color: #95a5a6;
+        }
+        
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+            transition: var(--transition);
+        }
+        
+        .action-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+        
+        .page-item {
+            display: inline-flex;
+        }
+        
+        .page-link {
+            padding: 0.5rem 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .page-link:hover, .page-link.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+                overflow: hidden;
+            }
+            
+            .sidebar-logo-text, .sidebar-menu h3, .sidebar-menu a span {
+                display: none;
+            }
+            
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 0.8rem 0;
+            }
+            
+            .sidebar-menu a i {
+                margin-right: 0;
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .search-bar {
+                width: 200px;
+            }
+            
+            .video-table th:nth-child(3),
+            .video-table td:nth-child(3),
+            .video-table th:nth-child(4),
+            .video-table td:nth-child(4) {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 0;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .top-nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .user-menu {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .video-table th:nth-child(5),
+            .video-table td:nth-child(5) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">
+                <img src="https://via.placeholder.com/40x40?text=LOGO" alt="โรงเรียนตัวอย่าง">
+                <span class="sidebar-logo-text">โรงเรียนตัวอย่าง</span>
+            </a>
+        </div>
+        
+        <div class="sidebar-menu">
+            <h3>เมนูหลัก</h3>
+            <a href="admin-dashboard.html">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>แดชบอร์ด</span>
+            </a>
+            <a href="admin-videos.html" class="active">
+                <i class="fas fa-video"></i>
+                <span>วิดีโอ</span>
+            </a>
+            <a href="admin-materials.html">
+                <i class="fas fa-file-alt"></i>
+                <span>เอกสารประกอบ</span>
+            </a>
+            <a href="admin-quizzes.html">
+                <i class="fas fa-question-circle"></i>
+                <span>แบบทดสอบ</span>
+            </a>
+            
+            <h3>การจัดการ</h3>
+            <a href="admin-users.html">
+                <i class="fas fa-users"></i>
+                <span>ผู้ใช้งาน</span>
+            </a>
+            <a href="admin-courses.html">
+                <i class="fas fa-book"></i>
+                <span>หลักสูตร</span>
+            </a>
+            <a href="admin-settings.html">
+                <i class="fas fa-cog"></i>
+                <span>ตั้งค่าระบบ</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="ค้นหาวิดีโอ...">
+            </div>
+            
+            <div class="user-menu">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">3</span>
+                </div>
+                
+                <div class="user-profile">
+                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="ผู้ดูแลระบบ">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content Container -->
+        <div class="content-container">
+            <div class="content-header">
+                <h1 class="content-title">จัดการวิดีโอ</h1>
+                <a href="admin-videos-add.html" class="btn">
+                    <i class="fas fa-plus"></i> เพิ่มวิดีโอใหม่
+                </a>
+            </div>
+            
+            <table class="video-table">
+                <thead>
+                    <tr>
+                        <th width="100">ภาพปก</th>
+                        <th>ชื่อวิดีโอ</th>
+                        <th>หมวดหมู่</th>
+                        <th>วันที่อัพโหลด</th>
+                        <th>สถานะ</th>
+                        <th width="120">การจัดการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="https://via.placeholder.com/80x45?text=Math" alt="คณิตศาสตร์" class="video-thumbnail">
+                        </td>
+                        <td>
+                            <strong>การหาอนุพันธ์เบื้องต้น</strong>
+                            <div class="text-muted" style="font-size: 0.8rem; color: #666;">ความยาว: 15:32 นาที</div>
+                        </td>
+                        <td>คณิตศาสตร์</td>
+                        <td>15 มิ.ย. 2566</td>
+                        <td>
+                            <span class="status-badge status-published">เผยแพร่</span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <a href="admin-videos-edit.html" class="action-btn" title="แก้ไข">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ลบ">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ดูตัวอย่าง">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="https://via.placeholder.com/80x45?text=Physics" alt="ฟิสิกส์" class="video-thumbnail">
+                        </td>
+                        <td>
+                            <strong>กฎการเคลื่อนที่ของนิวตัน</strong>
+                            <div class="text-muted" style="font-size: 0.8rem; color: #666;">ความยาว: 22:15 นาที</div>
+                        </td>
+                        <td>วิทยาศาสตร์</td>
+                        <td>10 มิ.ย. 2566</td>
+                        <td>
+                            <span class="status-badge status-published">เผยแพร่</span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <a href="admin-videos-edit.html" class="action-btn" title="แก้ไข">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ลบ">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ดูตัวอย่าง">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="https://via.placeholder.com/80x45?text=English" alt="ภาษาอังกฤษ" class="video-thumbnail">
+                        </td>
+                        <td>
+                            <strong>การเขียนเรียงความภาษาอังกฤษ</strong>
+                            <div class="text-muted" style="font-size: 0.8rem; color: #666;">ความยาว: 18:45 นาที</div>
+                        </td>
+                        <td>ภาษาอังกฤษ</td>
+                        <td>5 มิ.ย. 2566</td>
+                        <td>
+                            <span class="status-badge status-draft">แบบร่าง</span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <a href="admin-videos-edit.html" class="action-btn" title="แก้ไข">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ลบ">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ดูตัวอย่าง">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="https://via.placeholder.com/80x45?text=Chemistry" alt="เคมี" class="video-thumbnail">
+                        </td>
+                        <td>
+                            <strong>โครงสร้างอะตอมและตารางธาตุ</strong>
+                            <div class="text-muted" style="font-size: 0.8rem; color: #666;">ความยาว: 25:10 นาที</div>
+                        </td>
+                        <td>วิทยาศาสตร์</td>
+                        <td>1 มิ.ย. 2566</td>
+                        <td>
+                            <span class="status-badge status-archived">เก็บถาวร</span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <a href="admin-videos-edit.html" class="action-btn" title="แก้ไข">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ลบ">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ดูตัวอย่าง">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="https://via.placeholder.com/80x45?text=History" alt="ประวัติศาสตร์" class="video-thumbnail">
+                        </td>
+                        <td>
+                            <strong>ประวัติศาสตร์ไทยสมัยรัตนโกสินทร์</strong>
+                            <div class="text-muted" style="font-size: 0.8rem; color: #666;">ความยาว: 30:45 นาที</div>
+                        </td>
+                        <td>สังคมศึกษา</td>
+                        <td>28 พ.ค. 2566</td>
+                        <td>
+                            <span class="status-badge status-published">เผยแพร่</span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <a href="admin-videos-edit.html" class="action-btn" title="แก้ไข">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ลบ">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a href="#" class="action-btn" title="ดูตัวอย่าง">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="pagination">
+                <div class="page-item">
+                    <a href="#" class="page-link">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </div>
+                <div class="page-item">
+                    <a href="#" class="page-link active">1</a>
+                </div>
+                <div class="page-item">
+                    <a href="#" class="page-link">2</a>
+                </div>
+                <div class="page-item">
+                    <a href="#" class="page-link">3</a>
+                </div>
+                <div class="page-item">
+                    <a href="#" class="page-link">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

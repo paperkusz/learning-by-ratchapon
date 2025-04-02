@@ -1,0 +1,225 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "course_code": "MATH101",
+      "title": "คณิตศาสตร์พื้นฐาน",
+      "title_en": "Fundamental Mathematics",
+      "description": "หลักสูตรคณิตศาสตร์พื้นฐานสำหรับนักเรียนชั้นมัธยมศึกษาปีที่ 4",
+      "category": "คณิตศาสตร์",
+      "teacher_id": 2,
+      "grade_level": "ม.4",
+      "thumbnail": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      "credit": 1,
+      "status": "published",
+      "start_date": "2023-06-01",
+      "end_date": "2023-11-30",
+      "created_at": "2023-05-15T09:00:00Z",
+      "updated_at": "2023-05-20T14:30:00Z",
+      "sections": [
+        {
+          "id": 1,
+          "title": "บทที่ 1: เซตและการดำเนินการ",
+          "videos": [
+            {
+              "id": 101,
+              "title": "ความหมายและชนิดของเซต",
+              "duration": "15:32",
+              "url": "https://example.com/videos/101",
+              "thumbnail": "https://i.ytimg.com/vi/abc123/mqdefault.jpg"
+            }
+          ],
+          "materials": [
+            {
+              "id": 1001,
+              "title": "แบบฝึกหัดบทที่ 1",
+              "type": "pdf",
+              "url": "https://example.com/materials/1001"
+            }
+          ],
+          "quizzes": [1001]
+        }
+      ],
+      "enrollment": {
+        "total": 45,
+        "completed": 12,
+        "in_progress": 33
+      }
+    },
+    {
+      "id": 2,
+      "course_code": "SCI201",
+      "title": "วิทยาศาสตร์กายภาพ",
+      "title_en": "Physical Science",
+      "description": "การเรียนรู้พื้นฐานทางฟิสิกส์และเคมีสำหรับนักเรียนชั้นมัธยมศึกษาปีที่ 5",
+      "category": "วิทยาศาสตร์",
+      "teacher_id": 3,
+      "grade_level": "ม.5",
+      "thumbnail": "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80",
+      "credit": 1.5,
+      "status": "published",
+      "start_date": "2023-06-01",
+      "end_date": "2023-11-30",
+      "created_at": "2023-05-10T10:30:00Z",
+      "updated_at": "2023-05-25T11:15:00Z",
+      "sections": [
+        {
+          "id": 2,
+          "title": "บทที่ 1: การเคลื่อนที่และแรง",
+          "videos": [
+            {
+              "id": 201,
+              "title": "กฎการเคลื่อนที่ของนิวตัน",
+              "duration": "22:15",
+              "url": "https://example.com/videos/201",
+              "thumbnail": "https://i.ytimg.com/vi/def456/mqdefault.jpg"
+            }
+          ],
+          "materials": [
+            {
+              "id": 2001,
+              "title": "เอกสารประกอบบทที่ 1",
+              "type": "pdf",
+              "url": "https://example.com/materials/2001"
+            }
+          ],
+          "quizzes": [2001]
+        }
+      ],
+      "enrollment": {
+        "total": 38,
+        "completed": 5,
+        "in_progress": 33
+      }
+    },
+    {
+      "id": 3,
+      "course_code": "ENG301",
+      "title": "ภาษาอังกฤษเพื่อการสื่อสาร",
+      "title_en": "English for Communication",
+      "description": "พัฒนาทักษะภาษาอังกฤษสำหรับการสื่อสารในชีวิตประจำวัน",
+      "category": "ภาษาอังกฤษ",
+      "teacher_id": 4,
+      "grade_level": "ม.6",
+      "thumbnail": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      "credit": 1,
+      "status": "published",
+      "start_date": "2023-06-01",
+      "end_date": "2023-11-30",
+      "created_at": "2023-05-12T13:45:00Z",
+      "updated_at": "2023-05-18T16:20:00Z",
+      "sections": [
+        {
+          "id": 3,
+          "title": "บทที่ 1: การแนะนำตัว",
+          "videos": [
+            {
+              "id": 301,
+              "title": "การแนะนำตัวเป็นภาษาอังกฤษ",
+              "duration": "18:45",
+              "url": "https://example.com/videos/301",
+              "thumbnail": "https://i.ytimg.com/vi/ghi789/mqdefault.jpg"
+            }
+          ],
+          "materials": [
+            {
+              "id": 3001,
+              "title": "แบบฝึกหัดบทที่ 1",
+              "type": "docx",
+              "url": "https://example.com/materials/3001"
+            }
+          ],
+          "quizzes": [3001]
+        }
+      ],
+      "enrollment": {
+        "total": 42,
+        "completed": 8,
+        "in_progress": 34
+      }
+    },
+    {
+      "id": 4,
+      "course_code": "THA401",
+      "title": "ภาษาไทยเชิงสร้างสรรค์",
+      "title_en": "Creative Thai Language",
+      "description": "การพัฒนาทักษะการเขียนเชิงสร้างสรรค์และการใช้ภาษาไทยอย่างมีประสิทธิภาพ",
+      "category": "ภาษาไทย",
+      "teacher_id": 5,
+      "grade_level": "ม.4",
+      "thumbnail": "https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80",
+      "credit": 1,
+      "status": "draft",
+      "start_date": "2023-06-15",
+      "end_date": "2023-12-15",
+      "created_at": "2023-06-01T09:15:00Z",
+      "updated_at": "2023-06-10T10:45:00Z",
+      "sections": [],
+      "enrollment": {
+        "total": 0,
+        "completed": 0,
+        "in_progress": 0
+      }
+    },
+    {
+      "id": 5,
+      "course_code": "SOC501",
+      "title": "ประวัติศาสตร์ไทยสมัยรัตนโกสินทร์",
+      "title_en": "Thai History in Rattanakosin Period",
+      "description": "การศึกษาเหตุการณ์สำคัญและการพัฒนาของไทยสมัยรัตนโกสินทร์",
+      "category": "สังคมศึกษา",
+      "teacher_id": 8,
+      "grade_level": "ม.5",
+      "thumbnail": "https://images.unsplash.com/photo-1603575448878-868c207f0b93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      "credit": 0.5,
+      "status": "archived",
+      "start_date": "2022-06-01",
+      "end_date": "2022-11-30",
+      "created_at": "2022-05-10T11:30:00Z",
+      "updated_at": "2022-12-01T08:00:00Z",
+      "sections": [
+        {
+          "id": 5,
+          "title": "บทที่ 1: การสถาปนากรุงรัตนโกสินทร์",
+          "videos": [
+            {
+              "id": 501,
+              "title": "การก่อตั้งราชวงศ์จักรี",
+              "duration": "25:10",
+              "url": "https://example.com/videos/501",
+              "thumbnail": "https://i.ytimg.com/vi/jkl012/mqdefault.jpg"
+            }
+          ],
+          "materials": [
+            {
+              "id": 5001,
+              "title": "เอกสารอ้างอิงบทที่ 1",
+              "type": "pdf",
+              "url": "https://example.com/materials/5001"
+            }
+          ],
+          "quizzes": [5001]
+        }
+      ],
+      "enrollment": {
+        "total": 35,
+        "completed": 35,
+        "in_progress": 0
+      }
+    }
+  ],
+  "metadata": {
+    "total_courses": 5,
+    "published": 3,
+    "draft": 1,
+    "archived": 1,
+    "categories": [
+      "คณิตศาสตร์",
+      "วิทยาศาสตร์",
+      "ภาษาอังกฤษ",
+      "ภาษาไทย",
+      "สังคมศึกษา"
+    ],
+    "last_updated": "2023-06-15T10:00:00Z"
+  }
+}

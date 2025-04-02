@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบสื่อการสอนออนไลน์ | โรงเรียนตัวอย่าง</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', 'Sarabun', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        /* Login Button */
+        .login-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .login-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center;
+            background-size: cover;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 1rem auto 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--light-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        /* Courses Section */
+        .courses {
+            padding: 4rem 0;
+            background-color: #f5f7fa;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .course-thumbnail {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .course-content {
+            padding: 1.5rem;
+        }
+        
+        .course-category {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .course-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .course-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-enroll {
+            display: block;
+            text-align: center;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .btn-enroll:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background: var(--light-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent-color);
+            position: absolute;
+            top: -1rem;
+            left: -1rem;
+            opacity: 0.2;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.2rem;
+        }
+        
+        .author-info p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* Call to Action */
+        .cta {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-col a {
+            display: block;
+            color: #ddd;
+            margin-bottom: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-col a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero {
+                height: 400px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="https://via.placeholder.com/50x50?text=LOGO" alt="โรงเรียนตัวอย่าง">
+                <span class="logo-text">โรงเรียนตัวอย่าง</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">หน้าหลัก</a></li>
+                <li><a href="about.html">ประวัติครู</a></li>
+                <li><a href="achievements.html">ผลงาน</a></li>
+                <li><a href="courses.html">วิชาทั้งหมด</a></li>
+                <li><a href="knowledge.html">คลังความรู้</a></li>
+                <li><a href="contact.html">ติดต่อเรา</a></li>
+            </ul>
+            
+            <button class="login-btn" onclick="window.location.href='auth/login.html'">
+                <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
+            </button>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ระบบสื่อการสอนออนไลน์ โรงเรียนตัวอย่าง</h1>
+            <p>แหล่งเรียนรู้แบบครบวงจรสำหรับนักเรียนยุคใหม่ พร้อมทั้งวิดีโอการสอน เอกสารประกอบ และแบบทดสอบออนไลน์</p>
+            <div class="hero-buttons">
+                <a href="courses.html" class="btn btn-primary">เริ่มเรียนทันที</a>
+                <a href="#features" class="btn btn-secondary">เรียนรู้เพิ่มเติม</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>ทำไมต้องเรียนกับเรา?</h2>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>สอนโดยครูผู้เชี่ยวชาญ</h3>
+                    <p>ครูผู้สอนที่มีประสบการณ์และความเชี่ยวชาญในแต่ละสาขาวิชา</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>เรียนออนไลน์ได้ทุกที่</h3>
+                    <p>สามารถเรียนผ่านอุปกรณ์ต่างๆ ได้ทุกที่ทุกเวลา</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>เนื้อหาครบถ้วน</h3>
+                    <p>เนื้อหาการเรียนที่อัปเดตตามหลักสูตรปัจจุบัน</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Courses Section -->
+    <section class="courses">
+        <div class="container">
+            <div class="section-title">
+                <h2>หลักสูตรยอดนิยม</h2>
+            </div>
+            
+            <div class="courses-grid">
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="วิทยาการคอมพิวเตอร์" class="course-thumbnail">
+                    <div class="course-content">
+                        <div class="course-category">วิทยาการคอมพิวเตอร์</div>
+                        <h3 class="course-title">การเขียนโปรแกรม Python</h3>
+                        <p class="course-description">เรียนรู้พื้นฐานการเขียนโปรแกรมด้วยภาษา Python สำหรับผู้เริ่มต้น</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 15 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 120 คน</span>
+                        </div>
+                        <a href="courses/python.html" class="btn-enroll">เริ่มเรียน</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="คณิตศาสตร์" class="course-thumbnail">
+                    <div class="course-content">
+                        <div class="course-category">คณิตศาสตร์</div>
+                        <h3 class="course-title">แคลคูลัสพื้นฐาน</h3>
+                        <p class="course-description">เรียนรู้พื้นฐานแคลคูลัสสำหรับนักเรียนชั้นมัธยมปลาย</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 20 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 85 คน</span>
+                        </div>
+                        <a href="courses/calculus.html" class="btn-enroll">เริ่มเรียน</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="ภาษาอังกฤษ" class="course-thumbnail">
+                    <div class="course-content">
+                        <div class="course-category">ภาษาอังกฤษ</div>
+                        <h3 class="course-title">ภาษาอังกฤษเพื่อการสื่อสาร</h3>
+                        <p class="course-description">พัฒนาทักษะการสื่อสารภาษาอังกฤษในชีวิตประจำวัน</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 12 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 150 คน</span>
+                        </div>
+                        <a href="courses/english.html" class="btn-enroll">เริ่มเรียน</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="courses.html" class="btn btn-secondary">ดูหลักสูตรทั้งหมด</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>ความเห็นจากนักเรียน</h2>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        ระบบการเรียนออนไลน์นี้ช่วยให้ฉันเข้าใจเนื้อหาได้ดีขึ้น สามารถเรียนซ้ำได้ตลอดเวลาเมื่อไม่เข้าใจ
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="นักเรียน" class="author-avatar">
+                        <div class="author-info">
+                            <h4>นางสาวสมหญิง ใจดี</h4>
+                            <p>นักเรียนชั้น ม.5</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        ชอบระบบแบบทดสอบหลังเรียนมาก ช่วยให้รู้จุดที่ต้องปรับปรุงและพัฒนาตัวเอง
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="นักเรียน" class="author-avatar">
+                        <div class="author-info">
+                            <h4>นายสมชาย ตั้งใจเรียน</h4>
+                            <p>นักเรียนชั้น ม.6</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        เอกสารประกอบการเรียนครบถ้วน เข้าใจง่าย สามารถดาวน์โหลดไปทบทวนได้ตลอด
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="นักเรียน" class="author-avatar">
+                        <div class="author-info">
+                            <h4>นางสาวสุภาพร น่ารัก</h4>
+                            <p>นักเรียนชั้น ม.4</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>พร้อมเริ่มการเรียนรู้แล้วหรือยัง?</h2>
+            <p>สมัครสมาชิกและเริ่มใช้งานระบบสื่อการสอนออนไลน์ของเราวันนี้</p>
+            <div style="display: flex; justify-content: center; gap: 1rem;">
+                <a href="auth/register.html" class="btn btn-primary">สมัครสมาชิก</a>
+                <a href="contact.html" class="btn btn-secondary">ติดต่อเรา</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>เกี่ยวกับเรา</h3>
+                    <p>ระบบสื่อการสอนออนไลน์ โรงเรียนตัวอย่าง จังหวัดตัวอย่าง</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-line"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ลิงก์ด่วน</h3>
+                    <a href="index.html">หน้าหลัก</a>
+                    <a href="about.html">ประวัติครู</a>
+                    <a href="achievements.html">ผลงาน</a>
+                    <a href="courses.html">วิชาทั้งหมด</a>
+                    <a href="knowledge.html">คลังความรู้</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ระบบสมาชิก</h3>
+                    <a href="auth/login.html">เข้าสู่ระบบ</a>
+                    <a href="auth/register.html">สมัครสมาชิก</a>
+                    <a href="#">ลืมรหัสผ่าน</a>
+                    <a href="#">คำถามที่พบบ่อย</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ติดต่อเรา</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 ถนนตัวอย่าง ตำบลตัวอย่าง อำเภอตัวอย่าง จังหวัดตัวอย่าง</p>
+                    <p><i class="fas fa-phone"></i> 0-1234-5678</p>
+                    <p><i class="fas fa-envelope"></i> contact@example-school.ac.th</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 โรงเรียนตัวอย่าง. สงวนลิขสิทธิ์ทุกประการ.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
