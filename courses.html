@@ -1,0 +1,584 @@
+ <!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิชาทั้งหมด | โรงเรียนตัวอย่าง</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* นำ CSS จากหน้า index.html มาใช้ทั้งหมด */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', 'Sarabun', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        /* Login Button */
+        .login-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .login-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 0.5rem;
+        }
+        
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb .separator {
+            margin: 0 0.3rem;
+        }
+        
+        /* Courses Section */
+        .all-courses {
+            padding: 4rem 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 1rem auto 0;
+        }
+        
+        .courses-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--light-color);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .course-thumbnail {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .course-content {
+            padding: 1.5rem;
+        }
+        
+        .course-category {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .course-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .course-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-enroll {
+            display: block;
+            text-align: center;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .btn-enroll:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 0.5rem;
+        }
+        
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .page-link:hover, .page-link.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-col a {
+            display: block;
+            color: #ddd;
+            margin-bottom: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-col a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="https://avatars.githubusercontent.com/u/67259782?s=400&u=9a07ea2e64a9d37ca64a03e1bdd3bf27726dda33&v=4" alt="สื่อการสอน By Ratchapon">
+                <span class="logo-text">สื่อการสอนออนไลน์</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="/index.html">หน้าหลัก</a></li>
+                <li><a href="/about.html">ประวัติครู</a></li>
+                <li><a href="/achievements.html">ผลงาน</a></li>
+                <li><a href="/courses.html" class="active">วิชาทั้งหมด</a></li>
+                <li><a href="/knowledge.html">คลังความรู้</a></li>
+                <li><a href="/contact.html">ติดต่อเรา</a></li>
+            </ul>
+            
+            <button class="login-btn" onclick="window.location.href='auth/login.html'">
+                <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
+            </button>
+        </div>
+    </header>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>วิชาทั้งหมด</h1>
+            <ul class="breadcrumb">
+                <li><a href="index.html">หน้าหลัก</a></li>
+                <li class="separator">/</li>
+                <li>วิชาทั้งหมด</li>
+            </ul>
+        </div>
+    </section>
+    
+    <!-- All Courses Section -->
+    <section class="all-courses">
+        <div class="container">
+            <div class="section-title">
+                <h2>หลักสูตรการเรียนการสอน</h2>
+                <p>เลือกวิชาที่คุณสนใจเพื่อเริ่มการเรียนรู้</p>
+            </div>
+            
+            <div class="courses-filter">
+                <button class="filter-btn active">ทั้งหมด</button>
+                <button class="filter-btn">คณิตศาสตร์</button>
+                <button class="filter-btn">วิทยาศาสตร์</button>
+                <button class="filter-btn">ภาษาไทย</button>
+                <button class="filter-btn">ภาษาอังกฤษ</button>
+                <button class="filter-btn">สังคมศึกษา</button>
+                <button class="filter-btn">คอมพิวเตอร์</button>
+            </div>
+            
+            <div class="courses-grid">
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="วิทยาการคอมพิวเตอร์" class="course-thumbnail">
+                    <div class="course-content">
+                        <div class="course-category">วิทยาการคอมพิวเตอร์</div>
+                        <h3 class="course-title">วิทยาการคอมพิวเตอร์ 1</h3>
+                        <p class="course-description">Computational Thinking</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 15 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 120 คน</span>
+                        </div>
+                        <a href="/courses/computer-science-m4.html" class="btn-enroll">เริ่มเรียน</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="คณิตศาสตร์" class="course-thumbnail">
+                    <div class="course-content">
+                        <div class="course-category">คณิตศาสตร์</div>
+                        <h3 class="course-title">แคลคูลัสพื้นฐาน</h3>
+                        <p class="course-description">เรียนรู้พื้นฐานแคลคูลัสสำหรับนักเรียนชั้นมัธยมปลาย</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 20 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 85 คน</span>
+                        </div>
+                        <a href="courses/calculus.html" class="btn-enroll">เริ่มเรียน</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="ภาษาอังกฤษ" class="course-thumbnail">
+                    <div class="course-content">
+                        <div class="course-category">ภาษาอังกฤษ</div>
+                        <h3 class="course-title">ภาษาอังกฤษเพื่อการสื่อสาร</h3>
+                        <p class="course-description">พัฒนาทักษะการสื่อสารภาษาอังกฤษในชีวิตประจำวัน</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 12 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 150 คน</span>
+                        </div>
+                        <a href="courses/english.html" class="btn-enroll">เริ่มเรียน</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="ภาษาไทย" class="course-thumbnail">
+                    <div class="course-content">
+                        <div class="course-category">ภาษาไทย</div>
+                        <h3 class="course-title">หลักภาษาและการใช้ภาษาไทย</h3>
+                        <p class="course-description">เรียนรู้หลักภาษาไทยและการใช้ภาษาไทยอย่างถูกต้อง</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 10 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 95 คน</span>
+                        </div>
+                        <a href="courses/thai.html" class="btn-enroll">เริ่มเรียน</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="วิทยาศาสตร์" class="course-thumbnail">
+                    <div class="course-content">
+                        <div class="course-category">วิทยาศาสตร์</div>
+                        <h3 class="course-title">ฟิสิกส์พื้นฐาน</h3>
+                        <p class="course-description">เรียนรู้หลักการพื้นฐานทางฟิสิกส์สำหรับนักเรียนมัธยมปลาย</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 18 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 75 คน</span>
+                        </div>
+                        <a href="courses/physics.html" class="btn-enroll">เริ่มเรียน</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="สังคมศึกษา" class="course-thumbnail">
+                    <div class="course-content">
+                        <div class="course-category">สังคมศึกษา</div>
+                        <h3 class="course-title">ประวัติศาสตร์ไทย</h3>
+                        <p class="course-description">เรียนรู้ประวัติศาสตร์ไทยตั้งแต่สมัยสุโขทัยจนถึงปัจจุบัน</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 14 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 60 คน</span>
+                        </div>
+                        <a href="courses/history.html" class="btn-enroll">เริ่มเรียน</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pagination">
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link">4</a>
+                <a href="#" class="page-link">5</a>
+                <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>เกี่ยวกับเรา</h3>
+                    <p>สื่อการสอนออนไลน์ By Ratchapon</p>
+                    <p>ติดตามช่องทางอื่นๆ ได้ที่</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/ipaperz/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.youtube.com/@paperkusz-999"><i class="fab fa-youtube"></i></a>
+                        <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fline.me%2Fti%2Fp%2FJgvbvajUfU%3Ffbclid%3DIwZXh0bgNhZW0CMTAAAR21gbM0Pg7FRaXh5UL7GdDFtx2ieqH4k4TjH92Eedj1KMyvhyslce0Muo0_aem_-K13CbgGEClslrLC622YGA&h=AT3zjZZp01I0VPeHrCwRkahfloEbCGOCrTc-_Qdet5bmgR2RCiFF6difkDFoKBp-poBh-k4FZU5oYlLAoK4eYFGKPkkVvN9VmXuHBUb6V6JAEvflzgRHf8LZEBxwHXeq4plm3Q"><i class="fab fa-line"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ลิงก์ด่วน</h3>
+                    <a href="index.html">หน้าหลัก</a>
+                    <a href="about.html">ประวัติครู</a>
+                    <a href="achievements.html">ผลงาน</a>
+                    <a href="courses.html">วิชาทั้งหมด</a>
+                    <a href="knowledge.html">คลังความรู้</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ระบบสมาชิก</h3>
+                    <a href="auth/login.html">เข้าสู่ระบบ</a>
+                    <a href="auth/register.html">สมัครสมาชิก</a>
+                    <a href="#">ลืมรหัสผ่าน</a>
+                    <a href="#">คำถามที่พบบ่อย</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ติดต่อเรา</h3>
+                    <p><i class="fas fa-map-marker-alt"></i>    โรงเรียนพรตพิทยพยัต 4 ถนนหลวงพรต แขวงลาดกระบัง  เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
+                    <p><i class="fas fa-phone"></i> 096-409-929-1</p>
+                    <p><i class="fas fa-envelope"></i> ratchapon@prot.ac.th</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 โรงเรียนตัวอย่าง. สงวนลิขสิทธิ์ทุกประการ.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
