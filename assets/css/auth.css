@@ -296,3 +296,29 @@
         color: #a0aec0;
     }
 }
+/* Auth Images */
+.auth-logo {
+    width: 150px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.avatar-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px auto;
+    border: 2px solid #ddd;
+}
+.circle-img {
+    display: block;
+    width: 200px;       /* ปรับขนาดตามต้องการ */
+    height: 200px;      /* ต้องเท่ากับ width */
+    border-radius: 50%;  /* ทำให้เป็นวงกลม */
+    object-fit: cover;   /* รักษาสัดส่วนภาพ */
+    margin: 0 auto;      /* จัดให้อยู่กลาง */
+    border: 3px solid #3498db; /* เส้นขอบ (optional) */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* เงา (optional) */
+}

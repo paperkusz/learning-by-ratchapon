@@ -316,4 +316,68 @@
         background-color: #f5f5f5 !important;
         color: #000 !important;
     }
+    .teacher-image {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 1rem;
+        display: block;
+        border: 3px solid var(--secondary-color);
+    }
+    @media (max-width: 768px) {
+        .teacher-image {
+            height: 220px;
+        }
+        
+        .about-page .teachers-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    .teacher-image-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--border-radius);
+    }
+    
+    .teacher-image-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .teacher-card:hover .teacher-image-container::after {
+        opacity: 1;
+    }
+}
+/* Admin Images */
+.admin-profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #3498db;
+}
+
+.admin-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.circle-img {
+    display: block;
+    width: 200px;       /* ปรับขนาดตามต้องการ */
+    height: 200px;      /* ต้องเท่ากับ width */
+    border-radius: 50%;  /* ทำให้เป็นวงกลม */
+    object-fit: cover;   /* รักษาสัดส่วนภาพ */
+    margin: 0 auto;      /* จัดให้อยู่กลาง */
+    border: 3px solid #3498db; /* เส้นขอบ (optional) */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* เงา (optional) */
 }
