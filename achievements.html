@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -143,12 +143,14 @@
         /* Achievements Section */
         .achievements {
             padding: 4rem 0;
+            position: relative;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
         }
         
         .section-title {
@@ -194,10 +196,25 @@
             color: white;
         }
         
+        .achievements-slider {
+            position: relative;
+            overflow: hidden;
+            height: 900px; /* ความสูงสำหรับ 2 แถว */
+        }
+        
         .achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 2rem;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+        
+        .achievement-row {
+            display: flex;
+            width: 100%;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
         
         .achievement-card {
@@ -206,6 +223,7 @@
             overflow: hidden;
             box-shadow: var(--box-shadow);
             transition: var(--transition);
+            width: calc(33.333% - 1.33rem);
         }
         
         .achievement-card:hover {
@@ -238,6 +256,40 @@
         .achievement-description {
             color: #666;
             margin-bottom: 1.5rem;
+        }
+        
+        /* Slider Controls */
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .slider-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .slider-btn:hover {
+            background-color: #c0392b;
+            transform: scale(1.1);
+        }
+        
+        .slider-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
         }
         
         /* Footer */
@@ -314,6 +366,16 @@
         }
         
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .achievement-card {
+                width: calc(50% - 1rem);
+            }
+            
+            .achievements-slider {
+                height: 1200px; /* ปรับความสูงสำหรับแท็บเล็ต */
+            }
+        }
+        
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
@@ -326,8 +388,12 @@
                 justify-content: center;
             }
             
-            .achievements-grid {
-                grid-template-columns: 1fr;
+            .achievement-card {
+                width: 100%;
+            }
+            
+            .achievements-slider {
+                height: auto; /* ยอมให้สูงตามเนื้อหาบนมือถือ */
             }
         }
     </style>
@@ -375,69 +441,114 @@
                 <h2>ผลงานและความสำเร็จ</h2>
                 <p>ผลงานเด่นของโรงเรียนและนักเรียนที่สร้างชื่อเสียง</p>
             </div>
+        
             
-            <div class="achievements-tabs">
-                <button class="tab-btn active">ทั้งหมด</button>
-                <button class="tab-btn">รางวัลวิชาการ</button>
-                <button class="tab-btn">รางวัลกีฬา</button>
-                <button class="tab-btn">รางวัลศิลปะ</button>
-                <button class="tab-btn">กิจกรรมสังคม</button>
+            <div class="achievements-slider">
+                <div class="achievements-grid" id="achievementsGrid">
+                    <!-- แถวที่ 1 -->
+                    <div class="achievement-row">
+                        <div class="achievement-card">
+                            <img src="/uploads/images/Screenshot 2025-04-04 165508.jpg" alt="ผลงาน" class="achievement-image">
+                            <div class="achievement-content">
+                                <div class="achievement-date">15 มกราคม 2566</div>
+                                <h3 class="achievement-title">การแข่งขันแข่งหุ่นยนต์แบทเทิ้ล 2024 </h3>
+                                <p class="achievement-description">นักเรียนเข้ารอบ 8 ทีมสุดท้ายระดับประเทศ</p>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-card">
+                            <img src="/uploads/images/Screenshot 2025-04-04 165952.jpg" alt="ผลงาน" class="achievement-image">
+                            <div class="achievement-content">
+                                <div class="achievement-date">22 กุมภาพันธ์ 2566</div>
+                                <h3 class="achievement-title">รองชนะเลิศอันดับ 1 ระดับประเทศ</h3>
+                                <p class="achievement-description">การแข่งโครงงาน Micro-bit ประจำปีการศึกษา 2567 ณ คณะวิทยาศาสตร์ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง </p>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-card">
+                            <img src="/uploads/images/Screenshot 2025-04-04 165613.jpg" alt="ผลงาน" class="achievement-image">
+                            <div class="achievement-content">
+                                <div class="achievement-date">5 กันยายน 2566</div>
+                                <h3 class="achievement-title">รางวัลระดับเหรียญทอง การแข่งขันโครงการประกวดผลงานสิ่งประดิษฐ์และนวัตกรรม Thailand New Gen Inventors Award
+                                    2025 ใน งาน “วันนักประดิษฐ์” ประจําปี 2568</h3>
+                                <p class="achievement-description">จาก สํานักงานการวิจัยแห่งชาติ (ว.ช.) ระดับมัธยมศึกษา กลุ่มพลังงาน วัสดุ และเคมีชีวภาพ หุ่นยนต์ทําความสะอาดแผงโซลาร์เซลล์กึ่งอัตโนมัติ (Solar solar Semi-Auto Bot ) </p>
+                            </div>
+                        </div>
+                        
+                       
+                    </div>
+                    
+                    <!-- แถวที่ 2 -->
+                    <div class="achievement-row">
+                        <div class="achievement-card">
+                            <img src="/uploads/images/Screenshot 2025-04-04 165748.jpg" alt="ผลงาน" class="achievement-image">
+                            <div class="achievement-content">
+                                <div class="achievement-date">5 เมษายน 2566</div>
+                                <h3 class="achievement-title">การแข่งขัน 3x3 Basketball on Tour All Thailand</h3>
+                                <p class="achievement-description"> ชิงถ้วยพระราชทาน สมเด็จพระกนิษฐาธิราชเจ้า
+                                    กรมสมเด็จพระเทพรัตนราชสุดาฯ สยามบรมราชกุมารี  </p>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-card">
+                            <img src="/uploads/images/Screenshot 2025-04-04 170009.jpg" alt="ผลงาน" class="achievement-image">
+                            <div class="achievement-content">
+                                <div class="achievement-date">18 พฤษภาคม 2566</div>
+                                <h3 class="achievement-title">CPU'2nd ASEAN GRAND PRIX YOUTH ROBOTIC AND ESPORTS COMPETITION 2024</h3>
+                                <p class="achievement-description">หุ่นยนต์บังคับมือ KTIS (ไม่เกินระดับมัธยมศึกษาตอนปลาย/ปวช) ชิงถ้วยพระราชทาน สมเด็จพระกนิษฐาธิราชเจ้า กรมสมเด็จพระเทพ
+                                    รัตนราชสุดาฯ สยามบรมราชกุมารีติ</p>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-card">
+                            <img src="/uploads/images/SMC robotic (82 of 164) (1).jpg" alt="ผลงาน" class="achievement-image">
+                            <div class="achievement-content">
+                                <div class="achievement-date">30 มิถุนายน 2566</div>
+                                <h3 class="achievement-title">Young Ai & Robot Competition 2024 การแข่งขัน หุ่นยนต์Transporter Manual Robot</h3>
+                                <p class="achievement-description">สํานักงานส่งเสริมเศรษฐกิจดิจิทัล ร่วมกับ Siam Technological College (Siamtech)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- แถวที่ 3 (ซ่อนไว้) -->
+                    <div class="achievement-row">
+                        <div class="achievement-card">
+                            <img src="/uploads/images/292661_0.jpg" alt="ผลงาน" class="achievement-image">
+                            <div class="achievement-content">
+                                <div class="achievement-date">15 กรกฎาคม 2566</div>
+                                <h3 class="achievement-title">การแข่งขันศิลปหุตถกรรม ระดับเขตพื้นที่การศึกษา </h3>
+                                <p class="achievement-description">นักเรียนได้รับประสบการณ์และรางวับคิดไม้ติดมือมามากมาย</p>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-card">
+                            <img src="/uploads/images/Screenshot 2025-04-04 170232.jpg" alt="ผลงาน" class="achievement-image">
+                            <div class="achievement-content">
+                                <div class="achievement-date">22 สิงหาคม 2566</div>
+                                <h3 class="achievement-title">การประกวด ลูกเสือ Cyber Scout</h3>
+                                <p class="achievement-description">นักเรียนโรงเรียนได้รับโอกาสมากมายในกิจกรรมนี้ </p>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-card">
+                            <img src="/uploads/images/Screenshot 2025-04-04 170130.jpg" alt="ผลงาน" class="achievement-image">
+                            <div class="achievement-content">
+                                <div class="achievement-date">10 มีนาคม 2566</div>
+                                <h3 class="achievement-title">เข้าร่วมการแข่งขัน  ROV : BA&IT E-sport Presented by Match True5G</h3>
+                                <p class="achievement-description">ROV : BA&IT E-sport Presented by Match True5G  คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="achievements-grid">
-                <div class="achievement-card">
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="ผลงาน" class="achievement-image">
-                    <div class="achievement-content">
-                        <div class="achievement-date">15 มกราคม 2566</div>
-                        <h3 class="achievement-title">ชนะเลิศการแข่งขันคณิตศาสตร์ระดับประเทศ</h3>
-                        <p class="achievement-description">นักเรียนโรงเรียนตัวอย่างได้รับรางวัลชนะเลิศการแข่งขันคณิตศาสตร์โอลิมปิกระดับประเทศ ครั้งที่ 25</p>
-                    </div>
-                </div>
-                
-                <div class="achievement-card">
-                    <img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="ผลงาน" class="achievement-image">
-                    <div class="achievement-content">
-                        <div class="achievement-date">22 กุมภาพันธ์ 2566</div>
-                        <h3 class="achievement-title">รองชนะเลิศการแข่งขันฟุตบอลเยาวชน</h3>
-                        <p class="achievement-description">ทีมฟุตบอลโรงเรียนตัวอย่างได้รับรางวัลรองชนะเลิศการแข่งขันฟุตบอลเยาวชนระดับภาค</p>
-                    </div>
-                </div>
-                
-                <div class="achievement-card">
-                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="ผลงาน" class="achievement-image">
-                    <div class="achievement-content">
-                        <div class="achievement-date">10 มีนาคม 2566</div>
-                        <h3 class="achievement-title">รางวัลชนะเลิศการประกวดวงดนตรีโรงเรียน</h3>
-                        <p class="achievement-description">วงดนตรีโรงเรียนตัวอย่างได้รับรางวัลชนะเลิศการประกวดวงดนตรีโรงเรียนระดับประเทศ</p>
-                    </div>
-                </div>
-                
-                <div class="achievement-card">
-                    <img src="https://images.unsplash.com/photo-1524179091875-bf99a9a6af57?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="ผลงาน" class="achievement-image">
-                    <div class="achievement-content">
-                        <div class="achievement-date">5 เมษายน 2566</div>
-                        <h3 class="achievement-title">โครงการจิตอาสาพัฒนาชุมชน</h3>
-                        <p class="achievement-description">นักเรียนโรงเรียนตัวอย่างได้รับรางวัลโครงการจิตอาสาดีเด่นจากกระทรวงศึกษาธิการ</p>
-                    </div>
-                </div>
-                
-                <div class="achievement-card">
-                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="ผลงาน" class="achievement-image">
-                    <div class="achievement-content">
-                        <div class="achievement-date">18 พฤษภาคม 2566</div>
-                        <h3 class="achievement-title">รางวัลการประกวดวิทยาศาสตร์</h3>
-                        <p class="achievement-description">นักเรียนโรงเรียนตัวอย่างได้รับรางวัลเหรียญทองการประกวดโครงงานวิทยาศาสตร์ระดับชาติ</p>
-                    </div>
-                </div>
-                
-                <div class="achievement-card">
-                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="ผลงาน" class="achievement-image">
-                    <div class="achievement-content">
-                        <div class="achievement-date">30 มิถุนายน 2566</div>
-                        <h3 class="achievement-title">รางวัลการประกวดวาดภาพ</h3>
-                        <p class="achievement-description">นักเรียนโรงเรียนตัวอย่างได้รับรางวัลชนะเลิศการประกวดวาดภาพระดับประเทศ</p>
-                    </div>
-                </div>
+            <div class="slider-controls">
+                <button class="slider-btn" id="prevBtn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-btn" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </section>
@@ -487,5 +598,48 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const grid = document.getElementById('achievementsGrid');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const rows = document.querySelectorAll('.achievement-row');
+            
+            let currentIndex = 0;
+            const rowsPerPage = 2; // แสดงทีละ 2 แถว
+            
+            function updateSlider() {
+                const rowHeight = rows[0].offsetHeight + 32; // height + margin-bottom
+                const translateY = -currentIndex * rowHeight * rowsPerPage;
+                grid.style.transform = `translateY(${translateY}px)`;
+                
+                // ปุ่ม disabled เมื่อถึงจุดสิ้นสุด
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex >= Math.ceil(rows.length / rowsPerPage) - 1;
+            }
+            
+            prevBtn.addEventListener('click', function() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                }
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                if (currentIndex < Math.ceil(rows.length / rowsPerPage) - 1) {
+                    currentIndex++;
+                    updateSlider();
+                }
+            });
+            
+            // ตรวจสอบเมื่อเปลี่ยนขนาดหน้าจอ
+            window.addEventListener('resize', function() {
+                updateSlider();
+            });
+            
+            updateSlider();
+        });
+    </script>
 </body>
 </html>

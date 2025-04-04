@@ -397,9 +397,9 @@
                 <li><a href="index.html">หน้าหลัก</a></li>
                 <li><a href="about.html">ประวัติครู</a></li>
                 <li><a href="achievements.html">ผลงาน</a></li>
-                <li><a href="courses.html">วิชาทั้งหมด</a></li>
+                <li><a href="courses.html"class="active">วิชาทั้งหมด</a></li>
                 <li><a href="knowledge.html">คลังความรู้</a></li>
-                <li><a href="contact.html" class="active">ติดต่อเรา</a></li>
+                <li><a href="contact.html" >ติดต่อเรา</a></li>
             </ul>
             
             <button class="login-btn" onclick="window.location.href='auth/login.html'">
@@ -430,21 +430,18 @@
             
             <div class="courses-filter">
                 <button class="filter-btn active">ทั้งหมด</button>
-                <button class="filter-btn">คณิตศาสตร์</button>
-                <button class="filter-btn">วิทยาศาสตร์</button>
-                <button class="filter-btn">ภาษาไทย</button>
-                <button class="filter-btn">ภาษาอังกฤษ</button>
-                <button class="filter-btn">สังคมศึกษา</button>
                 <button class="filter-btn">คอมพิวเตอร์</button>
+                <button class="filter-btn">วิชา อื่น ๆ</button>
             </div>
             
             <div class="courses-grid">
                 <div class="course-card">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="วิทยาการคอมพิวเตอร์" class="course-thumbnail">
+                    <img src="https://storage.naiin.com/system/application/bookstore/resource/product/202103/523911/6000046541_front_XXXL.jpg?imgname=%E0%B8%AB%E0%B8%99%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B7%E0%B8%AD%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%A7%E0%B8%B4%E0%B8%8A%E0%B8%B2%E0%B8%9E%E0%B8%B7%E0%B9%89%E0%B8%99%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%A8%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B9%80%E0%B8%97%E0%B8%84%E0%B9%82%E0%B8%99%E0%B9%82%E0%B8%A5%E0%B8%A2%E0%B8%B5-%E0%B9%80%E0%B8%97%E0%B8%84%E0%B9%82%E0%B8%99%E0%B9%82%E0%B8%A5%E0%B8%A2%E0%B8%B5-(%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%84%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%93)-%E0%B8%A1.4" alt="วิทยาการคอมพิวเตอร์" class="course-thumbnail">
                     <div class="course-content">
-                        <div class="course-category">วิทยาการคอมพิวเตอร์</div>
-                        <h3 class="course-title">วิทยาการคอมพิวเตอร์ 1</h3>
-                        <p class="course-description">Computational Thinking</p>
+                        <div class="course-category">วิทยาการคอมพิวเตอร์ ม.4</div>
+                        <h3 class="course-title">รหัสวิชา ว30117 </h3>
+                        <h3 class="course-title">วิชาวิทยาการคอมพิวเตอร์ 1</h3>
+                        <p class="course-description">เรียนรู้พื้นฐานการใช้วิทยาการคำนวณช่วยในการแก้ปัญหาในชีวิตประจำวัน</p>
                         <div class="course-meta">
                             <span><i class="fas fa-clock"></i> 15 ชั่วโมง</span>
                             <span><i class="fas fa-user-graduate"></i> 120 คน</span>
@@ -456,80 +453,83 @@
                 <div class="course-card">
                     <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="คณิตศาสตร์" class="course-thumbnail">
                     <div class="course-content">
-                        <div class="course-category">คณิตศาสตร์</div>
-                        <h3 class="course-title">แคลคูลัสพื้นฐาน</h3>
-                        <p class="course-description">เรียนรู้พื้นฐานแคลคูลัสสำหรับนักเรียนชั้นมัธยมปลาย</p>
+                        <div class="course-category">การออกแบบเทคโนโลยี ม.4 </div>
+                        <h3 class="course-title">รหัสวิชา ว30115</h3>
+                        <h3 class="course-title">วิชาการออกแบบเทคโนโลยี 1</h3>
+                        <p class="course-description">เรียนรู้พื้นฐานการออกแบบสำหรับนักเรียนชั้นมัธยมปลาย</p>
                         <div class="course-meta">
                             <span><i class="fas fa-clock"></i> 20 ชั่วโมง</span>
                             <span><i class="fas fa-user-graduate"></i> 85 คน</span>
                         </div>
-                        <a href="courses/calculus.html" class="btn-enroll">เริ่มเรียน</a>
+                        <a href="#" class="btn-enroll">เริ่มเรียน</a>
                     </div>
                 </div>
                 
                 <div class="course-card">
-                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="ภาษาอังกฤษ" class="course-thumbnail">
+                    <img src="https://www.technicchan.ac.th/wp-content/uploads/2020/04/close-up-person-installing-cpu-motherboard_23-2148419154.jpg" alt="ซ่อมบำรุงคอมพิวเตอร์" class="course-thumbnail">
                     <div class="course-content">
-                        <div class="course-category">ภาษาอังกฤษ</div>
-                        <h3 class="course-title">ภาษาอังกฤษเพื่อการสื่อสาร</h3>
-                        <p class="course-description">พัฒนาทักษะการสื่อสารภาษาอังกฤษในชีวิตประจำวัน</p>
+                        <div class="course-category">ซ่อมบำรุงคอมพิวเตอร์ ม.4 </div>
+                        <h3 class="course-title">รหัสวิชา ว30294</h3>
+                        <h3 class="course-title">วิชาซ่อมบำรุงคอมพิวเตอร์</h3>
+                        <p class="course-description">เรียนรู้พื้นฐานการออกแบบสำหรับนักเรียนชั้นมัธยมปลาย</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 20 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 85 คน</span>
+                        </div>
+                        <a href="#" class="btn-enroll">เริ่มเรียน</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <img src="https://quizizz.com/_media/quizzes/015d0101-cc7d-4d9f-8e9d-378b5978074f" alt="หุ่นยนต์เบื้องต้น" class="course-thumbnail">
+                    <div class="course-content">
+                        <div class="course-category">หุ่นยนต์เบื้องต้น ม.4 </div>
+                        <div class="course-category">(สายการเรียนคอมพิวเตอร์เทคโนโลยี)</div>
+                        <h3 class="course-title">รหัสวิชา ว30295</h3>
+                        <h3 class="course-title">หุ่นยนต์เบื้องต้น</h3>
+                        <p class="course-description">พัฒนาทักษะการสร้างหุ่นยนต์เบื้องต้นเพื่อแก้ไขปัญหาในชีวิตประจำวัน</p>
                         <div class="course-meta">
                             <span><i class="fas fa-clock"></i> 12 ชั่วโมง</span>
                             <span><i class="fas fa-user-graduate"></i> 150 คน</span>
                         </div>
-                        <a href="courses/english.html" class="btn-enroll">เริ่มเรียน</a>
+                        <a href="#" class="btn-enroll">เริ่มเรียน</a>
                     </div>
                 </div>
                 
                 <div class="course-card">
-                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="ภาษาไทย" class="course-thumbnail">
+                    <img src="https://mall.factomart.com/wp-content/uploads/2020/01/Automotive-Robotics-01.jpg" alt="หุ่นยนต์ขั้นสูง" class="course-thumbnail">
                     <div class="course-content">
-                        <div class="course-category">ภาษาไทย</div>
-                        <h3 class="course-title">หลักภาษาและการใช้ภาษาไทย</h3>
-                        <p class="course-description">เรียนรู้หลักภาษาไทยและการใช้ภาษาไทยอย่างถูกต้อง</p>
+                        <div class="course-category">หุ่นยนต์ขั้นสูง ม.5 </div>
+                        <div class="course-category">(สายการเรียนคอมพิวเตอร์เทคโนโลยี)</div>
+                        <h3 class="course-title">รหัสวิชา ว30296</h3>
+                        <h3 class="course-title">หุ่นยนต์ขั้นสูง</h3>
+                        <p class="course-description">พัฒนาทักษะการสร้างหุ่นยนต์และประยุกต์ใช้งานในระดับอุตสาหกรรม</p>
                         <div class="course-meta">
-                            <span><i class="fas fa-clock"></i> 10 ชั่วโมง</span>
-                            <span><i class="fas fa-user-graduate"></i> 95 คน</span>
+                            <span><i class="fas fa-clock"></i> 12 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 150 คน</span>
                         </div>
-                        <a href="courses/thai.html" class="btn-enroll">เริ่มเรียน</a>
+                        <a href="#" class="btn-enroll">เริ่มเรียน</a>
                     </div>
                 </div>
                 
                 <div class="course-card">
-                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="วิทยาศาสตร์" class="course-thumbnail">
+                    <img src="https://www.learneducation.co.th/wp-content/uploads/2020/07/WhatsApp-Image-2020-07-07-at-2.57.41-PM-1024x683.jpeg" alt="AI" class="course-thumbnail">
                     <div class="course-content">
-                        <div class="course-category">วิทยาศาสตร์</div>
-                        <h3 class="course-title">ฟิสิกส์พื้นฐาน</h3>
-                        <p class="course-description">เรียนรู้หลักการพื้นฐานทางฟิสิกส์สำหรับนักเรียนมัธยมปลาย</p>
+                        <div class="course-category">AI  ม.6 </div>
+                        <div class="course-category">(สายการเรียนคอมพิวเตอร์เทคโนโลยี)</div>
+                        <h3 class="course-title">รหัสวิชา ว30298</h3>
+                        <h3 class="course-title">ปัญญาประดิษฐ์เบื้องต้น</h3>
+                        <p class="course-description">พัฒนาทักษะและประยุกต์ใช้งาน Ai ในการแก้ไขปัญหา</p>
                         <div class="course-meta">
-                            <span><i class="fas fa-clock"></i> 18 ชั่วโมง</span>
-                            <span><i class="fas fa-user-graduate"></i> 75 คน</span>
+                            <span><i class="fas fa-clock"></i> 12 ชั่วโมง</span>
+                            <span><i class="fas fa-user-graduate"></i> 150 คน</span>
                         </div>
-                        <a href="courses/physics.html" class="btn-enroll">เริ่มเรียน</a>
+                        <a href="#" class="btn-enroll">เริ่มเรียน</a>
                     </div>
                 </div>
-                
-                <div class="course-card">
-                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="สังคมศึกษา" class="course-thumbnail">
-                    <div class="course-content">
-                        <div class="course-category">สังคมศึกษา</div>
-                        <h3 class="course-title">ประวัติศาสตร์ไทย</h3>
-                        <p class="course-description">เรียนรู้ประวัติศาสตร์ไทยตั้งแต่สมัยสุโขทัยจนถึงปัจจุบัน</p>
-                        <div class="course-meta">
-                            <span><i class="fas fa-clock"></i> 14 ชั่วโมง</span>
-                            <span><i class="fas fa-user-graduate"></i> 60 คน</span>
-                        </div>
-                        <a href="courses/history.html" class="btn-enroll">เริ่มเรียน</a>
-                    </div>
-                </div>
-            </div>
             
             <div class="pagination">
                 <a href="#" class="page-link active">1</a>
-                <a href="#" class="page-link">2</a>
-                <a href="#" class="page-link">3</a>
-                <a href="#" class="page-link">4</a>
-                <a href="#" class="page-link">5</a>
                 <a href="#" class="page-link"><i class="fas fa-chevron-right"></i></a>
             </div>
         </div>
