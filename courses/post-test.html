@@ -509,21 +509,21 @@
     <!-- Header Section -->
     <header class="header">
         <div class="header-container">
-            <a href="index.html" class="logo">
+            <a href="/learning-by-ratchapon/index.html" class="logo">
                 <img src="https://avatars.githubusercontent.com/u/67259782?s=400&u=9a07ea2e64a9d37ca64a03e1bdd3bf27726dda33&v=4" alt="สื่อการสอน By Ratchapon">
                 <span class="logo-text">สื่อการสอนออนไลน์</span>
             </a>
             
             <ul class="nav-menu">
-                <li><a href="/index.html">หน้าหลัก</a></li>
-                <li><a href="/about.html">ประวัติครู</a></li>
-                <li><a href="/achievements.html">ผลงาน</a></li>
-                <li><a href="/courses.html">วิชาทั้งหมด</a></li>
-                <li><a href="/knowledge.html">คลังความรู้</a></li>
-                <li><a href="/contact.html">ติดต่อเรา</a></li>
+                <li><a href="/learning-by-ratchapon/index.html">หน้าหลัก</a></li>
+                <li><a href="/learning-by-ratchapon/about.html">ประวัติครู</a></li>
+                <li><a href="/learning-by-ratchapon/achievements.html">ผลงาน</a></li>
+                <li><a href="/learning-by-ratchapon/courses.html">วิชาทั้งหมด</a></li>
+                <li><a href="/learning-by-ratchapon/knowledge.html">คลังความรู้</a></li>
+                <li><a href="/learning-by-ratchapon/contact.html">ติดต่อเรา</a></li>
             </ul>
             
-            <button class="login-btn" onclick="window.location.href='/auth/login.html'">
+            <button class="login-btn" onclick="window.location.href='/learning-by-ratchapon/auth/login.html'">
                 <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
             </button>
         </div>
@@ -609,17 +609,17 @@
                 
                 <div class="footer-col">
                     <h3>ลิงก์ด่วน</h3>
-                    <a href="/index.html">หน้าหลัก</a>
-                    <a href="/about.html">ประวัติครู</a>
-                    <a href="/achievements.html">ผลงาน</a>
-                    <a href="/courses.html">วิชาทั้งหมด</a>
-                    <a href="/knowledge.html">คลังความรู้</a>
+                    <a href="/learning-by-ratchapon/index.html">หน้าหลัก</a>
+                    <a href="/learning-by-ratchapon/about.html">ประวัติครู</a>
+                    <a href="/learning-by-ratchapon/achievements.html">ผลงาน</a>
+                    <a href="/learning-by-ratchapon/courses.html">วิชาทั้งหมด</a>
+                    <a href="/learning-by-ratchapon/knowledge.html">คลังความรู้</a>
                 </div>
                 
                 <div class="footer-col">
                     <h3>ระบบสมาชิก</h3>
-                    <a href="/auth/login.html">เข้าสู่ระบบ</a>
-                    <a href="/auth/register.html">สมัครสมาชิก</a>
+                    <a href="/learning-by-ratchapon/auth/login.html">เข้าสู่ระบบ</a>
+                    <a href="/learning-by-ratchapon/auth/register.html">สมัครสมาชิก</a>
                     <a href="#">ลืมรหัสผ่าน</a>
                     <a href="#">คำถามที่พบบ่อย</a>
                 </div>
@@ -633,7 +633,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 โรงเรียนตัวอย่าง. สงวนลิขสิทธิ์ทุกประการ.</p>
+                <p>&copy; © 2025 สื่อการสอนออนไลน์ By Ratchapon (Ratchapon@prot.ac.th)</p>
             </div>
         </div>
     </footer>
@@ -642,19 +642,27 @@
         // ข้อมูลข้อสอบ (ตัวอย่าง)
         const allQuestions = [
             {
-                question: "1 + 1 เท่ากับเท่าไร?",
-                options: ["1", "2", "3", "4"],
+                question: "ข้อใด คือ บล็อกที่จะถูกนำมาใช้ เป็นอันดับแรก เสมอในการเขียนสคริปต์",
+                // ตัวเลือกเป็นรูปภาพ
+                imageOptions: [
+                    "https://lh7-us.googleusercontent.com/eNVGVXylaChyt5kQimB2qqO57Pl1_QECgZqw9FMfw-Ei1w2yVklPgReU9x_D1mZ8ogIU6X_vqVBsrxO4gOzDS4Z4IKcbF_gN7wZJO9CeaKxjaGoOl8Lhh-IEqGESyYV-__wX3q7EFCN2w47Op4JcuE8NSgAGvWpwbR8zx7zz01yqOwqQd7AhOwc_haibCpCDtyY7wXI?key=QTp-YEs29zmY0SZL7rdh0g",
+                    "https://lh7-us.googleusercontent.com/lk189gfS8cmXTDTG46Pm4i104h_JGzbOFPVuFQR9s8YPC58cAOfPvSJEtn37q7lzAts_xPmoj87D_IMp3Uh2ldcMJ4dpiL5gJpM3rReOuQnKHAVLxIuLNcts-yQzFCDsWQOmVzQr-t0g01X8-hBAlvj15JpZeFTggBqqv03xhfFnXoTO6t3FC5LFRTQt_k2EbJQ8LVY?key=QTp-YEs29zmY0SZL7rdh0g",
+                    "https://lh7-us.googleusercontent.com/wdpmi68enqq4IQW_sDAElWkid5O_VYxvkrw1SV6mz2pDy-a4dN2gLrzu0fe4BZ6MfEcmPmE8t3CGsA3kKW7b3ej3Hups2xCZFepqSahF330rI5JgeYvYzwM3KlrmhwclvA3OI0vUjcdmmdxCnrJLjMPBmjmG24cVmO7Uf-yEu-GttWP5h8LSobcmtFPvRTPsmWMRw5w?key=QTp-YEs29zmY0SZL7rdh0g",
+                    "https://lh7-us.googleusercontent.com/CmtJq1xt9zo1--VxkYVEg3JtRp27rLahnoBJ_AKu3vX0cdYjG0fWx1Y3ZbWHAboao2D9ny76UA6aWBGZWBd9rcQ1Vto8JonO1o7uMWdVoG9WbK-XHjkOQr50fD6dFIJFk4K9mleTfDOwrw_ajRuMoAwjT3u6hKazyc2rKZDDVO_Hxgjh4jk1eLbkegag-lA_saifut0?key=QTp-YEs29zmY0SZL7rdh0g"
+                ],
+                options: ["ตัวเลือกที่ 1", "ตัวเลือกที่ 1", "ตัวเลือกที่ 1", "ตัวเลือกที่ 1"],
                 answer: 1
             },
             {
-                question: "ผลลัพธ์ของ 5 × 3 คือข้อใด?",
-                options: ["8", "15", "20", "25"],
-                answer: 1
+                question: "จากรูป “เวที (Stage)” ตรงกับหมายเลขใด",
+                image: "https://lh7-us.googleusercontent.com/AqK5bVycrSBxs5a9jPd2ZG-X7tyzW6VY_O2HcG3i3ZXLXgyce1Nj-mCTJ2fejMwH1gX34vyqTUs-Cv5iu10quIHvmlTbbd-Ova0rCLWTMPG2zoeAoU1j7hz4kMP0hsrMlVC-erHvpt4ZUypN4K0Fvelrtntn2wicouDJP1NX0_U_2TfjdCLMHuztJwzHefKp_-3RIUw?key=QTp-YEs29zmY0SZL7rdh0g", // รูปภาพคำถาม
+                options: ["หมายเลข 1", "หมายเลข 2", "หมายเลข 3", "หมายเลข 4"],
+                answer: 3
             },
             {
-                question: "ถ้า x + 3 = 7 แล้ว x มีค่าเท่าไร?",
-                options: ["2", "3", "4", "5"],
-                answer: 2
+                question: "โปรแกรม Scratch หมายถึงข้อใด",
+                options: ["โปรแกรมฝึกการเขียนคำสั่งด้วยการเขียนโปรแกรมภาษาอย่างง่าย", "โปรแกรมภาษาพัฒนาโดยทีมงาน MIT Media Lap", "โปรแกรมภาษาเชิงกราฟิก", "ถูกทุกข้อ"],
+                answer: 4
             },
             {
                 question: "จำนวนเฉพาะในข้อใดต่อไปนี้?",
