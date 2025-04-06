@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บทที่ 1 แนวคิดเชิงคำนวณ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', 'Sarabun', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        /* Login Button */
+        .login-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .login-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 0.5rem;
+        }
+        
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb .separator {
+            margin: 0 0.3rem;
+        }
+        
+        /* Knowledge Section */
+        .knowledge {
+            padding: 4rem 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 1rem auto 0;
+        }
+        
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .search-input:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .knowledge-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .category-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--light-color);
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .knowledge-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .knowledge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .knowledge-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .knowledge-content {
+            padding: 1.5rem;
+        }
+        
+        .knowledge-category {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .knowledge-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .knowledge-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .knowledge-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-view {
+            display: block;
+            text-align: center;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .btn-view:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            max-width: 900px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--accent-color);
+        }
+        
+        /* Tab System */
+        .content-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 1rem;
+        }
+        
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666;
+            position: relative;
+        }
+        
+        .tab-btn.active {
+            color: var(--secondary-color);
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Video and PDF Slide Styles */
+        .video-slide, .pdf-slide {
+            display: none;
+            width: 100%;
+        }
+        
+        .video-slide.active, .pdf-slide.active {
+            display: block;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .pdf-container {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ddd;
+            margin-bottom: 1rem;
+        }
+        
+        .pdf-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .slide-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        
+        .slide-btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+        
+        .slide-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        
+        .slide-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .slide-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #bdc3c7;
+            cursor: pointer;
+        }
+        
+        .slide-dot.active {
+            background-color: var(--accent-color);
+        }
+        
+        .video-slide-title, .pdf-slide-title {
+            margin-top: 1rem;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-col a {
+            display: block;
+            color: #ddd;
+            margin-bottom: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-col a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .knowledge-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/learning-by-ratchapon/index.html" class="logo">
+                <img src="https://avatars.githubusercontent.com/u/67259782?s=400&u=9a07ea2e64a9d37ca64a03e1bdd3bf27726dda33&v=4" alt="สื่อการสอน By Ratchapon">
+                <span class="logo-text">สื่อการสอนออนไลน์</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="/index.html">หน้าหลัก</a></li>
+                <li><a href="/courses.html">วิชาทั้งหมด</a></li>
+                <li><a href="/courses/computer-science-m4/Computational-Thinking.html" class="active">บทที่ 1 แนวคิดเชิงคำนวน</a></li>
+                <li><a href="/contact.html">ติดต่อเรา</a></li>
+            </ul>
+            
+            <button class="login-btn" onclick="window.location.href='/learning-by-ratchapon/auth/login.html'">
+                <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
+            </button>
+        </div>
+    </header>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>บทที่ 1 แนวคิดเชิงคำนวน</h1>
+            <ul class="breadcrumb">
+                <li><a href="/learning-by-ratchapon/index.html">หน้าหลัก</a></li>
+                <li class="separator">/</li>
+                <li>บทที่ 1 แนวคิดเชิงคำนวณ</li>
+            </ul>
+        </div>
+    </section>
+    
+    <!-- Knowledge Section -->
+    <section class="knowledge">
+        <div class="container">
+            <div class="section-title">
+                <h2>แหล่งความรู้เพิ่มเติม</h2>
+                <p>เอกสารประกอบการเรียน วิดีโอแนะนำ และแหล่งความรู้ที่น่าสนใจ</p>
+            </div>
+
+            
+            <div class="knowledge-grid">
+                <!-- ตัวอย่างบัตรความรู้ที่ 1 -->
+                <div class="knowledge-card">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="บทที่ 1 แนวคิดเชิงคำนวณ" class="knowledge-image">
+                    <div class="knowledge-content">
+                        <div class="knowledge-category">วิดีโอแนะนำ</div>
+                        <h3 class="knowledge-title">บทที่ 1 แนวคิดเชิงคำนวณ</h3>
+                        <p class="knowledge-description">แนวคิดเชิงคำนวณ</p>
+                        <div class="knowledge-meta">
+                            <span><i class="fas fa-video"></i> วิดีโอ</span>
+                            <span><i class="fas fa-eye"></i> 350 ครั้ง</span>
+                        </div>
+                        <a href="#" class="btn-view" onclick="openMultiContentModal({
+                            title: 'บทที่ 1 แนวคิดเชิงคำนวณ',
+                            videos: [
+                                {url: 'https://youtu.be/l2R6mSjIhdI?si=omZtycKn99854wGk', title: 'วิดีโอที่ 1: แนวคิดพื้นฐาน'},
+                                {url: 'https://www.youtube.com/watch?v=a-Kh51Ua2cI', title: 'วิดีโอที่ 2: ตัวอย่างการประยุกต์ใช้'}
+                            ],
+                            pdfs: [
+                                {url: '/learning-by-ratchapon/uploads/Document/03_Pattern_Abstration.pdf', title: 'เอกสารสรุปบทที่ 1'},
+                                {url: 'pdf/exercises-chapter1.pdf', title: 'แบบฝึกหัดบทที่ 1'}
+                            ]
+                        })">ดูเนื้อหา</a>
+                    </div>
+                </div>
+                
+                <!-- ตัวอย่างบัตรความรู้ที่ 2 -->
+                <div class="knowledge-card">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="บทที่ 1 แนวคิดเชิงคำนวณ" class="knowledge-image">
+                    <div class="knowledge-content">
+                        <div class="knowledge-category">เอกสารประกอบ</div>
+                        <h3 class="knowledge-title">ใบความรู้เรื่อง </h3>
+                        <p class="knowledge-description">เอกสารสรุปสูตรคณิตศาสตร์ระดับมัธยมปลายทุกบทเรียน</p>
+                        <div class="knowledge-meta">
+                            <span><i class="fas fa-file-pdf"></i> PDF</span>
+                            <span><i class="fas fa-download"></i> 120 ครั้ง</span>
+                        </div>
+                        <a href="#" class="btn-view" onclick="openMultiContentModal({
+                            title: 'สรุปสูตรคณิตศาสตร์ ม.ปลาย',
+                            pdfs: [
+                                {url: '/learning-by-ratchapon/uploads/Document/03_Pattern_Abstration.pdf', title: 'บทที่ 1: พีชคณิต'},
+                                {url: 'pdf/math-summary2.pdf', title: 'บทที่ 2: เรขาคณิต'},
+                                {url: 'pdf/math-summary3.pdf', title: 'บทที่ 3: แคลคูลัส'}
+                            ]
+                        })">ดูเอกสาร</a>
+                    </div>
+                </div>
+                
+                <!-- ตัวอย่างบัตรความรู้ที่ 3 -->
+                <div class="knowledge-card">
+                    <img src="https://images.unsplash.com/photo-1524179091875-bf99a9a6af57?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="คลังความรู้" class="knowledge-image">
+                    <div class="knowledge-content">
+                        <div class="knowledge-category">ใบงาน</div>
+                        <h3 class="knowledge-title">กิจกรรมบทที่ 1 </h3>
+                        <p class="knowledge-description">อธิบายงาน</p>
+                        <div class="knowledge-meta">
+                            <span><i class="fas fa-video"></i> วิดีโอ</span>
+                            <span><i class="fas fa-eye"></i> 180 ครั้ง</span>
+                        </div>
+                        <a href="#" class="btn-view" onclick="openMultiContentModal({
+                            title: 'เทคนิคการทำข้อสอบฟิสิกส์',
+                            videos: [
+                                {url: 'https://youtu.be/7JwV7Q8JZ8M', title: 'เทคนิคการวิเคราะห์โจทย์'},
+                                {url: 'https://youtu.be/ตัวอย่างวิดีโอ2', title: 'เทคนิคการคำนวณอย่างรวดเร็ว'}
+                            ],
+                            pdfs: [
+                                {url: '/learning-by-ratchapon/uploads/Document/01_ComputationalThinking', title: 'เอกสารเทคนิคการทำข้อสอบ'},
+                                {url: 'pdf/physics-practice.pdf', title: 'แบบฝึกหัดทบทวน'}
+                            ]
+                        })">ดูวิดีโอ</a>
+                    </div>
+                </div>
+                
+                <!-- เพิ่มบัตรความรู้อื่นๆ ตามต้องการ -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Multi Content Modal -->
+    <div id="multiContentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="multiContentModalTitle"></h2>
+            
+            <div class="content-tabs">
+                <button class="tab-btn active" onclick="openTab('video-tab')">วิดีโอ</button>
+                <button class="tab-btn" onclick="openTab('pdf-tab')">เอกสาร</button>
+            </div>
+            
+            <!-- Video Tab -->
+            <div id="video-tab" class="tab-content active">
+                <div class="video-slide-container">
+                    <!-- Video slides will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="slide-nav">
+                    <button class="slide-btn" onclick="prevVideoSlide()" id="prevVideoBtn">ก่อนหน้า</button>
+                    <button class="slide-btn" onclick="nextVideoSlide()" id="nextVideoBtn">ถัดไป</button>
+                </div>
+                
+                <div class="video-slide-indicator slide-indicator">
+                    <!-- Video slide indicators will be inserted here by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- PDF Tab -->
+            <div id="pdf-tab" class="tab-content">
+                <div class="pdf-slide-container">
+                    <!-- PDF slides will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="slide-nav">
+                    <button class="slide-btn" onclick="prevPdfSlide()" id="prevPdfBtn">ก่อนหน้า</button>
+                    <button class="slide-btn" onclick="nextPdfSlide()" id="nextPdfBtn">ถัดไป</button>
+                </div>
+                
+                <div class="pdf-slide-indicator slide-indicator">
+                    <!-- PDF slide indicators will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>เกี่ยวกับเรา</h3>
+                    <p>สื่อการสอนออนไลน์ By Ratchapon</p>
+                    <p>ติดตามช่องทางอื่นๆ ได้ที่</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/ipaperz/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.youtube.com/@paperkusz-999"><i class="fab fa-youtube"></i></a>
+                        <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fline.me%2Fti%2Fp%2FJgvbvajUfU%3Ffbclid%3DIwZXh0bgNhZW0CMTAAAR21gbM0Pg7FRaXh5UL7GdDFtx2ieqH4k4TjH92Eedj1KMyvhyslce0Muo0_aem_-K13CbgGEClslrLC622YGA&h=AT3zjZZp01I0VPeHrCwRkahfloEbCGOCrTc-_Qdet5bmgR2RCiFF6difkDFoKBp-poBh-k4FZU5oYlLAoK4eYFGKPkkVvN9VmXuHBUb6V6JAEvflzgRHf8LZEBxwHXeq4plm3Q"><i class="fab fa-line"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ลิงก์ด่วน</h3>
+                    <a href="/index.html">หน้าหลัก</a>
+                    <a href="/about.html">ประวัติครู</a>
+                    <a href="/achievements.html">ผลงาน</a>
+                    <a href="/courses.html">วิชาทั้งหมด</a>
+                    <a href="/learning-by-ratchapon/courses/computer-science-m4/Computational-Thinking.html">บทที่ 1 แนวคิดเชิงคำนวน</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ระบบสมาชิก</h3>
+                    <a href="/learning-by-ratchapon/auth/login.html">เข้าสู่ระบบ</a>
+                    <a href="/learning-by-ratchapon/auth/register.html">สมัครสมาชิก</a>
+                    <a href="#">ลืมรหัสผ่าน</a>
+                    <a href="#">คำถามที่พบบ่อย</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ติดต่อเรา</h3>
+                    <p><i class="fas fa-map-marker-alt"></i>    โรงเรียนพรตพิทยพยัต 4 ถนนหลวงพรต แขวงลาดกระบัง  เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
+                    <p><i class="fas fa-phone"></i> 096-409-929-1</p>
+                    <p><i class="fas fa-envelope"></i> ratchapon@prot.ac.th</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 สื่อการสอนออนไลน์ By Ratchapon (Ratchapon@prot.ac.th)</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Global variables
+        let currentVideoSlide = 1;
+        let currentPdfSlide = 1;
+        let totalVideoSlides = 0;
+        let totalPdfSlides = 0;
+        
+        // Function to open modal with multiple content types
+        function openMultiContentModal(content) {
+            // Set modal title
+            document.getElementById('multiContentModalTitle').textContent = content.title;
+            
+            // Clear previous content
+            const videoContainer = document.querySelector('.video-slide-container');
+            const videoIndicators = document.querySelector('.video-slide-indicator');
+            const pdfContainer = document.querySelector('.pdf-slide-container');
+            const pdfIndicators = document.querySelector('.pdf-slide-indicator');
+            
+            videoContainer.innerHTML = '';
+            videoIndicators.innerHTML = '';
+            pdfContainer.innerHTML = '';
+            pdfIndicators.innerHTML = '';
+            
+            // Add video slides if videos exist
+            if (content.videos && content.videos.length > 0) {
+                content.videos.forEach((video, index) => {
+                    const videoSlide = document.createElement('div');
+                    videoSlide.className = `video-slide ${index === 0 ? 'active' : ''}`;
+                    videoSlide.innerHTML = `
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/${getYouTubeId(video.url)}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        <h3 class="video-slide-title">${video.title}</h3>
+                    `;
+                    videoContainer.appendChild(videoSlide);
+                    
+                    const indicator = document.createElement('span');
+                    indicator.className = `slide-dot ${index === 0 ? 'active' : ''}`;
+                    indicator.onclick = () => showVideoSlide(index + 1);
+                    videoIndicators.appendChild(indicator);
+                });
+                
+                totalVideoSlides = content.videos.length;
+            } else {
+                // Hide video tab if no videos
+                document.querySelector('.content-tabs button:first-child').style.display = 'none';
+                document.getElementById('video-tab').style.display = 'none';
+                openTab('pdf-tab');
+            }
+            
+            // Add PDF slides if PDFs exist
+            if (content.pdfs && content.pdfs.length > 0) {
+                content.pdfs.forEach((pdf, index) => {
+                    const pdfSlide = document.createElement('div');
+                    pdfSlide.className = `pdf-slide ${index === 0 ? 'active' : ''}`;
+                    pdfSlide.innerHTML = `
+                        <div class="pdf-container">
+                            <iframe src="${pdf.url}" frameborder="0"></iframe>
+                        </div>
+                        <h3 class="pdf-slide-title">${pdf.title}</h3>
+                    `;
+                    pdfContainer.appendChild(pdfSlide);
+                    
+                    const indicator = document.createElement('span');
+                    indicator.className = `slide-dot ${index === 0 ? 'active' : ''}`;
+                    indicator.onclick = () => showPdfSlide(index + 1);
+                    pdfIndicators.appendChild(indicator);
+                });
+                
+                totalPdfSlides = content.pdfs.length;
+            } else {
+                // Hide pdf tab if no pdfs
+                document.querySelector('.content-tabs button:last-child').style.display = 'none';
+                document.getElementById('pdf-tab').style.display = 'none';
+                openTab('video-tab');
+            }
+            
+            // Show modal
+            document.getElementById('multiContentModal').style.display = 'block';
+            
+            // Reset slide indices
+            currentVideoSlide = 1;
+            currentPdfSlide = 1;
+        }
+        
+        // Helper function to extract YouTube ID
+        function getYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+        
+        // Tab functions
+        function openTab(tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            const tabButtons = document.getElementsByClassName('tab-btn');
+            
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+                tabButtons[i].classList.remove('active');
+            }
+            
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Video slide functions
+        function showVideoSlide(n) {
+            const slides = document.getElementsByClassName('video-slide');
+            const dots = document.querySelectorAll('.video-slide-indicator .slide-dot');
+            
+            if (n > slides.length) { currentVideoSlide = 1; }
+            if (n < 1) { currentVideoSlide = slides.length; }
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+                if (dots[i]) dots[i].classList.remove('active');
+            }
+            
+            if (slides[currentVideoSlide - 1]) slides[currentVideoSlide - 1].classList.add('active');
+            if (dots[currentVideoSlide - 1]) dots[currentVideoSlide - 1].classList.add('active');
+            
+            // Update button states
+            const prevBtn = document.getElementById('prevVideoBtn');
+            const nextBtn = document.getElementById('nextVideoBtn');
+            if (prevBtn) prevBtn.disabled = (currentVideoSlide === 1);
+            if (nextBtn) nextBtn.disabled = (currentVideoSlide === slides.length);
+        }
+        
+        function nextVideoSlide() {
+            showVideoSlide(currentVideoSlide += 1);
+        }
+        
+        function prevVideoSlide() {
+            showVideoSlide(currentVideoSlide -= 1);
+        }
+        
+        // PDF slide functions
+        function showPdfSlide(n) {
+            const slides = document.getElementsByClassName('pdf-slide');
+            const dots = document.querySelectorAll('.pdf-slide-indicator .slide-dot');
+            
+            if (n > slides.length) { currentPdfSlide = 1; }
+            if (n < 1) { currentPdfSlide = slides.length; }
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+                if (dots[i]) dots[i].classList.remove('active');
+            }
+            
+            if (slides[currentPdfSlide - 1]) slides[currentPdfSlide - 1].classList.add('active');
+            if (dots[currentPdfSlide - 1]) dots[currentPdfSlide - 1].classList.add('active');
+            
+            // Update button states
+            const prevBtn = document.getElementById('prevPdfBtn');
+            const nextBtn = document.getElementById('nextPdfBtn');
+            if (prevBtn) prevBtn.disabled = (currentPdfSlide === 1);
+            if (nextBtn) nextBtn.disabled = (currentPdfSlide === slides.length);
+        }
+        
+        function nextPdfSlide() {
+            showPdfSlide(currentPdfSlide += 1);
+        }
+        
+        function prevPdfSlide() {
+            showPdfSlide(currentPdfSlide -= 1);
+        }
+        
+        // Close modal function
+        function closeModal() {
+            document.getElementById('multiContentModal').style.display = 'none';
+            
+            // Reset tabs
+            document.querySelectorAll('.content-tabs button').forEach(btn => {
+                btn.style.display = '';
+            });
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = '';
+            });
+            
+            // Show first tab by default
+            document.querySelector('.tab-btn').click();
+            
+            // Pause all videos when closing modal
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                const src = iframe.src;
+                iframe.src = src; // This effectively stops the video
+            });
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
