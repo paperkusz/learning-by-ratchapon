@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สุ่มหัวข้อโครงงาน (จำกัด 5 ครั้ง)</title>
+    <title>สุ่มหัวข้อโครงงาน - แสดงประวัติการสุ่ม</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -25,7 +25,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             padding: 30px;
             width: 90%;
-            max-width: 700px;
+            max-width: 800px;
             text-align: center;
             margin: 20px;
         }
@@ -54,10 +54,10 @@
             background-color: #f8f9fa;
             border-left: 5px solid #3498db;
             padding: 25px;
-            margin: 30px 0;
+            margin: 20px 0;
             border-radius: 8px;
             font-size: 1.4rem;
-            min-height: 100px;
+            min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -120,6 +120,53 @@
             color: #95a5a6;
             margin-top: 20px;
         }
+        
+        .history-section {
+            margin-top: 30px;
+            width: 100%;
+            text-align: left;
+        }
+        
+        .history-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .history-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .history-item {
+            background-color: #f8f9fa;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            display: flex;
+            align-items: center;
+        }
+        
+        .history-number {
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .no-history {
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -136,6 +183,14 @@
         <button class="random-button" id="randomButton">สุ่มหัวข้อ</button>
         
         <div class="attempts-info" id="attemptsInfo"></div>
+        
+        <div class="history-section">
+            <h2 class="history-title">ประวัติการสุ่ม</h2>
+            <div id="historyContainer">
+                <div class="no-history" id="noHistory">ยังไม่มีการสุ่มหัวข้อ</div>
+                <ul class="history-list" id="historyList"></ul>
+            </div>
+        </div>
         
         <div class="footer">
             มีหัวข้อให้สุ่มทั้งหมด <span id="topicCount">100</span> หัวข้อ
@@ -191,7 +246,7 @@
             "วิเคราะห์ปริมาณอาหารเสียในร้านอาหาร",
             "ระบบช่วยให้ผู้พิการใช้งานอุปกรณ์อัจฉริยะ",
             "ตรวจจับเสียงเตือนอันตรายในโรงงาน",
-            "AI ช่วยวิเคราะห์ความชื้นและอุณหภูมิในฟาร์ม",
+            "AI ช่วยวิเคราะห์ความชื้นและอุณหภูมิในฟาร์m",
             "ระบบติดตามการใช้วัสดุในโรงเรียน",
             "ตรวจจับพฤติกรรมผู้ป่วยในโรงพยาบาล",
             "วิเคราะห์แนวโน้มราคาหุ้นสำหรับนักลงทุนมือใหม่",
@@ -203,7 +258,7 @@
             "วิเคราะห์พฤติกรรมการใช้พลังงานในโรงเรียน",
             "AI ตรวจจับโรคผิวหนังเบื้องต้น",
             "ระบบแจ้งเตือนการจอดรถผิดกฎหมาย",
-            "วิเคราะห์ภาพถ่ายเพื่อคาดการณ์ภัยแล้ง",
+            "วิเคราะห์画像ถ่ายเพื่อคาดการณ์ภัยแล้ง",
             "AI ช่วยจำแนกพืชสมุนไพรและสรรพคุณ",
             "ระบบตรวจจับเสียงร้องของสัตว์ในสวนสัตว์",
             "AI วิเคราะห์รูปแบบการอ่านหนังสือของนักเรียน",
@@ -254,6 +309,8 @@
         const remainingAttemptsElement = document.getElementById('remainingAttempts');
         const attemptsInfoElement = document.getElementById('attemptsInfo');
         const ipAddressElement = document.getElementById('ipAddress');
+        const historyList = document.getElementById('historyList');
+        const noHistory = document.getElementById('noHistory');
 
         // ตัวแปรสำหรับเก็บข้อมูล
         let remainingAttempts = 5;
@@ -267,6 +324,38 @@
             
             const randomIndex = Math.floor(Math.random() * availableTopics.length);
             return availableTopics[randomIndex];
+        }
+
+        // ฟังก์ชันอัพเดทประวัติการสุ่ม
+        function updateHistory() {
+            // ล้างประวัติเก่า
+            historyList.innerHTML = '';
+            
+            if (usedTopics.length === 0) {
+                noHistory.style.display = 'block';
+            } else {
+                noHistory.style.display = 'none';
+                
+                // แสดงหัวข้อล่าสุดขึ้นก่อน (เรียงจากใหม่ไปเก่า)
+                const reversedHistory = [...usedTopics].reverse();
+                
+                reversedHistory.forEach((topic, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'history-item';
+                    
+                    const numberDiv = document.createElement('div');
+                    numberDiv.className = 'history-number';
+                    numberDiv.textContent = usedTopics.length - index;
+                    
+                    const topicDiv = document.createElement('div');
+                    topicDiv.textContent = topic;
+                    
+                    li.appendChild(numberDiv);
+                    li.appendChild(topicDiv);
+                    
+                    historyList.appendChild(li);
+                });
+            }
         }
 
         // ฟังก์ชันดึง IP Address
@@ -298,6 +387,7 @@
                     
                     // อัพเดทการแสดงผล
                     remainingAttemptsElement.textContent = remainingAttempts;
+                    updateHistory();
                     
                     if (remainingAttempts <= 0) {
                         randomButton.style.display = 'none';
@@ -369,6 +459,9 @@
             
             // อัพเดทจำนวนครั้งที่เหลือ
             updateAttempts();
+            
+            // อัพเดทประวัติการสุ่ม
+            updateHistory();
             
             // ลบเอฟเฟกต์ไฮไลต์หลังจาก animation เสร็จ
             setTimeout(() => {
