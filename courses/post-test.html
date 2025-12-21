@@ -1,58 +1,1317 @@
-// === ตั้งค่า SHEET_ID และ SHEET_NAME ที่นี่ ===
-const SHEET_ID   = "1JSWrx2bx5aYBsAFJv6DKpvXQjWsHDhnupWDeN6VghCU";      // ใส่ไอดีชีต
-const SHEET_NAME = "Responses";               // ชื่อชีตที่เก็บข้อมูล
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบทดสอบ | โรงเรียนตัวอย่าง</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', 'Sarabun', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding-bottom: 100px;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        .login-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .login-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        /* Exam Page */
+        .exam-page {
+            min-height: calc(100vh - 120px);
+            padding: 2rem 0;
+        }
+        
+        .exam-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .exam-header {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .exam-title {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
 
-function doPost(e) {
-  try {
-    const ss = SpreadsheetApp.openById(SHEET_ID);
-    const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+        .exam-subtitle {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 0.2rem;
+        }
+        
+        .timer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+        }
+        
+        .timer.warning {
+            background-color: #f39c12;
+        }
+        
+        .timer.danger {
+            background-color: var(--accent-color);
+        }
+        
+        .exam-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .start-exam {
+            text-align: left;
+            padding: 1rem 0 0;
+        }
+        
+        .start-exam h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .start-exam p {
+            color: #666;
+            margin-bottom: 0.8rem;
+        }
 
-    // สร้างหัวตารางถ้ายังไม่มี
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow([
-        "Timestamp",
-        "ชื่อ",
-        "นามสกุล",
-        "เลขที่",
-        "ห้อง",
-        "คะแนน (เช่น 30/40)",
-        "ถูก",
-        "ผิด",
-        "ไม่ได้ตอบ",
-        "จำนวนข้อทั้งหมด",
-        "เวลาใช้ (วินาที)",
-        "คำตอบ (array)"
-      ]);
-    }
+        .student-info, .exam-info {
+            margin: 1.5rem 0 1rem;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
+        }
 
-    const raw = e.postData && e.postData.contents ? e.postData.contents : "{}";
-    const data = JSON.parse(raw);
+        .student-info-title, .exam-info-title {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
 
-    const now = new Date();
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-    sheet.appendRow([
-      now,
-      data.firstName || "",
-      data.lastName || "",
-      data.number || "",
-      data.room || "",
-      data.scoreText || "",
-      data.correct || 0,
-      data.wrong || 0,
-      data.unanswered || 0,
-      data.total || "",
-      data.timeUsedSeconds || 0,
-      JSON.stringify(data.answers || [])
-    ]);
+        .form-group {
+            flex: 1 1 200px;
+            display: flex;
+            flex-direction: column;
+        }
 
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: true }))
-      .setMimeType(ContentService.MimeType.JSON);
+        .form-group label {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
 
-  } catch (err) {
-    Logger.log(err);
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: false, error: String(err) }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
+        .form-group input {
+            padding: 0.5rem 0.8rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #d1d5db;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
+        }
+
+        .start-btn {
+            margin-top: 1.5rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2.5rem;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .start-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .question-container {
+            display: none;
+        }
+        
+        .question {
+            margin-bottom: 2rem;
+        }
+        
+        .question-number {
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .question-image {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin: 0.8rem 0 1rem;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            background: #fff;
+        }
+
+        .option-image {
+            max-width: 120px;
+            max-height: 80px;
+            object-fit: contain;
+            border-radius: 4px;
+            background-color: #fff;
+            flex-shrink: 0;
+        }
+        
+        .option:hover {
+            border-color: var(--secondary-color);
+        }
+        
+        .option.selected {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-color: var(--secondary-color);
+        }
+        
+        .option.selected::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            color: var(--success-color);
+        }
+        
+        .option input {
+            display: none;
+        }
+        
+        .submit-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .submit-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2.5rem;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .submit-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        .result-container {
+            display: none;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .result-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .score {
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+        }
+        
+        .result-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .result-card p {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        .back-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2.5rem;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background-color: #1a252f;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-col a {
+            display: block;
+            color: #ddd;
+            margin-bottom: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-col a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* แถบความคืบหน้าแบบทดสอบ */
+        .progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            border-top: 1px solid #eee;
+        }
+        
+        .progress-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .progress-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .progress-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .progress-btn.answered {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .progress-btn.current {
+            border-color: var(--accent-color);
+            transform: scale(1.1);
+            font-weight: bold;
+        }
+        
+        .progress-btn:hover {
+            border-color: var(--secondary-color);
+        }
+        
+        .unanswered-warning {
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .exam-header {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            
+            .result-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .progress-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/learning-by-ratchapon/index.html" class="logo">
+                <img src="https://avatars.githubusercontent.com/u/67259782?s=400&u=9a07ea2e64a9d37ca64a03e1bdd3bf27726dda33&v=4" alt="สื่อการสอน By Ratchapon">
+                <span class="logo-text">สื่อการสอนออนไลน์</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="/learning-by-ratchapon/index.html">หน้าหลัก</a></li>
+                <li><a href="/learning-by-ratchapon/about.html">ประวัติครู</a></li>
+                <li><a href="/learning-by-ratchapon/achievements.html">ผลงาน</a></li>
+                <li><a href="/learning-by-ratchapon/courses.html">วิชาทั้งหมด</a></li>
+                <li><a href="/learning-by-ratchapon/knowledge.html">คลังความรู้</a></li>
+                <li><a href="/learning-by-ratchapon/contact.html">ติดต่อเรา</a></li>
+            </ul>
+            
+            <button class="login-btn" onclick="window.location.href='/learning-by-ratchapon/auth/login.html'">
+                <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
+            </button>
+        </div>
+    </header>
+    
+    <!-- Exam Page -->
+    <section class="exam-page">
+        <div class="exam-container">
+            <div class="exam-header">
+                <div>
+                    <h1 class="exam-title" id="exam-title-text">แบบทดสอบวิชาวิทยาการคำนวณ 1</h1>
+                    <div class="exam-subtitle" id="exam-subtitle-text"></div>
+                </div>
+                <div class="timer" id="timer">00:30:00</div>
+            </div>
+            
+            <div class="exam-card">
+                <!-- Start Exam Section -->
+                <div class="start-exam" id="start-exam">
+                    <h2 id="exam-heading">แบบทดสอบวิชาวิทยาการคำนวณ 1</h2>
+                    <p>แบบทดสอบนี้ประกอบด้วยข้อสอบทั้งหมด <strong>40 ข้อ</strong> มีเวลาในการทำ <strong>30 นาที</strong></p>
+                    <p>กรุณากรอกข้อมูลให้ครบถ้วนก่อนเริ่มทำแบบทดสอบ</p>
+
+                    <!-- ข้อมูลวิชา / การสอบ -->
+                    <div class="exam-info">
+                        <div class="exam-info-title">ข้อมูลแบบทดสอบ</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>วิชา</label>
+                                <input type="text" id="course-name" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>รหัสวิชา</label>
+                                <input type="text" id="course-code" disabled>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>ชื่อแบบทดสอบ</label>
+                                <input type="text" id="exam-name" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>ภาคเรียน / ปีการศึกษา</label>
+                                <input type="text" id="term-year" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>ครั้งที่สอบ</label>
+                                <input type="text" id="attempt-no" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ข้อมูลผู้สอบ -->
+                    <div class="student-info">
+                        <div class="student-info-title">
+                            ข้อมูลผู้ทำแบบทดสอบ
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-firstname">ชื่อ</label>
+                                <input type="text" id="student-firstname" placeholder="เช่น รัชพล">
+                            </div>
+                            <div class="form-group">
+                                <label for="student-lastname">นามสกุล</label>
+                                <input type="text" id="student-lastname" placeholder="เช่น ไชยวงค์">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-number">เลขที่</label>
+                                <input type="text" id="student-number" placeholder="เช่น 15">
+                            </div>
+                            <div class="form-group">
+                                <label for="student-room">ห้อง</label>
+                                <input type="text" id="student-room" placeholder="เช่น ม.4/1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="start-btn" id="start-btn">เริ่มทำแบบทดสอบ</button>
+                </div>
+                
+                <!-- Questions Section -->
+                <div class="question-container" id="question-container">
+                    <div id="questions"></div>
+                    
+                    <div class="submit-container">
+                        <button class="submit-btn" id="submit-btn">ส่งคำตอบ</button>
+                    </div>
+                </div>
+                
+                <!-- Result Section -->
+                <div class="result-container" id="result-container">
+                    <h2 class="result-title">ผลการทำแบบทดสอบ</h2>
+                    <div class="score" id="score">0/40</div>
+                    
+                    <div class="result-details">
+                        <div class="result-card">
+                            <h3>คำตอบที่ถูกต้อง</h3>
+                            <p id="correct-answers">0</p>
+                        </div>
+                        <div class="result-card">
+                            <h3>คำตอบที่ผิด</h3>
+                            <p id="wrong-answers">0</p>
+                        </div>
+                        <div class="result-card">
+                            <h3>ข้อที่ไม่ได้ตอบ</h3>
+                            <p id="unanswered">0</p>
+                        </div>
+                        <div class="result-card">
+                            <h3>ใช้เวลา</h3>
+                            <p id="time-used">00:00:00</p>
+                        </div>
+                    </div>
+                    
+                    <button class="back-btn" id="back-btn">กลับสู่หน้าหลัก</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- แถบความคืบหน้า -->
+    <div class="progress-container" id="progress-container" style="display: none;">
+        <div class="progress-title">ความคืบหน้าแบบทดสอบ</div>
+        <div class="progress-buttons" id="progress-buttons"></div>
+        <div class="unanswered-warning" id="unanswered-warning">คุณยังมีข้อที่ยังไม่ได้ตอบ!</div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>เกี่ยวกับเรา</h3>
+                    <p>สื่อการสอนออนไลน์ By Ratchapon</p>
+                    <p>ติดตามช่องทางอื่นๆ ได้ที่</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/ipaperz/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.youtube.com/@paperkusz-999"><i class="fab fa-youtube"></i></a>
+                        <a href="https://line.me/ti/p/JgvbvajUfU"><i class="fab fa-line"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ลิงก์ด่วน</h3>
+                    <a href="/learning-by-ratchapon/index.html">หน้าหลัก</a>
+                    <a href="/learning-by-ratchapon/about.html">ประวัติครู</a>
+                    <a href="/learning-by-ratchapon/achievements.html">ผลงาน</a>
+                    <a href="/learning-by-ratchapon/courses.html">วิชาทั้งหมด</a>
+                    <a href="/learning-by-ratchapon/knowledge.html">คลังความรู้</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ระบบสมาชิก</h3>
+                    <a href="/learning-by-ratchapon/auth/login.html">เข้าสู่ระบบ</a>
+                    <a href="/learning-by-ratchapon/auth/register.html">สมัครสมาชิก</a>
+                    <a href="#">ลืมรหัสผ่าน</a>
+                    <a href="#">คำถามที่พบบ่อย</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ติดต่อเรา</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> โรงเรียนพรตพิทยพยัต 4 ถนนหลวงพรต แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
+                    <p><i class="fas fa-phone"></i> 096-409-929-1</p>
+                    <p><i class="fas fa-envelope"></i> ratchapon@prot.ac.th</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; © 2025 สื่อการสอนออนไลน์ By Ratchapon (Ratchapon@prot.ac.th)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ==========================
+        //  CONFIG ส่วนกลาง
+        // ==========================
+
+        // <<< ตั้งค่า URL Web App ของ Google Apps Script >>>
+        const SHEET_API_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
+
+        // ข้อมูลวิชา / แบบทดสอบ (ครูเปลี่ยนได้)
+        const SCHOOL_NAME   = "โรงเรียนพรตพิทยพยัต";
+        const COURSE_NAME   = "วิทยาการคำนวณ 1";
+        const COURSE_CODE   = "ว30117";
+        const EXAM_TITLE    = "แบบทดสอบหน่วยที่ 1 เรื่อง Scratch พื้นฐาน";
+        const TERM          = "1";
+        const ACADEMIC_YEAR = "2568";
+        const ATTEMPT_NO    = 1;   // ครั้งที่สอบ เช่น 1 = สอบครั้งที่ 1
+
+        // แสดงข้อมูลวิชาบนหน้าเว็บ
+        document.getElementById("course-name").value = COURSE_NAME;
+        document.getElementById("course-code").value = COURSE_CODE;
+        document.getElementById("exam-name").value  = EXAM_TITLE;
+        document.getElementById("term-year").value  = `ภาคเรียนที่ ${TERM} / ${ACADEMIC_YEAR}`;
+        document.getElementById("attempt-no").value = ATTEMPT_NO;
+
+        document.getElementById("exam-title-text").textContent = `${COURSE_NAME} (${COURSE_CODE})`;
+        document.getElementById("exam-heading").textContent    = EXAM_TITLE;
+        document.getElementById("exam-subtitle-text").textContent =
+            `${SCHOOL_NAME} | ภาคเรียนที่ ${TERM} ปีการศึกษา ${ACADEMIC_YEAR} | ครั้งที่ ${ATTEMPT_NO}`;
+
+        // ==========================
+        //  ข้อมูลข้อสอบ 40 ข้อ
+        // ==========================
+        const allQuestions = [
+            {
+                question: "ข้อใด คือ บล็อกที่จะถูกนำมาใช้ เป็นอันดับแรก เสมอในการเขียนสคริปต์",
+                imageOptions: [
+                    "https://i.postimg.cc/TPdTDC6x/p1.png",
+                    "https://i.postimg.cc/w3YpTkVS/p2.png",
+                    "https://i.postimg.cc/HWqcyDPC/p3.png",
+                    "https://i.postimg.cc/j2PjX2kY/p4.png"
+                ],
+                options: ["ตัวเลือกที่ 1", "ตัวเลือกที่ 2", "ตัวเลือกที่ 3", "ตัวเลือกที่ 4"],
+                answer: 1
+            },
+            {
+                question: "จากรูป “เวที (Stage)” ตรงกับหมายเลขใด",
+                image: "https://i.postimg.cc/SxyK6y6H/p5.png",
+                options: ["หมายเลข 1", "หมายเลข 2", "หมายเลข 3", "หมายเลข 4"],
+                answer: 3
+            },
+            {
+                question: "โปรแกรม Scratch หมายถึงข้อใด",
+                options: [
+                    "โปรแกรมฝึกการเขียนคำสั่งด้วยการเขียนโปรแกรมภาษาอย่างง่าย",
+                    "โปรแกรมภาษาพัฒนาโดยทีมงาน MIT Media Lap",
+                    "โปรแกรมภาษาเชิงกราฟิก",
+                    "ถูกทุกข้อ"
+                ],
+                answer: 4
+            },
+            {
+                question: "จำนวนเฉพาะในข้อใดต่อไปนี้?",
+                options: ["4", "6", "7", "8"],
+                answer: 3
+            },
+            {
+                question: "√16 มีค่าเท่ากับเท่าไร?",
+                options: ["2", "4", "8", "16"],
+                answer: 2
+            },
+            {
+                question: "ผลลัพธ์ของ 12 ÷ 4 คือข้อใด?",
+                options: ["2", "3", "4", "6"],
+                answer: 2
+            },
+            {
+                question: "เศษส่วน 3/4 เท่ากับข้อใดต่อไปนี้?",
+                options: ["0.25", "0.5", "0.75", "1.0"],
+                answer: 3
+            },
+            {
+                question: "ถ้า y - 5 = 10 แล้ว y มีค่าเท่าไร?",
+                options: ["5", "10", "15", "20"],
+                answer: 3
+            },
+            {
+                question: "เลขคู่ในข้อใดต่อไปนี้?",
+                options: ["1", "3", "5", "8"],
+                answer: 4
+            },
+            {
+                question: "ผลลัพธ์ของ 2² + 3² คือข้อใด?",
+                options: ["5", "10", "13", "25"],
+                answer: 3
+            },
+            {
+                question: "ถ้า a = 2 และ b = 3 แล้ว a × b มีค่าเท่าไร?",
+                options: ["5", "6", "8", "9"],
+                answer: 2
+            },
+            {
+                question: "เศษส่วน 1/2 เท่ากับข้อใดต่อไปนี้?",
+                options: ["0.2", "0.25", "0.5", "0.75"],
+                answer: 3
+            },
+            {
+                question: "ผลลัพธ์ของ 7 - 3 × 2 คือข้อใด?",
+                options: ["1", "8", "11", "14"],
+                answer: 1
+            },
+            {
+                question: "ถ้า 2x = 10 แล้ว x มีค่าเท่าไร?",
+                options: ["2", "5", "8", "10"],
+                answer: 2
+            },
+            {
+                question: "ผลลัพธ์ของ 9 ÷ 3 + 2 คือข้อใด?",
+                options: ["3", "5", "6", "9"],
+                answer: 2
+            },
+            {
+                question: "จำนวนเต็มในข้อใดต่อไปนี้?",
+                options: ["0.5", "1.2", "3", "4.7"],
+                answer: 3
+            },
+            {
+                question: "ผลลัพธ์ของ 4 × (2 + 3) คือข้อใด?",
+                options: ["14", "20", "24", "32"],
+                answer: 2
+            },
+            {
+                question: "ถ้า 3x + 2 = 14 แล้ว x มีค่าเท่าไร?",
+                options: ["2", "4", "6", "8"],
+                answer: 2
+            },
+            {
+                question: "ผลลัพธ์ของ 5² - 3² คือข้อใด?",
+                options: ["4", "16", "22", "34"],
+                answer: 2
+            },
+            {
+                question: "เศษส่วน 2/5 เท่ากับข้อใดต่อไปนี้?",
+                options: ["0.2", "0.4", "0.5", "0.6"],
+                answer: 2
+            },
+            {
+                question: "ผลลัพธ์ของ 8 ÷ 2 × 4 คือข้อใด?",
+                options: ["1", "4", "16", "32"],
+                answer: 3
+            },
+            {
+                question: "ถ้า x = 4 แล้ว 2x + 3 มีค่าเท่าไร?",
+                options: ["7", "9", "11", "14"],
+                answer: 3
+            },
+            {
+                question: "ผลลัพธ์ของ 6 + 4 × 2 คือข้อใด?",
+                options: ["14", "20", "24", "28"],
+                answer: 1
+            },
+            {
+                question: "ถ้า 5x = 25 แล้ว x มีค่าเท่าไร?",
+                options: ["2", "5", "10", "15"],
+                answer: 2
+            },
+            {
+                question: "ผลลัพธ์ของ 10 - 2 × 3 คือข้อใด?",
+                options: ["4", "6", "16", "24"],
+                answer: 1
+            },
+            {
+                question: "เศษส่วน 3/8 เท่ากับข้อใดต่อไปนี้?",
+                options: ["0.125", "0.25", "0.375", "0.5"],
+                answer: 3
+            },
+            {
+                question: "ผลลัพธ์ของ 7 × 3 - 5 คือข้อใด?",
+                options: ["6", "16", "21", "26"],
+                answer: 2
+            },
+            {
+                question: "ถ้า 4x - 3 = 13 แล้ว x มีค่าเท่าไร?",
+                options: ["2", "4", "6", "8"],
+                answer: 2
+            },
+            {
+                question: "ผลลัพธ์ของ 9 - 3 ÷ 3 คือข้อใด?",
+                options: ["2", "6", "8", "9"],
+                answer: 3
+            },
+            {
+                question: "ถ้า x = 5 แล้ว 3x - 2 มีค่าเท่าไร?",
+                options: ["11", "13", "15", "17"],
+                answer: 2
+            },
+            // เพิ่มอีก 9 ข้อ
+            {
+                question: "คำสั่งใดใช้ในการทำซ้ำคำสั่งหลาย ๆ ครั้งใน Scratch?",
+                options: ["repeat", "if", "wait", "say"],
+                answer: 1
+            },
+            {
+                question: "บล็อกใดต่อไปนี้ใช้ในการตรวจสอบเงื่อนไข?",
+                options: ["move 10 steps", "if then", "play sound", "when green flag clicked"],
+                answer: 2
+            },
+            {
+                question: "ใน Scratch ตัวละครเรียกว่าอะไร?",
+                options: ["Stage", "Object", "Sprite", "Block"],
+                answer: 3
+            },
+            {
+                question: "ถ้าต้องการให้ตัวละครเคลื่อนที่ไปทางขวา แกน x ต้องเป็นอย่างไร?",
+                options: ["x เพิ่มขึ้น", "x ลดลง", "y เพิ่มขึ้น", "y ลดลง"],
+                answer: 1
+            },
+            {
+                question: "หน่วยของมุมหมุนใน Scratch คืออะไร?",
+                options: ["องศา", "เรเดียน", "เมตร", "วินาที"],
+                answer: 1
+            },
+            {
+                question: "คำสั่งใดใช้ในการหยุดสคริปต์ทั้งหมด?",
+                options: ["stop this script", "stop all", "stop others", "delete"],
+                answer: 2
+            },
+            {
+                question: "แนวคิดเชิงคำนวณข้อใดเกี่ยวข้องกับการแบ่งปัญหาใหญ่เป็นปัญหาเล็ก ๆ?",
+                options: ["การคิดเป็นลำดับขั้น", "การแบ่งย่อยปัญหา", "การหาลำดับแบบแผน", "การทั่วไป"],
+                answer: 2
+            },
+            {
+                question: "ข้อมูลประเภทใดต่อไปนี้จัดเป็นข้อมูลเชิงตรรกะ (Boolean)?",
+                options: ["10", "3.14", "\"สวัสดี\"", "จริง / เท็จ"],
+                answer: 4
+            },
+            {
+                question: "ใน Scratch ตัวแปร (Variable) ใช้เพื่ออะไร?",
+                options: [
+                    "เก็บค่าข้อมูลที่เปลี่ยนแปลงได้",
+                    "วาดภาพบนเวที",
+                    "เล่นเสียงเพลง",
+                    "เปลี่ยนฉากหลัง"
+                ],
+                answer: 1
+            }
+        ];
+
+        // ==========================
+        // ตัวแปรระบบ
+        // ==========================
+        let questions = [];
+        let userAnswers = [];
+        let currentQuestionIndex = 0;
+        let timeLeft = 30 * 60;
+        let timerInterval;
+        let startTime;
+
+        const startBtn = document.getElementById('start-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const backBtn = document.getElementById('back-btn');
+
+        startBtn.addEventListener('click', startExam);
+        submitBtn.addEventListener('click', submitExam);
+        backBtn.addEventListener('click', () => {
+            window.location.href = '/learning-by-ratchapon/index.html';
+        });
+        
+        function startExam() {
+            const firstName = document.getElementById('student-firstname').value.trim();
+            const lastName  = document.getElementById('student-lastname').value.trim();
+            const number    = document.getElementById('student-number').value.trim();
+            const room      = document.getElementById('student-room').value.trim();
+
+            if (!firstName || !lastName || !number || !room) {
+                alert('กรุณากรอก ชื่อ, นามสกุล, เลขที่ และ ห้อง ให้ครบถ้วนก่อนเริ่มทำแบบทดสอบ');
+                return;
+            }
+
+            questions = shuffleArray([...allQuestions]).slice(0, 40);
+            userAnswers = new Array(questions.length).fill(null);
+            
+            document.getElementById('start-exam').style.display = 'none';
+            document.getElementById('question-container').style.display = 'block';
+            document.getElementById('progress-container').style.display = 'block';
+            
+            renderQuestions();
+            renderProgressButtons();
+            
+            startTime = new Date();
+            timeLeft = 30 * 60;
+            startTimer();
+            scrollToQuestion(0);
+        }
+        
+        function renderQuestions() {
+            const questionsElement = document.getElementById('questions');
+            questionsElement.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.id = `question-${index}`;
+                
+                const questionNumber = document.createElement('div');
+                questionNumber.className = 'question-number';
+                questionNumber.textContent = `ข้อที่ ${index + 1}`;
+                
+                const questionText = document.createElement('div');
+                questionText.className = 'question-text';
+                questionText.textContent = q.question;
+                
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+
+                if (q.image) {
+                    const img = document.createElement('img');
+                    img.src = q.image;
+                    img.alt = 'ภาพประกอบคำถาม';
+                    img.className = 'question-image';
+                    questionDiv.appendChild(questionNumber);
+                    questionDiv.appendChild(questionText);
+                    questionDiv.appendChild(img);
+                } else {
+                    questionDiv.appendChild(questionNumber);
+                    questionDiv.appendChild(questionText);
+                }
+                
+                q.options.forEach((option, optionIndex) => {
+                    const optionDiv = document.createElement('label');
+                    optionDiv.className = 'option';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `question-${index}`;
+                    input.value = optionIndex;
+
+                    if (q.imageOptions && q.imageOptions[optionIndex]) {
+                        const imgOpt = document.createElement('img');
+                        imgOpt.src = q.imageOptions[optionIndex];
+                        imgOpt.alt = `ตัวเลือกที่ ${optionIndex + 1}`;
+                        imgOpt.className = 'option-image';
+                        optionDiv.appendChild(input);
+                        optionDiv.appendChild(imgOpt);
+                    } else {
+                        optionDiv.appendChild(input);
+                    }
+                    
+                    const span = document.createElement('span');
+                    span.textContent = option;
+                    optionDiv.appendChild(span);
+                    
+                    optionDiv.addEventListener('click', () => {
+                        optionsDiv.querySelectorAll('.option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        
+                        optionDiv.classList.add('selected');
+                        userAnswers[index] = optionIndex;
+                        updateProgressButtons();
+                        
+                        if (index < questions.length - 1) {
+                            setTimeout(() => {
+                                scrollToQuestion(index + 1);
+                            }, 300);
+                        }
+                    });
+                    
+                    optionsDiv.appendChild(optionDiv);
+                });
+                
+                questionDiv.appendChild(optionsDiv);
+                questionsElement.appendChild(questionDiv);
+            });
+        }
+        
+        function renderProgressButtons() {
+            const progressButtons = document.getElementById('progress-buttons');
+            progressButtons.innerHTML = '';
+            
+            questions.forEach((_, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'progress-btn';
+                btn.textContent = index + 1;
+                btn.addEventListener('click', () => scrollToQuestion(index));
+                progressButtons.appendChild(btn);
+            });
+
+            updateProgressButtons();
+        }
+        
+        function updateProgressButtons() {
+            const buttons = document.querySelectorAll('.progress-btn');
+            let hasUnanswered = false;
+            
+            buttons.forEach((btn, index) => {
+                if (userAnswers[index] !== null) {
+                    btn.classList.add('answered');
+                } else {
+                    btn.classList.remove('answered');
+                    hasUnanswered = true;
+                }
+                
+                btn.classList.remove('current');
+                if (index === currentQuestionIndex) {
+                    btn.classList.add('current');
+                }
+            });
+            
+            document.getElementById('unanswered-warning').style.display = 
+                hasUnanswered ? 'block' : 'none';
+        }
+        
+        function scrollToQuestion(index) {
+            currentQuestionIndex = index;
+            const questionElement = document.getElementById(`question-${index}`);
+            if (questionElement) {
+                questionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            updateProgressButtons();
+        }
+        
+        function startTimer() {
+            updateTimerDisplay();
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                }
+                
+                if (timeLeft <= 60) {
+                    document.getElementById('timer').classList.add('danger');
+                } else if (timeLeft <= 5 * 60) {
+                    document.getElementById('timer').classList.add('warning');
+                }
+            }, 1000);
+        }
+        
+        function updateTimerDisplay() {
+            const hours = Math.floor(timeLeft / 3600);
+            const minutes = Math.floor((timeLeft % 3600) / 60);
+            const seconds = timeLeft % 60;
+            
+            document.getElementById('timer').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function submitExam() {
+            clearInterval(timerInterval);
+
+            const firstName = document.getElementById('student-firstname').value.trim();
+            const lastName  = document.getElementById('student-lastname').value.trim();
+            const number    = document.getElementById('student-number').value.trim();
+            const room      = document.getElementById('student-room').value.trim();
+            
+            const endTime = new Date();
+            const timeUsed = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
+            
+            const unansweredCount = userAnswers.filter(answer => answer === null).length;
+            
+            let correct = 0;
+            let wrong = 0;
+            
+            questions.forEach((q, index) => {
+                let correctIndex;
+                if (q.answer >= 1 && q.answer <= q.options.length) {
+                    correctIndex = q.answer - 1;
+                } else {
+                    correctIndex = q.answer;
+                }
+
+                if (userAnswers[index] === correctIndex) {
+                    correct++;
+                } else if (userAnswers[index] !== null) {
+                    wrong++;
+                }
+            });
+
+            const total = questions.length;
+            
+            document.getElementById('question-container').style.display = 'none';
+            document.getElementById('progress-container').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+            
+            document.getElementById('score').textContent = `${correct}/${total}`;
+            document.getElementById('correct-answers').textContent = correct;
+            document.getElementById('wrong-answers').textContent = wrong;
+            document.getElementById('unanswered').textContent = unansweredCount;
+            
+            const hoursUsed = Math.floor(timeUsed / 3600);
+            const minutesUsed = Math.floor((timeUsed % 3600) / 60);
+            const secondsUsed = timeUsed % 60;
+            
+            document.getElementById('time-used').textContent = 
+                `${hoursUsed.toString().padStart(2, '0')}:${minutesUsed.toString().padStart(2, '0')}:${secondsUsed.toString().padStart(2, '0')}`;
+
+            // ส่งข้อมูลไป Google Sheet
+            sendResultToSheet({
+                schoolName: SCHOOL_NAME,
+                courseName: COURSE_NAME,
+                courseCode: COURSE_CODE,
+                examTitle: EXAM_TITLE,
+                term: TERM,
+                academicYear: ACADEMIC_YEAR,
+                attemptNo: ATTEMPT_NO,
+                firstName,
+                lastName,
+                number,
+                room,
+                scoreText: `${correct}/${total}`,
+                correct,
+                wrong,
+                unanswered: unansweredCount,
+                total,
+                timeUsedSeconds: timeUsed,
+                answers: userAnswers
+            });
+        }
+        
+        function sendResultToSheet(data) {
+            if (!SHEET_API_URL || SHEET_API_URL === "1JSWrx2bx5aYBsAFJv6DKpvXQjWsHDhnupWDeN6VghCU") {
+                console.warn("ยังไม่ได้ตั้งค่า SHEET_API_URL");
+                return;
+            }
+
+            fetch(SHEET_API_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).catch(err => {
+                console.error("ส่งข้อมูลไป Google Sheet ไม่สำเร็จ:", err);
+            });
+        }
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+    </script>
+</body>
+</html>
