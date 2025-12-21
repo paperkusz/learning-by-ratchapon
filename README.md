@@ -1,2 +1,23 @@
-# learning-by-ratchapon
-learning-by-ratchapon
+# ระบบข้อสอบออนไลน์ Arduino
+
+ระบบข้อสอบออนไลน์สำหรับโรงเรียนพรตพิทยพยัต วิชา Arduino และ IoT
+
+## คุณสมบัติ
+- ระบบข้อสอบออนไลน์แบบสมบูรณ์
+- ระบบจัดการข้อสอบสำหรับครูผู้สอน
+- บันทึกผลสอบอัตโนมัติ
+- ตรวจสอบ IP เพื่อป้องกันการสอบซ้ำ
+
+## การติดตั้ง
+1. Fork repository นี้
+2. เปิด Settings > Pages
+3. ตั้งค่า Source เป็น GitHub Actions
+4. เข้าถึงเว็บไซต์ที่ `https://yourusername.github.io/learning-by-ratchapon`
+
+## การใช้งาน
+1. **นักเรียน:** เข้าที่ `index.html`
+2. **ครูผู้สอน:** เข้าที่ `admin.html` (รหัสผ่านเริ่มต้น: admin/prot2025)
+
+## ข้อมูลติดต่อ
+ครูรัชพล - ratchapon@prot.ac.th
+โรงเรียนพรตพิทยพยัต
