@@ -764,555 +764,381 @@
     </footer>
 
     <script>
-        // ==========================
-        //  CONFIG ส่วนกลาง
-        // ==========================
+    // ==========================
+    //  CONFIG ส่วนกลาง
+    // ==========================
 
-        // <<< ตั้งค่า URL Web App ของ Google Apps Script >>>
-        const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxFa6DGZK34ejLnG9pcHgwWj4u7v0BFL39Wy-yD574JWQ3Jimlj2RBU_0YKvuShnD8f/exec";
+    // <<< ตั้งค่า URL Web App ของ Google Apps Script >>>
+    const SHEET_API_URL = "PASTE_YOUR_WEB_APP_URL_HERE";
 
-        // ข้อมูลวิชา / แบบทดสอบ (ครูเปลี่ยนได้)
-        const SCHOOL_NAME   = "โรงเรียนพรตพิทยพยัต";
-        const COURSE_NAME   = "หุ่นยนต์เบื้องต้น";
-        const COURSE_CODE   = "ว30257";
-        const EXAM_TITLE    = "สอบกลางภาค 2/2568";
-        const TERM          = "2";
-        const ACADEMIC_YEAR = "2568";
-        const ATTEMPT_NO    = 1;   // ครั้งที่สอบ เช่น 1 = สอบครั้งที่ 1
+    // ข้อมูลวิชา / แบบทดสอบ (ครูเปลี่ยนได้)
+    const SCHOOL_NAME   = "โรงเรียนพรตพิทยพยัต";
+    const COURSE_NAME   = "วิทยาการคำนวณ 1";
+    const COURSE_CODE   = "ว30117";
+    const EXAM_TITLE    = "แบบทดสอบหน่วยที่ 1 เรื่อง Scratch พื้นฐาน";
+    const TERM          = "1";
+    const ACADEMIC_YEAR = "2568";
+    const ATTEMPT_NO    = 1;   // ครั้งที่สอบ เช่น 1 = สอบครั้งที่ 1
 
-        // แสดงข้อมูลวิชาบนหน้าเว็บ
-        document.getElementById("course-name").value = COURSE_NAME;
-        document.getElementById("course-code").value = COURSE_CODE;
-        document.getElementById("exam-name").value  = EXAM_TITLE;
-        document.getElementById("term-year").value  = `ภาคเรียนที่ ${TERM} / ${ACADEMIC_YEAR}`;
-        document.getElementById("attempt-no").value = ATTEMPT_NO;
+    // แสดงข้อมูลวิชาบนหน้าเว็บ (ถ้ามี input เหมือนเวอร์ชันก่อน)
+    const courseNameEl = document.getElementById("course-name");
+    const courseCodeEl = document.getElementById("course-code");
+    const examNameEl   = document.getElementById("exam-name");
+    const termYearEl   = document.getElementById("term-year");
+    const attemptNoEl  = document.getElementById("attempt-no");
 
-        document.getElementById("exam-title-text").textContent = `${COURSE_NAME} (${COURSE_CODE})`;
-        document.getElementById("exam-heading").textContent    = EXAM_TITLE;
-        document.getElementById("exam-subtitle-text").textContent =
-            `${SCHOOL_NAME} | ภาคเรียนที่ ${TERM} ปีการศึกษา ${ACADEMIC_YEAR} | ครั้งที่ ${ATTEMPT_NO}`;
+    if (courseNameEl) courseNameEl.value = COURSE_NAME;
+    if (courseCodeEl) courseCodeEl.value = COURSE_CODE;
+    if (examNameEl)   examNameEl.value   = EXAM_TITLE;
+    if (termYearEl)   termYearEl.value   = `ภาคเรียนที่ ${TERM} / ${ACADEMIC_YEAR}`;
+    if (attemptNoEl)  attemptNoEl.value  = ATTEMPT_NO;
 
-        // ==========================
-        //  ข้อมูลข้อสอบ 40 ข้อ
-        // ==========================
-        const allQuestions = [
-            {
-                question: "ข้อใด คือ บล็อกที่จะถูกนำมาใช้ เป็นอันดับแรก เสมอในการเขียนสคริปต์",
-                imageOptions: [
-                    "https://i.postimg.cc/TPdTDC6x/p1.png",
-                    "https://i.postimg.cc/w3YpTkVS/p2.png",
-                    "https://i.postimg.cc/HWqcyDPC/p3.png",
-                    "https://i.postimg.cc/j2PjX2kY/p4.png"
-                ],
-                options: ["ตัวเลือกที่ 1", "ตัวเลือกที่ 2", "ตัวเลือกที่ 3", "ตัวเลือกที่ 4"],
-                answer: 1
-            },
-            {
-                question: "จากรูป “เวที (Stage)” ตรงกับหมายเลขใด",
-                image: "https://i.postimg.cc/SxyK6y6H/p5.png",
-                options: ["หมายเลข 1", "หมายเลข 2", "หมายเลข 3", "หมายเลข 4"],
-                answer: 3
-            },
-            {
-                question: "โปรแกรม Scratch หมายถึงข้อใด",
-                options: [
-                    "โปรแกรมฝึกการเขียนคำสั่งด้วยการเขียนโปรแกรมภาษาอย่างง่าย",
-                    "โปรแกรมภาษาพัฒนาโดยทีมงาน MIT Media Lap",
-                    "โปรแกรมภาษาเชิงกราฟิก",
-                    "ถูกทุกข้อ"
-                ],
-                answer: 4
-            },
-            {
-                question: "จำนวนเฉพาะในข้อใดต่อไปนี้?",
-                options: ["4", "6", "7", "8"],
-                answer: 3
-            },
-            {
-                question: "√16 มีค่าเท่ากับเท่าไร?",
-                options: ["2", "4", "8", "16"],
-                answer: 2
-            },
-            {
-                question: "ผลลัพธ์ของ 12 ÷ 4 คือข้อใด?",
-                options: ["2", "3", "4", "6"],
-                answer: 2
-            },
-            {
-                question: "เศษส่วน 3/4 เท่ากับข้อใดต่อไปนี้?",
-                options: ["0.25", "0.5", "0.75", "1.0"],
-                answer: 3
-            },
-            {
-                question: "ถ้า y - 5 = 10 แล้ว y มีค่าเท่าไร?",
-                options: ["5", "10", "15", "20"],
-                answer: 3
-            },
-            {
-                question: "เลขคู่ในข้อใดต่อไปนี้?",
-                options: ["1", "3", "5", "8"],
-                answer: 4
-            },
-            {
-                question: "ผลลัพธ์ของ 2² + 3² คือข้อใด?",
-                options: ["5", "10", "13", "25"],
-                answer: 3
-            },
-            {
-                question: "ถ้า a = 2 และ b = 3 แล้ว a × b มีค่าเท่าไร?",
-                options: ["5", "6", "8", "9"],
-                answer: 2
-            },
-            {
-                question: "เศษส่วน 1/2 เท่ากับข้อใดต่อไปนี้?",
-                options: ["0.2", "0.25", "0.5", "0.75"],
-                answer: 3
-            },
-            {
-                question: "ผลลัพธ์ของ 7 - 3 × 2 คือข้อใด?",
-                options: ["1", "8", "11", "14"],
-                answer: 1
-            },
-            {
-                question: "ถ้า 2x = 10 แล้ว x มีค่าเท่าไร?",
-                options: ["2", "5", "8", "10"],
-                answer: 2
-            },
-            {
-                question: "ผลลัพธ์ของ 9 ÷ 3 + 2 คือข้อใด?",
-                options: ["3", "5", "6", "9"],
-                answer: 2
-            },
-            {
-                question: "จำนวนเต็มในข้อใดต่อไปนี้?",
-                options: ["0.5", "1.2", "3", "4.7"],
-                answer: 3
-            },
-            {
-                question: "ผลลัพธ์ของ 4 × (2 + 3) คือข้อใด?",
-                options: ["14", "20", "24", "32"],
-                answer: 2
-            },
-            {
-                question: "ถ้า 3x + 2 = 14 แล้ว x มีค่าเท่าไร?",
-                options: ["2", "4", "6", "8"],
-                answer: 2
-            },
-            {
-                question: "ผลลัพธ์ของ 5² - 3² คือข้อใด?",
-                options: ["4", "16", "22", "34"],
-                answer: 2
-            },
-            {
-                question: "เศษส่วน 2/5 เท่ากับข้อใดต่อไปนี้?",
-                options: ["0.2", "0.4", "0.5", "0.6"],
-                answer: 2
-            },
-            {
-                question: "ผลลัพธ์ของ 8 ÷ 2 × 4 คือข้อใด?",
-                options: ["1", "4", "16", "32"],
-                answer: 3
-            },
-            {
-                question: "ถ้า x = 4 แล้ว 2x + 3 มีค่าเท่าไร?",
-                options: ["7", "9", "11", "14"],
-                answer: 3
-            },
-            {
-                question: "ผลลัพธ์ของ 6 + 4 × 2 คือข้อใด?",
-                options: ["14", "20", "24", "28"],
-                answer: 1
-            },
-            {
-                question: "ถ้า 5x = 25 แล้ว x มีค่าเท่าไร?",
-                options: ["2", "5", "10", "15"],
-                answer: 2
-            },
-            {
-                question: "ผลลัพธ์ของ 10 - 2 × 3 คือข้อใด?",
-                options: ["4", "6", "16", "24"],
-                answer: 1
-            },
-            {
-                question: "เศษส่วน 3/8 เท่ากับข้อใดต่อไปนี้?",
-                options: ["0.125", "0.25", "0.375", "0.5"],
-                answer: 3
-            },
-            {
-                question: "ผลลัพธ์ของ 7 × 3 - 5 คือข้อใด?",
-                options: ["6", "16", "21", "26"],
-                answer: 2
-            },
-            {
-                question: "ถ้า 4x - 3 = 13 แล้ว x มีค่าเท่าไร?",
-                options: ["2", "4", "6", "8"],
-                answer: 2
-            },
-            {
-                question: "ผลลัพธ์ของ 9 - 3 ÷ 3 คือข้อใด?",
-                options: ["2", "6", "8", "9"],
-                answer: 3
-            },
-            {
-                question: "ถ้า x = 5 แล้ว 3x - 2 มีค่าเท่าไร?",
-                options: ["11", "13", "15", "17"],
-                answer: 2
-            },
-            // เพิ่มอีก 9 ข้อ
-            {
-                question: "คำสั่งใดใช้ในการทำซ้ำคำสั่งหลาย ๆ ครั้งใน Scratch?",
-                options: ["repeat", "if", "wait", "say"],
-                answer: 1
-            },
-            {
-                question: "บล็อกใดต่อไปนี้ใช้ในการตรวจสอบเงื่อนไข?",
-                options: ["move 10 steps", "if then", "play sound", "when green flag clicked"],
-                answer: 2
-            },
-            {
-                question: "ใน Scratch ตัวละครเรียกว่าอะไร?",
-                options: ["Stage", "Object", "Sprite", "Block"],
-                answer: 3
-            },
-            {
-                question: "ถ้าต้องการให้ตัวละครเคลื่อนที่ไปทางขวา แกน x ต้องเป็นอย่างไร?",
-                options: ["x เพิ่มขึ้น", "x ลดลง", "y เพิ่มขึ้น", "y ลดลง"],
-                answer: 1
-            },
-            {
-                question: "หน่วยของมุมหมุนใน Scratch คืออะไร?",
-                options: ["องศา", "เรเดียน", "เมตร", "วินาที"],
-                answer: 1
-            },
-            {
-                question: "คำสั่งใดใช้ในการหยุดสคริปต์ทั้งหมด?",
-                options: ["stop this script", "stop all", "stop others", "delete"],
-                answer: 2
-            },
-            {
-                question: "แนวคิดเชิงคำนวณข้อใดเกี่ยวข้องกับการแบ่งปัญหาใหญ่เป็นปัญหาเล็ก ๆ?",
-                options: ["การคิดเป็นลำดับขั้น", "การแบ่งย่อยปัญหา", "การหาลำดับแบบแผน", "การทั่วไป"],
-                answer: 2
-            },
-            {
-                question: "ข้อมูลประเภทใดต่อไปนี้จัดเป็นข้อมูลเชิงตรรกะ (Boolean)?",
-                options: ["10", "3.14", "\"สวัสดี\"", "จริง / เท็จ"],
-                answer: 4
-            },
-            {
-                question: "ใน Scratch ตัวแปร (Variable) ใช้เพื่ออะไร?",
-                options: [
-                    "เก็บค่าข้อมูลที่เปลี่ยนแปลงได้",
-                    "วาดภาพบนเวที",
-                    "เล่นเสียงเพลง",
-                    "เปลี่ยนฉากหลัง"
-                ],
-                answer: 1
-            }
-        ];
+    document.getElementById("exam-title-text").textContent = `${COURSE_NAME} (${COURSE_CODE})`;
+    document.getElementById("exam-heading").textContent    = EXAM_TITLE;
+    document.getElementById("exam-subtitle-text").textContent =
+        `${SCHOOL_NAME} | ภาคเรียนที่ ${TERM} ปีการศึกษา ${ACADEMIC_YEAR} | ครั้งที่ ${ATTEMPT_NO}`;
 
-        // ==========================
-        // ตัวแปรระบบ
-        // ==========================
-        let questions = [];
-        let userAnswers = [];
-        let currentQuestionIndex = 0;
-        let timeLeft = 30 * 60;
-        let timerInterval;
-        let startTime;
+    // ==========================
+    //  ข้อมูลข้อสอบ 40 ข้อ (มี id ชัดเจน)
+    //  *** ไม่มีฟิลด์ answer แล้ว ***
+    // ==========================
+    const allQuestions = [
+        // ---- กลุ่มคณิต ----
+        { id: 1,  question: "√16 มีค่าเท่ากับเท่าไร?",              options: ["2", "4", "8", "16"] },
+        { id: 2,  question: "ผลลัพธ์ของ 12 ÷ 4 คือข้อใด?",           options: ["2", "3", "4", "6"] },
+        { id: 3,  question: "เศษส่วน 3/4 เท่ากับข้อใดต่อไปนี้?",     options: ["0.25", "0.5", "0.75", "1.0"] },
+        { id: 4,  question: "ถ้า y - 5 = 10 แล้ว y มีค่าเท่าไร?",     options: ["5", "10", "15", "20"] },
+        { id: 5,  question: "เลขคู่ในข้อใดต่อไปนี้?",                 options: ["1", "3", "5", "8"] },
+        { id: 6,  question: "ผลลัพธ์ของ 2² + 3² คือข้อใด?",          options: ["5", "10", "13", "25"] },
+        { id: 7,  question: "ถ้า a = 2 และ b = 3 แล้ว a × b มีค่าเท่าไร?", options: ["5", "6", "8", "9"] },
+        { id: 8,  question: "เศษส่วน 1/2 เท่ากับข้อใดต่อไปนี้?",     options: ["0.2", "0.25", "0.5", "0.75"] },
+        { id: 9,  question: "ผลลัพธ์ของ 7 - 3 × 2 คือข้อใด?",        options: ["1", "8", "11", "14"] },
+        { id: 10, question: "ถ้า 2x = 10 แล้ว x มีค่าเท่าไร?",        options: ["2", "5", "8", "10"] },
+        { id: 11, question: "ผลลัพธ์ของ 9 ÷ 3 + 2 คือข้อใด?",        options: ["3", "5", "6", "9"] },
+        { id: 12, question: "จำนวนเต็มในข้อใดต่อไปนี้?",             options: ["0.5", "1.2", "3", "4.7"] },
+        { id: 13, question: "ผลลัพธ์ของ 4 × (2 + 3) คือข้อใด?",      options: ["14", "20", "24", "32"] },
+        { id: 14, question: "ถ้า 3x + 2 = 14 แล้ว x มีค่าเท่าไร?",   options: ["2", "4", "6", "8"] },
+        { id: 15, question: "ผลลัพธ์ของ 5² - 3² คือข้อใด?",          options: ["4", "16", "22", "34"] },
+        { id: 16, question: "เศษส่วน 2/5 เท่ากับข้อใดต่อไปนี้?",     options: ["0.2", "0.4", "0.5", "0.6"] },
+        { id: 17, question: "ผลลัพธ์ของ 8 ÷ 2 × 4 คือข้อใด?",        options: ["1", "4", "16", "32"] },
+        { id: 18, question: "ถ้า x = 4 แล้ว 2x + 3 มีค่าเท่าไร?",     options: ["7", "9", "11", "14"] },
+        { id: 19, question: "ผลลัพธ์ของ 6 + 4 × 2 คือข้อใด?",        options: ["14", "20", "24", "28"] },
+        { id: 20, question: "ถ้า 5x = 25 แล้ว x มีค่าเท่าไร?",        options: ["2", "5", "10", "15"] },
+        { id: 21, question: "ผลลัพธ์ของ 10 - 2 × 3 คือข้อใด?",       options: ["4", "6", "16", "24"] },
+        { id: 22, question: "เศษส่วน 3/8 เท่ากับข้อใดต่อไปนี้?",    options: ["0.125", "0.25", "0.375", "0.5"] },
+        { id: 23, question: "ผลลัพธ์ของ 7 × 3 - 5 คือข้อใด?",        options: ["6", "16", "21", "26"] },
+        { id: 24, question: "ถ้า 4x - 3 = 13 แล้ว x มีค่าเท่าไร?",   options: ["2", "4", "6", "8"] },
+        { id: 25, question: "ผลลัพธ์ของ 9 - 3 ÷ 3 คือข้อใด?",        options: ["2", "6", "8", "9"] },
+        { id: 26, question: "ถ้า x = 5 แล้ว 3x - 2 มีค่าเท่าไร?",    options: ["11", "13", "15", "17"] },
 
-        const startBtn = document.getElementById('start-btn');
-        const submitBtn = document.getElementById('submit-btn');
-        const backBtn = document.getElementById('back-btn');
+        // ---- กลุ่ม Scratch / Computational Thinking ----
+        { id: 27, question: "คำสั่งใดใช้ในการทำซ้ำคำสั่งหลาย ๆ ครั้งใน Scratch?", options: ["repeat", "if", "wait", "say"] },
+        { id: 28, question: "บล็อกใดต่อไปนี้ใช้ในการตรวจสอบเงื่อนไข?",              options: ["move 10 steps", "if then", "play sound", "when green flag clicked"] },
+        { id: 29, question: "ใน Scratch ตัวละครเรียกว่าอะไร?",                         options: ["Stage", "Object", "Sprite", "Block"] },
+        { id: 30, question: "ถ้าต้องการให้ตัวละครเคลื่อนที่ไปทางขวา แกน x ต้องเป็นอย่างไร?", options: ["x เพิ่มขึ้น", "x ลดลง", "y เพิ่มขึ้น", "y ลดลง"] },
+        { id: 31, question: "หน่วยของมุมหมุนใน Scratch คืออะไร?",                     options: ["องศา", "เรเดียน", "เมตร", "วินาที"] },
+        { id: 32, question: "คำสั่งใดใช้ในการหยุดสคริปต์ทั้งหมด?",                    options: ["stop this script", "stop all", "stop others", "delete"] },
+        { id: 33, question: "แนวคิดเชิงคำนวณข้อใดเกี่ยวข้องกับการแบ่งปัญหาใหญ่เป็นปัญหาเล็ก ๆ?", options: ["การคิดเป็นลำดับขั้น", "การแบ่งย่อยปัญหา", "การหาลำดับแบบแผน", "การทั่วไป"] },
+        { id: 34, question: "ข้อมูลประเภทใดต่อไปนี้จัดเป็นข้อมูลเชิงตรรกะ (Boolean)?", options: ["10", "3.14", "\"สวัสดี\"", "จริง / เท็จ"] },
+        { id: 35, question: "ใน Scratch ตัวแปร (Variable) ใช้เพื่ออะไร?",             options: ["เก็บค่าข้อมูลที่เปลี่ยนแปลงได้", "วาดภาพบนเวที", "เล่นเสียงเพลง", "เปลี่ยนฉากหลัง"] },
 
-        startBtn.addEventListener('click', startExam);
-        submitBtn.addEventListener('click', submitExam);
-        backBtn.addEventListener('click', () => {
-            window.location.href = '/learning-by-ratchapon/index.html';
+        // ---- เพิ่มอีก 5 ข้อให้ครบ 40 ----
+        { id: 36, question: "บล็อกเริ่มต้นสคริปต์ที่ใช้บ่อยที่สุดใน Scratch คือข้อใด?", options: ["when green flag clicked", "go to x:0 y:0", "say Hello!", "repeat 10"] },
+        { id: 37, question: "แนวคิดเชิงคำนวณข้อใดเน้นการมองหารูปแบบที่เกิดซ้ำ?",  options: ["การคิดเป็นลำดับขั้น", "การแบ่งย่อยปัญหา", "การหาลำดับแบบแผน", "การทั่วไป"] },
+        { id: 38, question: "เศษส่วนใดเท่ากับ 0.25?",                                 options: ["1/4", "1/2", "2/3", "3/4"] },
+        { id: 39, question: "ผลลัพธ์ของ 100 ÷ 4 คือข้อใด?",                           options: ["10", "20", "25", "30"] },
+        { id: 40, question: "2³ (สองยกกำลังสาม) มีค่าเท่าไร?",                        options: ["4", "6", "8", "9"] }
+    ];
+
+    // ==========================
+    // ตัวแปรระบบ
+    // ==========================
+    let questions = [];
+    let userAnswers = [];        // เก็บ index ของตัวเลือกต่อข้อ (0–3 หรือ null)
+    let currentQuestionIndex = 0;
+    let timeLeft = 30 * 60;      // 30 นาที
+    let timerInterval;
+    let startTime;
+
+    const startBtn = document.getElementById('start-btn');
+    const submitBtn = document.getElementById('submit-btn');
+    const backBtn = document.getElementById('back-btn');
+
+    startBtn.addEventListener('click', startExam);
+    submitBtn.addEventListener('click', submitExam);
+    backBtn.addEventListener('click', () => {
+        window.location.href = '/learning-by-ratchapon/index.html';
+    });
+
+    // ==========================
+    // ฟังก์ชันเริ่มสอบ
+    // ==========================
+    function startExam() {
+        const firstName = document.getElementById('student-firstname').value.trim();
+        const lastName  = document.getElementById('student-lastname').value.trim();
+        const number    = document.getElementById('student-number').value.trim();
+        const room      = document.getElementById('student-room').value.trim();
+
+        if (!firstName || !lastName || !number || !room) {
+            alert('กรุณากรอก ชื่อ, นามสกุล, เลขที่ และ ห้อง ให้ครบถ้วนก่อนเริ่มทำแบบทดสอบ');
+            return;
+        }
+
+        // สุ่มข้อสอบ 40 ข้อ (ถ้า allQuestions > 40)
+        questions = shuffleArray([...allQuestions]).slice(0, 40);
+        userAnswers = new Array(questions.length).fill(null);
+
+        document.getElementById('start-exam').style.display = 'none';
+        document.getElementById('question-container').style.display = 'block';
+        document.getElementById('progress-container').style.display = 'block';
+
+        renderQuestions();
+        renderProgressButtons();
+
+        startTime = new Date();
+        timeLeft = 30 * 60;
+        startTimer();
+        scrollToQuestion(0);
+    }
+
+    // แสดงคำถามทั้งหมด
+    function renderQuestions() {
+        const questionsElement = document.getElementById('questions');
+        questionsElement.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.id = `question-${index}`;
+
+            const questionNumber = document.createElement('div');
+            questionNumber.className = 'question-number';
+            questionNumber.textContent = `ข้อที่ ${index + 1}`;
+
+            const questionText = document.createElement('div');
+            questionText.className = 'question-text';
+            questionText.textContent = q.question;
+
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            questionDiv.appendChild(questionNumber);
+            questionDiv.appendChild(questionText);
+
+            q.options.forEach((option, optionIndex) => {
+                const optionDiv = document.createElement('label');
+                optionDiv.className = 'option';
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `question-${index}`;
+                input.value = optionIndex;
+
+                const span = document.createElement('span');
+                span.textContent = option;
+
+                optionDiv.appendChild(input);
+                optionDiv.appendChild(span);
+
+                optionDiv.addEventListener('click', () => {
+                    optionsDiv.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+
+                    optionDiv.classList.add('selected');
+                    userAnswers[index] = optionIndex;
+                    updateProgressButtons();
+
+                    if (index < questions.length - 1) {
+                        setTimeout(() => {
+                            scrollToQuestion(index + 1);
+                        }, 300);
+                    }
+                });
+
+                optionsDiv.appendChild(optionDiv);
+            });
+
+            questionDiv.appendChild(optionsDiv);
+            questionsElement.appendChild(questionDiv);
         });
-        
-        function startExam() {
-            const firstName = document.getElementById('student-firstname').value.trim();
-            const lastName  = document.getElementById('student-lastname').value.trim();
-            const number    = document.getElementById('student-number').value.trim();
-            const room      = document.getElementById('student-room').value.trim();
+    }
 
-            if (!firstName || !lastName || !number || !room) {
-                alert('กรุณากรอก ชื่อ, นามสกุล, เลขที่ และ ห้อง ให้ครบถ้วนก่อนเริ่มทำแบบทดสอบ');
+    // แถบปุ่มข้อสอบด้านล่าง
+    function renderProgressButtons() {
+        const progressButtons = document.getElementById('progress-buttons');
+        progressButtons.innerHTML = '';
+
+        questions.forEach((_, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'progress-btn';
+            btn.textContent = index + 1;
+            btn.addEventListener('click', () => scrollToQuestion(index));
+            progressButtons.appendChild(btn);
+        });
+
+        updateProgressButtons();
+    }
+
+    function updateProgressButtons() {
+        const buttons = document.querySelectorAll('.progress-btn');
+        let hasUnanswered = false;
+
+        buttons.forEach((btn, index) => {
+            if (userAnswers[index] !== null) {
+                btn.classList.add('answered');
+            } else {
+                btn.classList.remove('answered');
+                hasUnanswered = true;
+            }
+
+            btn.classList.remove('current');
+            if (index === currentQuestionIndex) {
+                btn.classList.add('current');
+            }
+        });
+
+        document.getElementById('unanswered-warning').style.display =
+            hasUnanswered ? 'block' : 'none';
+    }
+
+    function scrollToQuestion(index) {
+        currentQuestionIndex = index;
+        const questionElement = document.getElementById(`question-${index}`);
+        if (questionElement) {
+            questionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        updateProgressButtons();
+    }
+
+    // ==========================
+    // Timer
+    // ==========================
+    function startTimer() {
+        updateTimerDisplay();
+
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                submitExam();
+            }
+
+            if (timeLeft <= 60) {
+                document.getElementById('timer').classList.add('danger');
+            } else if (timeLeft <= 5 * 60) {
+                document.getElementById('timer').classList.add('warning');
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        const hours   = Math.floor(timeLeft / 3600);
+        const minutes = Math.floor((timeLeft % 3600) / 60);
+        const seconds = timeLeft % 60;
+
+        document.getElementById('timer').textContent =
+            `${hours.toString().padStart(2, '0')}:` +
+            `${minutes.toString().padStart(2, '0')}:` +
+            `${seconds.toString().padStart(2, '0')}`;
+    }
+
+    // ==========================
+    // ส่งคำตอบไป Apps Script ให้ตรวจ
+    // ==========================
+    function submitExam() {
+        clearInterval(timerInterval);
+
+        const firstName = document.getElementById('student-firstname').value.trim();
+        const lastName  = document.getElementById('student-lastname').value.trim();
+        const number    = document.getElementById('student-number').value.trim();
+        const room      = document.getElementById('student-room').value.trim();
+
+        const endTime  = new Date();
+        const timeUsed = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
+
+        // แปลงข้อมูลที่ส่ง: { id, answer } ตามลำดับข้อที่ "แสดงหลังสุ่ม"
+        const answersPayload = questions.map((q, index) => ({
+            id: q.id,
+            answer: userAnswers[index]  // 0–3 หรือ null
+        }));
+
+        sendResultToSheet({
+            schoolName: SCHOOL_NAME,
+            courseName: COURSE_NAME,
+            courseCode: COURSE_CODE,
+            examTitle: EXAM_TITLE,
+            term: TERM,
+            academicYear: ACADEMIC_YEAR,
+            attemptNo: ATTEMPT_NO,
+            firstName,
+            lastName,
+            number,
+            room,
+            timeUsedSeconds: timeUsed,
+            answers: answersPayload
+        });
+    }
+
+    function sendResultToSheet(data) {
+        if (!SHEET_API_URL || SHEET_API_URL === "PASTE_YOUR_WEB_APP_URL_HERE") {
+            alert("ยังไม่ได้ตั้งค่า SHEET_API_URL ในโค้ด");
+            return;
+        }
+
+        fetch(SHEET_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(result => {
+            if (!result.ok) {
+                console.error("Error from server:", result.error);
+                alert("มีปัญหาในการบันทึกคะแนน กรุณาแจ้งครู");
                 return;
             }
 
-            questions = shuffleArray([...allQuestions]).slice(0, 40);
-            userAnswers = new Array(questions.length).fill(null);
-            
-            document.getElementById('start-exam').style.display = 'none';
-            document.getElementById('question-container').style.display = 'block';
-            document.getElementById('progress-container').style.display = 'block';
-            
-            renderQuestions();
-            renderProgressButtons();
-            
-            startTime = new Date();
-            timeLeft = 30 * 60;
-            startTimer();
-            scrollToQuestion(0);
-        }
-        
-        function renderQuestions() {
-            const questionsElement = document.getElementById('questions');
-            questionsElement.innerHTML = '';
-            
-            questions.forEach((q, index) => {
-                const questionDiv = document.createElement('div');
-                questionDiv.className = 'question';
-                questionDiv.id = `question-${index}`;
-                
-                const questionNumber = document.createElement('div');
-                questionNumber.className = 'question-number';
-                questionNumber.textContent = `ข้อที่ ${index + 1}`;
-                
-                const questionText = document.createElement('div');
-                questionText.className = 'question-text';
-                questionText.textContent = q.question;
-                
-                const optionsDiv = document.createElement('div');
-                optionsDiv.className = 'options';
+            const { scoreText, correct, wrong, unanswered, total } = result;
 
-                if (q.image) {
-                    const img = document.createElement('img');
-                    img.src = q.image;
-                    img.alt = 'ภาพประกอบคำถาม';
-                    img.className = 'question-image';
-                    questionDiv.appendChild(questionNumber);
-                    questionDiv.appendChild(questionText);
-                    questionDiv.appendChild(img);
-                } else {
-                    questionDiv.appendChild(questionNumber);
-                    questionDiv.appendChild(questionText);
-                }
-                
-                q.options.forEach((option, optionIndex) => {
-                    const optionDiv = document.createElement('label');
-                    optionDiv.className = 'option';
-                    
-                    const input = document.createElement('input');
-                    input.type = 'radio';
-                    input.name = `question-${index}`;
-                    input.value = optionIndex;
-
-                    if (q.imageOptions && q.imageOptions[optionIndex]) {
-                        const imgOpt = document.createElement('img');
-                        imgOpt.src = q.imageOptions[optionIndex];
-                        imgOpt.alt = `ตัวเลือกที่ ${optionIndex + 1}`;
-                        imgOpt.className = 'option-image';
-                        optionDiv.appendChild(input);
-                        optionDiv.appendChild(imgOpt);
-                    } else {
-                        optionDiv.appendChild(input);
-                    }
-                    
-                    const span = document.createElement('span');
-                    span.textContent = option;
-                    optionDiv.appendChild(span);
-                    
-                    optionDiv.addEventListener('click', () => {
-                        optionsDiv.querySelectorAll('.option').forEach(opt => {
-                            opt.classList.remove('selected');
-                        });
-                        
-                        optionDiv.classList.add('selected');
-                        userAnswers[index] = optionIndex;
-                        updateProgressButtons();
-                        
-                        if (index < questions.length - 1) {
-                            setTimeout(() => {
-                                scrollToQuestion(index + 1);
-                            }, 300);
-                        }
-                    });
-                    
-                    optionsDiv.appendChild(optionDiv);
-                });
-                
-                questionDiv.appendChild(optionsDiv);
-                questionsElement.appendChild(questionDiv);
-            });
-        }
-        
-        function renderProgressButtons() {
-            const progressButtons = document.getElementById('progress-buttons');
-            progressButtons.innerHTML = '';
-            
-            questions.forEach((_, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'progress-btn';
-                btn.textContent = index + 1;
-                btn.addEventListener('click', () => scrollToQuestion(index));
-                progressButtons.appendChild(btn);
-            });
-
-            updateProgressButtons();
-        }
-        
-        function updateProgressButtons() {
-            const buttons = document.querySelectorAll('.progress-btn');
-            let hasUnanswered = false;
-            
-            buttons.forEach((btn, index) => {
-                if (userAnswers[index] !== null) {
-                    btn.classList.add('answered');
-                } else {
-                    btn.classList.remove('answered');
-                    hasUnanswered = true;
-                }
-                
-                btn.classList.remove('current');
-                if (index === currentQuestionIndex) {
-                    btn.classList.add('current');
-                }
-            });
-            
-            document.getElementById('unanswered-warning').style.display = 
-                hasUnanswered ? 'block' : 'none';
-        }
-        
-        function scrollToQuestion(index) {
-            currentQuestionIndex = index;
-            const questionElement = document.getElementById(`question-${index}`);
-            if (questionElement) {
-                questionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            updateProgressButtons();
-        }
-        
-        function startTimer() {
-            updateTimerDisplay();
-            
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                updateTimerDisplay();
-                
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    submitExam();
-                }
-                
-                if (timeLeft <= 60) {
-                    document.getElementById('timer').classList.add('danger');
-                } else if (timeLeft <= 5 * 60) {
-                    document.getElementById('timer').classList.add('warning');
-                }
-            }, 1000);
-        }
-        
-        function updateTimerDisplay() {
-            const hours = Math.floor(timeLeft / 3600);
-            const minutes = Math.floor((timeLeft % 3600) / 60);
-            const seconds = timeLeft % 60;
-            
-            document.getElementById('timer').textContent = 
-                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-        
-        function submitExam() {
-            clearInterval(timerInterval);
-
-            const firstName = document.getElementById('student-firstname').value.trim();
-            const lastName  = document.getElementById('student-lastname').value.trim();
-            const number    = document.getElementById('student-number').value.trim();
-            const room      = document.getElementById('student-room').value.trim();
-            
-            const endTime = new Date();
-            const timeUsed = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
-            
-            const unansweredCount = userAnswers.filter(answer => answer === null).length;
-            
-            let correct = 0;
-            let wrong = 0;
-            
-            questions.forEach((q, index) => {
-                let correctIndex;
-                if (q.answer >= 1 && q.answer <= q.options.length) {
-                    correctIndex = q.answer - 1;
-                } else {
-                    correctIndex = q.answer;
-                }
-
-                if (userAnswers[index] === correctIndex) {
-                    correct++;
-                } else if (userAnswers[index] !== null) {
-                    wrong++;
-                }
-            });
-
-            const total = questions.length;
-            
             document.getElementById('question-container').style.display = 'none';
             document.getElementById('progress-container').style.display = 'none';
             document.getElementById('result-container').style.display = 'block';
-            
-            document.getElementById('score').textContent = `${correct}/${total}`;
+
+            document.getElementById('score').textContent           = scoreText;
             document.getElementById('correct-answers').textContent = correct;
-            document.getElementById('wrong-answers').textContent = wrong;
-            document.getElementById('unanswered').textContent = unansweredCount;
-            
-            const hoursUsed = Math.floor(timeUsed / 3600);
-            const minutesUsed = Math.floor((timeUsed % 3600) / 60);
-            const secondsUsed = timeUsed % 60;
-            
-            document.getElementById('time-used').textContent = 
-                `${hoursUsed.toString().padStart(2, '0')}:${minutesUsed.toString().padStart(2, '0')}:${secondsUsed.toString().padStart(2, '0')}`;
+            document.getElementById('wrong-answers').textContent   = wrong;
+            document.getElementById('unanswered').textContent      = unanswered;
 
-            // ส่งข้อมูลไป Google Sheet
-            sendResultToSheet({
-                schoolName: SCHOOL_NAME,
-                courseName: COURSE_NAME,
-                courseCode: COURSE_CODE,
-                examTitle: EXAM_TITLE,
-                term: TERM,
-                academicYear: ACADEMIC_YEAR,
-                attemptNo: ATTEMPT_NO,
-                firstName,
-                lastName,
-                number,
-                room,
-                scoreText: `${correct}/${total}`,
-                correct,
-                wrong,
-                unanswered: unansweredCount,
-                total,
-                timeUsedSeconds: timeUsed,
-                answers: userAnswers
-            });
-        }
-        
-        function sendResultToSheet(data) {
-            if (!SHEET_API_URL || SHEET_API_URL === "1JSWrx2bx5aYBsAFJv6DKpvXQjWsHDhnupWDeN6VghCU") {
-                console.warn("ยังไม่ได้ตั้งค่า SHEET_API_URL");
-                return;
-            }
+            const t = data.timeUsedSeconds || 0;
+            const h = Math.floor(t / 3600);
+            const m = Math.floor((t % 3600) / 60);
+            const s = t % 60;
 
-            fetch(SHEET_API_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            }).catch(err => {
-                console.error("ส่งข้อมูลไป Google Sheet ไม่สำเร็จ:", err);
-            });
-        }
+            document.getElementById('time-used').textContent =
+                `${h.toString().padStart(2, '0')}:` +
+                `${m.toString().padStart(2, '0')}:` +
+                `${s.toString().padStart(2, '0')}`;
+        })
+        .catch(err => {
+            console.error("Fetch error:", err);
+            alert("ไม่สามารถติดต่อเซิร์ฟเวอร์ได้ กรุณาแจ้งครู");
+        });
+    }
 
-        function shuffleArray(array) {
-            const newArray = [...array];
-            for (let i = newArray.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-            }
-            return newArray;
+    // Utility: สุ่ม array
+    function shuffleArray(array) {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
         }
-    </script>
+        return newArray;
+    }
+</script>
 </body>
 </html>
+
 
