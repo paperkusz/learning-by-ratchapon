@@ -1923,24 +1923,7 @@
     // ==========================
     // ฟังก์ชันเริ่มสอบในโหมดเต็มหน้าจอ
     // ==========================
-    function startExamInFullscreen() {
-        document.getElementById('start-exam').style.display = 'none';
-        document.getElementById('question-container').style.display = 'block';
-        document.getElementById('progress-container').style.display = 'block';
-
-        renderAllQuestions();
-        renderProgressButtons();
-
-        startTime = new Date();
-        timeLeft = TOTAL_TIME;
-        startTimer();
-        scrollToQuestion(0);
-        
-        // ตั้งค่าสถานะ
-        window.examStarted = true;
-        
-        showNotification('เริ่มทำแบบทดสอบ! คุณมีเวลา 40 นาที', 'info');
-    }
+    
 
     // ==========================
     // ฟังก์ชันเริ่มสอบ (สำหรับกรณีปกติ)
@@ -2603,5 +2586,6 @@
     </script>
 </body>
 </html>
+
 
 
