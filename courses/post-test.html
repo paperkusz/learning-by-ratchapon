@@ -31,7 +31,6 @@
             user-select: none;
         }
         
-        /* ป้องกันคลิกขวา */
         body {
             background: linear-gradient(135deg, #e6f2ff 0%, #f0f8ff 100%);
             color: #333;
@@ -53,7 +52,6 @@
             z-index: -1;
         }
         
-        /* Header Styles */
         .header {
             background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
             color: white;
@@ -151,7 +149,6 @@
             box-shadow: 0 5px 12px rgba(255, 102, 0, 0.4);
         }
         
-        /* Exam Page */
         .exam-page {
             min-height: calc(100vh - 120px);
             padding: 2rem 0;
@@ -234,7 +231,57 @@
             background: linear-gradient(to bottom, var(--primary-blue), var(--accent-orange));
         }
         
-        .start-exam {
+        /* เพิ่มสไตล์สำหรับการแจ้งเตือนสอบซ้ำ */
+        .already-submitted {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .already-submitted h2 {
+            color: var(--danger-red);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .already-submitted .result-box {
+            background: var(--light-blue);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--accent-orange);
+        }
+        
+        .already-submitted .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .already-submitted .result-label {
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+        
+        .already-submitted .result-value {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        .ip-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        /* ส่วนอื่นๆ เหมือนเดิม */
+        .start-exam, .question-container, .result-container {
             text-align: left;
             padding: 1rem 0 0;
         }
@@ -339,6 +386,13 @@
             background: linear-gradient(to right, var(--primary-blue), var(--dark-blue));
             transform: translateY(-3px);
             box-shadow: 0 6px 15px rgba(0, 102, 204, 0.4);
+        }
+        
+        .start-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         .question-container {
@@ -561,7 +615,6 @@
             box-shadow: 0 6px 15px rgba(0, 102, 204, 0.4);
         }
         
-        /* Footer */
         .footer {
             background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
             color: white;
@@ -636,7 +689,6 @@
             color: rgba(255,255,255,0.7);
         }
         
-        /* แถบความคืบหน้าแบบทดสอบ */
         .progress-container {
             position: fixed;
             bottom: 0;
@@ -719,7 +771,6 @@
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
         
-        /* Responsive Design */
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
@@ -753,7 +804,6 @@
             }
         }
         
-        /* ข้อความแจ้งเตือน */
         .notification {
             position: fixed;
             top: 20px;
@@ -778,6 +828,10 @@
         
         .notification.info {
             background: linear-gradient(to right, var(--secondary-blue), var(--primary-blue));
+        }
+        
+        .notification.warning {
+            background: linear-gradient(to right, var(--warning-orange), #ffb366);
         }
         
         @keyframes slideInRight {
@@ -822,11 +876,46 @@
             </div>
             
             <div class="exam-card">
+                <!-- Section for already submitted -->
+                <div class="already-submitted" id="already-submitted" style="display: none;">
+                    <h2><i class="fas fa-exclamation-triangle"></i> คุณได้ทำแบบทดสอบนี้แล้ว</h2>
+                    <div class="ip-warning">
+                        <i class="fas fa-desktop"></i> ระบบตรวจพบว่าคอมพิวเตอร์เครื่องนี้ได้ทำแบบทดสอบแล้ว
+                    </div>
+                    
+                    <div class="result-box">
+                        <h3>ผลการสอบครั้งล่าสุด</h3>
+                        <div class="result-item">
+                            <span class="result-label">ชื่อ-สกุล:</span>
+                            <span class="result-value" id="previous-name">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">คะแนน:</span>
+                            <span class="result-value" id="previous-score">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">วันที่สอบ:</span>
+                            <span class="result-value" id="previous-date">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">เวลาที่ใช้:</span>
+                            <span class="result-value" id="previous-time">-</span>
+                        </div>
+                    </div>
+                    
+                    <p>หากต้องการทำแบบทดสอบอีกครั้ง กรุณาใช้คอมพิวเตอร์เครื่องอื่น</p>
+                    <p><strong>หมายเหตุ:</strong> ระบบบันทึกข้อมูลตาม IP Address เพื่อป้องกันการสอบซ้ำ</p>
+                    
+                    <button class="back-btn" onclick="window.location.href='/learning-by-ratchapon/index.html'">
+                        <i class="fas fa-home"></i> กลับสู่หน้าหลัก
+                    </button>
+                </div>
+                
                 <!-- Start Exam Section -->
                 <div class="start-exam" id="start-exam">
                     <h2 id="exam-heading">แบบทดสอบวิชาหุ่นยนต์เบื้องต้น</h2>
                     <p>แบบทดสอบนี้ประกอบด้วยข้อสอบทั้งหมด <strong>20 ข้อ</strong> มีเวลาในการทำ <strong>30 นาที</strong></p>
-                    <p>กรุณากรอกข้อมูลให้ครบถ้วนก่อนเริ่มทำแบบทดสอบ</p>
+                    <p>⚠️ <strong>ข้อควรทราบ:</strong> แต่ละเครื่องคอมพิวเตอร์สามารถทำแบบทดสอบได้เพียง 1 ครั้งเท่านั้น</p>
 
                     <!-- ข้อมูลวิชา / การสอบ -->
                     <div class="exam-info">
@@ -926,6 +1015,10 @@
                         </div>
                     </div>
                     
+                    <p style="margin: 1rem 0; color: #666; font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i> ระบบได้บันทึกผลการสอบของคุณแล้ว
+                    </p>
+                    
                     <button class="back-btn" id="back-btn">
                         <i class="fas fa-home"></i> กลับสู่หน้าหลัก
                     </button>
@@ -948,6 +1041,7 @@
     
     <!-- Footer -->
     <footer class="footer">
+        <!-- ส่วน footer เหมือนเดิม -->
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
@@ -997,42 +1091,136 @@
     //  CONFIG ส่วนกลาง
     // ==========================
 
-    // <<< ตั้งค่า URL Web App ของ Google Apps Script >>>
-    // ให้นำโค้ด Google Apps Script ไปวางใน Google Sheets และเผยแพร่เป็นเว็บแอป
-    // จากนั้นคัดลอก URL มาใส่ที่นี่
-    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwwBoLodgNIrMf6GqSL7oQcJM1n80sEjFVOW4wzBqaaDH0l1xOItgZorJNFdQ7U8Zxv/exec";
+    // <<< เปลี่ยน URL นี้ให้ถูกต้อง >>>
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxIjuh6txnH_l2O8J65d6rZ2jSLq3t2vVtWg1O70s71B6D1mP4gSoy4l1b_6UMv4QwF/exec";
 
-    // ข้อมูลวิชา / แบบทดสอบ (ครูเปลี่ยนได้)
+    // ข้อมูลวิชา / แบบทดสอบ
     const SCHOOL_NAME   = "โรงเรียนพรตพิทยพยัต";
     const COURSE_NAME   = "แบบทดสอบวิชาหุ่นยนต์เบื้องต้น";
     const COURSE_CODE   = "ว30201";
     const EXAM_TITLE    = "สอบกลางภาค";
     const TERM          = "2";
     const ACADEMIC_YEAR = "2568";
-    const ATTEMPT_NO    = 1;   // ครั้งที่สอบ เช่น 1 = สอบครั้งที่ 1
+    const ATTEMPT_NO    = 1;
 
     // แสดงข้อมูลวิชาบนหน้าเว็บ
-    const courseNameEl = document.getElementById("course-name");
-    const courseCodeEl = document.getElementById("course-code");
-    const examNameEl   = document.getElementById("exam-name");
-    const termYearEl   = document.getElementById("term-year");
-    const attemptNoEl  = document.getElementById("attempt-no");
-
-    if (courseNameEl) courseNameEl.value = COURSE_NAME;
-    if (courseCodeEl) courseCodeEl.value = COURSE_CODE;
-    if (examNameEl)   examNameEl.value   = EXAM_TITLE;
-    if (termYearEl)   termYearEl.value   = `ภาคเรียนที่ ${TERM} / ${ACADEMIC_YEAR}`;
-    if (attemptNoEl)  attemptNoEl.value  = ATTEMPT_NO;
-
     document.getElementById("exam-title-text").textContent = `${COURSE_NAME} (${COURSE_CODE})`;
     document.getElementById("exam-heading").textContent    = EXAM_TITLE;
     document.getElementById("exam-subtitle-text").textContent =
         `${SCHOOL_NAME} | ภาคเรียนที่ ${TERM} ปีการศึกษา ${ACADEMIC_YEAR} | ครั้งที่ ${ATTEMPT_NO}`;
 
+    // ตั้งค่าฟิลด์ข้อมูล
+    document.getElementById("course-name").value = COURSE_NAME;
+    document.getElementById("course-code").value = COURSE_CODE;
+    document.getElementById("exam-name").value   = EXAM_TITLE;
+    document.getElementById("term-year").value   = `ภาคเรียนที่ ${TERM} / ${ACADEMIC_YEAR}`;
+    document.getElementById("attempt-no").value  = ATTEMPT_NO;
+
     // ==========================
-    // ข้อมูลข้อสอบวิชาหุ่นยนต์ 20 ข้อ (เข้ารหัสเพื่อป้องกันการดูเฉลย)
+    // ระบบเก็บข้อมูลใน LocalStorage และตรวจสอบ IP
     // ==========================
-    // เข้ารหัสเฉลยเพื่อป้องกันนักเรียนดูเฉลยจากโค้ด
+    
+    const STORAGE_KEY = 'robot_exam_submission';
+    const IP_STORAGE_KEY = 'exam_ip_tracker';
+    
+    // ฟังก์ชันตรวจสอบว่าผู้ใช้เคยสอบแล้วหรือไม่
+    function checkPreviousSubmission() {
+        // ตรวจสอบใน LocalStorage ก่อน
+        const previousData = localStorage.getItem(STORAGE_KEY);
+        const ipData = localStorage.getItem(IP_STORAGE_KEY);
+        
+        if (previousData) {
+            try {
+                const data = JSON.parse(previousData);
+                showAlreadySubmitted(data);
+                return true;
+            } catch (e) {
+                console.error('Error parsing stored data:', e);
+            }
+        }
+        
+        // ตรวจสอบกับเซิร์ฟเวอร์ว่า IP นี้เคยสอบแล้วหรือไม่
+        checkIPWithServer();
+        
+        return false;
+    }
+    
+    // ฟังก์ชันตรวจสอบ IP กับเซิร์ฟเวอร์
+    async function checkIPWithServer() {
+        try {
+            // พยายามดึง IP ของผู้ใช้
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            const userIP = data.ip;
+            
+            // ตรวจสอบกับเซิร์ฟเวอร์ว่า IP นี้เคยสอบแล้วหรือไม่
+            const checkResponse = await fetch(`${SHEET_API_URL}?action=checkIP&ip=${encodeURIComponent(userIP)}`);
+            const checkData = await checkResponse.json();
+            
+            if (checkData.hasSubmitted) {
+                showAlreadySubmitted(checkData.previousResult);
+                return true;
+            }
+            
+            // บันทึก IP ลง LocalStorage
+            const ipInfo = {
+                ip: userIP,
+                timestamp: new Date().toISOString(),
+                checked: true
+            };
+            localStorage.setItem(IP_STORAGE_KEY, JSON.stringify(ipInfo));
+            
+        } catch (error) {
+            console.log('ไม่สามารถตรวจสอบ IP ได้ (อาจใช้ออฟไลน์):', error);
+        }
+        
+        return false;
+    }
+    
+    // แสดงหน้าสำหรับผู้ที่สอบแล้ว
+    function showAlreadySubmitted(previousData) {
+        document.getElementById('start-exam').style.display = 'none';
+        document.getElementById('already-submitted').style.display = 'block';
+        
+        if (previousData) {
+            document.getElementById('previous-name').textContent = 
+                `${previousData.firstName || ''} ${previousData.lastName || ''}`.trim() || '-';
+            document.getElementById('previous-score').textContent = 
+                `${previousData.score || 0}/${previousData.total || 20}`;
+            document.getElementById('previous-date').textContent = 
+                previousData.submitDate || new Date().toLocaleDateString('th-TH');
+            document.getElementById('previous-time').textContent = 
+                previousData.timeUsed || '00:00:00';
+        }
+        
+        // ป้องกันการกด F5 เพื่อเริ่มสอบใหม่
+        disableStartButton();
+    }
+    
+    // ปิดการใช้งานปุ่มเริ่มสอบ
+    function disableStartButton() {
+        const startBtn = document.getElementById('start-btn');
+        startBtn.disabled = true;
+        startBtn.innerHTML = '<i class="fas fa-ban"></i> ทำแบบทดสอบแล้ว (ใช้ได้ครั้งเดียว)';
+    }
+    
+    // ตรวจสอบเมื่อโหลดหน้าเว็บ
+    document.addEventListener('DOMContentLoaded', function() {
+        // ตรวจสอบว่าเคยสอบแล้วหรือไม่
+        const hasSubmitted = checkPreviousSubmission();
+        
+        // ป้องกันการกด F5 เพื่อเริ่มใหม่
+        window.addEventListener('beforeunload', function(e) {
+            if (window.examStarted && !window.examFinished) {
+                e.preventDefault();
+                e.returnValue = 'คุณกำลังทำแบบทดสอบอยู่ ต้องการออกจากหน้าหรือไม่?';
+            }
+        });
+    });
+
+    // ==========================
+    // ข้อมูลข้อสอบ (เข้ารหัส)
+    // ==========================
     const encodedQuestions = [
         { id: 1, question: "โค้ดลักษณะใด เหมาะสมที่สุด สำหรับการทำงานซ้ำวนรอบที่แน่นอน", options: ["if–else", "for", "Do... while", "while"], correct: "MQ==" },
         { id: 2, question: "ข้อใด อธิบายความแตกต่างระหว่าง if-else และ loop ได้ถูกต้องที่สุด", options: ["ทั้งสองสามารถใช้แทนกันได้ทุกกรณี", "if-else ใช้ควบคุมจำนวนรอบ แต่ loop ใช้ตัดสินใจเลือกเงื่อนไข", "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้สำหรับประกาศตัวแปร", "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้ควบคุมจำนวนรอบ"], correct: "Mw==" },
@@ -1058,24 +1246,28 @@
 
     // ฟังก์ชันถอดรหัสเฉลย
     function decodeAnswer(encoded) {
-        return atob(encoded);
+        return parseInt(atob(encoded));
     }
 
-    // สร้างข้อสอบพร้อมเฉลยที่ถูกถอดรหัสแล้ว
+    // สร้างข้อสอบพร้อมเฉลย
     const allQuestions = encodedQuestions.map(q => ({
         ...q,
-        correctAnswer: parseInt(decodeAnswer(q.correct))
+        correctAnswer: decodeAnswer(q.correct)
     }));
 
     // ==========================
     // ตัวแปรระบบ
     // ==========================
     let questions = [];
-    let userAnswers = [];        // เก็บ index ของตัวเลือกต่อข้อ (0–3 หรือ null)
+    let userAnswers = [];
     let currentQuestionIndex = 0;
-    let timeLeft = 30 * 60;      // 30 นาที
+    let timeLeft = 30 * 60;
     let timerInterval;
     let startTime;
+    
+    // ตั้งค่า flag สำหรับตรวจสอบสถานะ
+    window.examStarted = false;
+    window.examFinished = false;
 
     const startBtn = document.getElementById('start-btn');
     const submitBtn = document.getElementById('submit-btn');
@@ -1088,7 +1280,7 @@
     });
 
     // ==========================
-    // ฟังก์ชันป้องกันคลิกขวา
+    // ฟังก์ชันป้องกันคลิกขวาและ F12
     // ==========================
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
@@ -1096,11 +1288,17 @@
         return false;
     });
 
-    // ป้องกันการเปิด DevTools ด้วย F12
     document.addEventListener('keydown', function(e) {
         if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'U')) {
             e.preventDefault();
             showNotification('ระบบป้องกันการดูโค้ดต้นฉบับ', 'warning');
+            return false;
+        }
+        
+        // ป้องกันการรีเฟรชหน้าเมื่อกำลังทำข้อสอบ
+        if (window.examStarted && !window.examFinished && e.key === 'F5') {
+            e.preventDefault();
+            showNotification('กำลังทำข้อสอบอยู่ ไม่สามารถรีเฟรชหน้าได้', 'warning');
             return false;
         }
     });
@@ -1123,6 +1321,14 @@
     // ฟังก์ชันเริ่มสอบ
     // ==========================
     function startExam() {
+        // ตรวจสอบอีกครั้งว่าเคยสอบแล้วหรือไม่
+        if (localStorage.getItem(STORAGE_KEY)) {
+            showNotification('คุณได้ทำแบบทดสอบนี้แล้ว', 'error');
+            const previousData = JSON.parse(localStorage.getItem(STORAGE_KEY));
+            showAlreadySubmitted(previousData);
+            return;
+        }
+
         const firstName = document.getElementById('student-firstname').value.trim();
         const lastName  = document.getElementById('student-lastname').value.trim();
         const number    = document.getElementById('student-number').value.trim();
@@ -1133,7 +1339,10 @@
             return;
         }
 
-        // สุ่มข้อสอบ 20 ข้อจากทั้งหมด
+        // บันทึกข้อมูลผู้สอบชั่วคราว
+        window.studentInfo = { firstName, lastName, number, room };
+
+        // สุ่มข้อสอบ
         questions = shuffleArray([...allQuestions]).slice(0, 20);
         userAnswers = new Array(questions.length).fill(null);
 
@@ -1148,6 +1357,9 @@
         timeLeft = 30 * 60;
         startTimer();
         scrollToQuestion(0);
+        
+        // ตั้งค่าสถานะ
+        window.examStarted = true;
         
         showNotification('เริ่มทำแบบทดสอบ! คุณมีเวลา 30 นาที', 'info');
     }
@@ -1298,15 +1510,14 @@
     }
 
     // ==========================
-    // ส่งคำตอบไป Apps Script ให้ตรวจ
+    // ส่งคำตอบและบันทึกข้อมูล
     // ==========================
-   function submitExam() {
+    function submitExam() {
         clearInterval(timerInterval);
-
-        const firstName = document.getElementById('student-firstname').value.trim();
-        const lastName  = document.getElementById('student-lastname').value.trim();
-        const number    = document.getElementById('student-number').value.trim();
-        const room      = document.getElementById('student-room').value.trim();
+        
+        // ตั้งค่าสถานะ
+        window.examFinished = true;
+        window.examStarted = false;
 
         const endTime  = new Date();
         const timeUsed = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
@@ -1326,92 +1537,67 @@
             }
         });
 
-        // แปลงข้อมูลสำหรับส่ง
-        const answersPayload = questions.map((q, index) => ({
-            id: q.id,
-            question: q.question.substring(0, 100), // ลดขนาดข้อมูล
-            answer: userAnswers[index],
-            correctAnswer: q.correctAnswer,
-            isCorrect: userAnswers[index] === q.correctAnswer
-        }));
-
-        // สร้างข้อมูลสำหรับส่ง
+        // บันทึกลง LocalStorage (ป้องกันการสอบซ้ำ)
         const resultData = {
-            schoolName: SCHOOL_NAME,
+            firstName: window.studentInfo.firstName,
+            lastName: window.studentInfo.lastName,
+            number: window.studentInfo.number,
+            room: window.studentInfo.room,
             courseName: COURSE_NAME,
             courseCode: COURSE_CODE,
             examTitle: EXAM_TITLE,
-            term: TERM,
-            academicYear: ACADEMIC_YEAR,
-            attemptNo: ATTEMPT_NO,
-            firstName: firstName,
-            lastName: lastName,
-            number: number,
-            room: room,
-            timeUsedSeconds: timeUsed,
             score: correct,
             total: questions.length,
             correctAnswers: correct,
             wrongAnswers: wrong,
             unanswered: unanswered,
-            answers: answersPayload,
-            timestamp: new Date().toISOString().split('T')[0] + " " + new Date().toLocaleTimeString('th-TH')
+            timeUsed: formatTime(timeUsed),
+            timeUsedSeconds: timeUsed,
+            submitDate: new Date().toLocaleDateString('th-TH'),
+            submitTime: new Date().toLocaleTimeString('th-TH'),
+            timestamp: new Date().toISOString()
         };
 
-        // แสดงข้อมูลที่จะส่ง (สำหรับ debug)
-        console.log("ข้อมูลที่จะส่ง:", resultData);
+        // บันทึกผลลัพธ์ลง LocalStorage
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(resultData));
         
-        // ส่งข้อมูลไปยัง Google Sheets
-        sendResultToSheet(resultData);
-    }
-
-    function sendResultToSheet(data) {
-        // ตรวจสอบว่า URL ถูกตั้งค่าหรือไม่
-        if (!SHEET_API_URL || SHEET_API_URL === "ใส่ URL ของคุณที่นี่" || SHEET_API_URL.includes("AKfycbzSq2jq")) {
-            showNotification('⚠️ ระบบออฟไลน์: ยังไม่ได้ตั้งค่า URL Google Sheets', 'warning');
-            showResultOffline(data);
-            return;
+        // บันทึก IP ลง LocalStorage
+        try {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const ipInfo = {
+                        ip: data.ip,
+                        timestamp: new Date().toISOString(),
+                        submitted: true
+                    };
+                    localStorage.setItem(IP_STORAGE_KEY, JSON.stringify(ipInfo));
+                })
+                .catch(() => {
+                    // ถ้าไม่สามารถดึง IP ได้
+                    const ipInfo = {
+                        ip: 'unknown',
+                        timestamp: new Date().toISOString(),
+                        submitted: true
+                    };
+                    localStorage.setItem(IP_STORAGE_KEY, JSON.stringify(ipInfo));
+                });
+        } catch (e) {
+            console.log('ไม่สามารถบันทึก IP ได้:', e);
         }
 
-        showNotification('กำลังบันทึกข้อมูล...', 'info');
+        // แสดงผลลัพธ์
+        showResult(resultData);
         
-        // ส่งข้อมูลด้วย fetch
-        fetch(SHEET_API_URL, {
-            method: "POST",
-            mode: "no-cors", // เพิ่มบรรทัดนี้สำหรับแก้ปัญหา CORS
-            headers: { 
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            // เนื่องจากใช้ no-cors เราจะไม่สามารถอ่าน response ได้
-            // แต่เราสามารถตรวจสอบว่า request สำเร็จหรือไม่
-            console.log("ส่งข้อมูลสำเร็จ (no-cors mode)");
-            showNotification('✅ บันทึกข้อมูลสำเร็จ!', 'success');
-            
-            // แสดงผลลัพธ์
-            showResultOffline(data);
-            
-            // พยายามดึงข้อมูลจาก response ถ้าเป็นไปได้
-            if (response && response.ok) {
-                return response.json();
-            }
-            return { success: true };
-        })
-        .then(result => {
-            if (result && result.success) {
-                console.log("ผลลัพธ์จากเซิร์ฟเวอร์:", result);
-            }
-        })
-        .catch(error => {
-            console.error("ข้อผิดพลาด:", error);
-            showNotification('⚠️ บันทึกข้อมูลออฟไลน์ (มีปัญหาเชื่อมต่อ)', 'warning');
-            showResultOffline(data);
-        });
+        // ส่งข้อมูลไปยัง Google Sheets (ถ้ามีการเชื่อมต่อ)
+        sendToGoogleSheets(resultData);
+        
+        // ป้องกันการเริ่มใหม่โดยปิดการใช้งานปุ่ม
+        disableStartButton();
     }
 
-    function showResultOffline(data) {
+    // แสดงผลลัพธ์
+    function showResult(data) {
         document.getElementById('question-container').style.display = 'none';
         document.getElementById('progress-container').style.display = 'none';
         document.getElementById('result-container').style.display = 'block';
@@ -1420,22 +1606,12 @@
         document.getElementById('correct-answers').textContent = data.correctAnswers;
         document.getElementById('wrong-answers').textContent = data.wrongAnswers;
         document.getElementById('unanswered').textContent = data.unanswered;
+        document.getElementById('time-used').textContent = data.timeUsed;
 
-        const t = data.timeUsedSeconds || 0;
-        const h = Math.floor(t / 3600);
-        const m = Math.floor((t % 3600) / 60);
-        const s = t % 60;
-
-        document.getElementById('time-used').textContent =
-            `${h.toString().padStart(2, '0')}:` +
-            `${m.toString().padStart(2, '0')}:` +
-            `${s.toString().padStart(2, '0')}`;
-            
-        // คำนวณเปอร์เซ็นต์
+        // เปลี่ยนสีตามคะแนน
         const percentage = Math.round((data.score / data.total) * 100);
         const scoreElement = document.getElementById('score');
         
-        // เปลี่ยนสีของคะแนนตามระดับ
         if (percentage >= 80) {
             scoreElement.style.color = "var(--success-green)";
         } else if (percentage >= 50) {
@@ -1443,42 +1619,49 @@
         } else {
             scoreElement.style.color = "var(--danger-red)";
         }
+        
+        showNotification('บันทึกผลสอบเรียบร้อยแล้ว!', 'success');
     }
 
-    function showResultOnline(data, result) {
-        const { scoreText, correct, wrong, unanswered, total } = result;
-
-        document.getElementById('question-container').style.display = 'none';
-        document.getElementById('progress-container').style.display = 'none';
-        document.getElementById('result-container').style.display = 'block';
-
-        document.getElementById('score').textContent = scoreText || `${data.score}/${data.total}`;
-        document.getElementById('correct-answers').textContent = correct || data.correctAnswers;
-        document.getElementById('wrong-answers').textContent = wrong || data.wrongAnswers;
-        document.getElementById('unanswered').textContent = unanswered || data.unanswered;
-
-        const t = data.timeUsedSeconds || 0;
-        const h = Math.floor(t / 3600);
-        const m = Math.floor((t % 3600) / 60);
-        const s = t % 60;
-
-        document.getElementById('time-used').textContent =
-            `${h.toString().padStart(2, '0')}:` +
-            `${m.toString().padStart(2, '0')}:` +
-            `${s.toString().padStart(2, '0')}`;
-            
-        // คำนวณเปอร์เซ็นต์
-        const percentage = Math.round((data.score / data.total) * 100);
-        const scoreElement = document.getElementById('score');
-        
-        // เปลี่ยนสีของคะแนนตามระดับ
-        if (percentage >= 80) {
-            scoreElement.style.color = "var(--success-green)";
-        } else if (percentage >= 50) {
-            scoreElement.style.color = "var(--warning-orange)";
-        } else {
-            scoreElement.style.color = "var(--danger-red)";
+    // ส่งข้อมูลไปยัง Google Sheets
+    function sendToGoogleSheets(data) {
+        if (!SHEET_API_URL || SHEET_API_URL.includes("ใส่ URL ของคุณที่นี่")) {
+            console.log('ไม่ได้ตั้งค่า URL Google Sheets');
+            return;
         }
+
+        // เตรียมข้อมูลสำหรับส่ง
+        const sheetData = {
+            action: 'submitExam',
+            ...data,
+            schoolName: SCHOOL_NAME,
+            term: TERM,
+            academicYear: ACADEMIC_YEAR,
+            attemptNo: ATTEMPT_NO,
+            // เพิ่มข้อมูล IP ถ้ามี
+            ip: localStorage.getItem(IP_STORAGE_KEY) ? 
+                JSON.parse(localStorage.getItem(IP_STORAGE_KEY)).ip : 'unknown'
+        };
+
+        // ส่งข้อมูลแบบไม่ต้องรอ response (fire and forget)
+        fetch(SHEET_API_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(sheetData)
+        }).catch(error => {
+            console.log('ไม่สามารถส่งข้อมูลไปยัง Google Sheets ได้:', error);
+        });
+    }
+
+    // ฟังก์ชันแปลงเวลา
+    function formatTime(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
 
     // Utility: สุ่ม array
@@ -1493,5 +1676,3 @@
     </script>
 </body>
 </html>
-
-
