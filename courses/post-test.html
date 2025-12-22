@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบทดสอบ | โรงเรียนตัวอย่าง</title>
+    <title>แบบทดสอบวิชาหุ่นยนต์เบื้องต้น | โรงเรียนพรตพิทยพยัต</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -599,7 +599,7 @@
         <div class="exam-container">
             <div class="exam-header">
                 <div>
-                    <h1 class="exam-title" id="exam-title-text">แบบทดสอบวิชาวิทยาการคำนวณ 1</h1>
+                    <h1 class="exam-title" id="exam-title-text">แบบทดสอบวิชาโค้ดดิ้ง</h1>
                     <div class="exam-subtitle" id="exam-subtitle-text"></div>
                 </div>
                 <div class="timer" id="timer">00:30:00</div>
@@ -608,8 +608,8 @@
             <div class="exam-card">
                 <!-- Start Exam Section -->
                 <div class="start-exam" id="start-exam">
-                    <h2 id="exam-heading">แบบทดสอบวิชาวิทยาการคำนวณ 1</h2>
-                    <p>แบบทดสอบนี้ประกอบด้วยข้อสอบทั้งหมด <strong>40 ข้อ</strong> มีเวลาในการทำ <strong>30 นาที</strong></p>
+                    <h2 id="exam-heading">แบบทดสอบวิชาโค้ดดิ้ง</h2>
+                    <p>แบบทดสอบนี้ประกอบด้วยข้อสอบทั้งหมด <strong>20 ข้อ</strong> มีเวลาในการทำ <strong>30 นาที</strong></p>
                     <p>กรุณากรอกข้อมูลให้ครบถ้วนก่อนเริ่มทำแบบทดสอบ</p>
 
                     <!-- ข้อมูลวิชา / การสอบ -->
@@ -683,7 +683,7 @@
                 <!-- Result Section -->
                 <div class="result-container" id="result-container">
                     <h2 class="result-title">ผลการทำแบบทดสอบ</h2>
-                    <div class="score" id="score">0/40</div>
+                    <div class="score" id="score">0/20</div>
                     
                     <div class="result-details">
                         <div class="result-card">
@@ -773,14 +773,14 @@
 
     // ข้อมูลวิชา / แบบทดสอบ (ครูเปลี่ยนได้)
     const SCHOOL_NAME   = "โรงเรียนพรตพิทยพยัต";
-    const COURSE_NAME   = "วิทยาการคำนวณ 1";
-    const COURSE_CODE   = "ว30117";
-    const EXAM_TITLE    = "แบบทดสอบหน่วยที่ 1 เรื่อง Scratch พื้นฐาน";
+    const COURSE_NAME   = "โค้ดดิ้ง";
+    const COURSE_CODE   = "ว30201";
+    const EXAM_TITLE    = "แบบทดสอบเรื่อง การเขียนโปรแกรมพื้นฐาน";
     const TERM          = "1";
     const ACADEMIC_YEAR = "2568";
     const ATTEMPT_NO    = 1;   // ครั้งที่สอบ เช่น 1 = สอบครั้งที่ 1
 
-    // แสดงข้อมูลวิชาบนหน้าเว็บ (ถ้ามี input เหมือนเวอร์ชันก่อน)
+    // แสดงข้อมูลวิชาบนหน้าเว็บ
     const courseNameEl = document.getElementById("course-name");
     const courseCodeEl = document.getElementById("course-code");
     const examNameEl   = document.getElementById("exam-name");
@@ -799,55 +799,149 @@
         `${SCHOOL_NAME} | ภาคเรียนที่ ${TERM} ปีการศึกษา ${ACADEMIC_YEAR} | ครั้งที่ ${ATTEMPT_NO}`;
 
     // ==========================
-    //  ข้อมูลข้อสอบ 40 ข้อ (มี id ชัดเจน)
-    //  *** ไม่มีฟิลด์ answer แล้ว ***
+    // ข้อมูลข้อสอบวิชาโค้ดดิ้ง 20 ข้อ (จากรูปที่แนบมา)
     // ==========================
     const allQuestions = [
-        // ---- กลุ่มคณิต ----
-        { id: 1,  question: "√16 มีค่าเท่ากับเท่าไร?",              options: ["2", "4", "8", "16"] },
-        { id: 2,  question: "ผลลัพธ์ของ 12 ÷ 4 คือข้อใด?",           options: ["2", "3", "4", "6"] },
-        { id: 3,  question: "เศษส่วน 3/4 เท่ากับข้อใดต่อไปนี้?",     options: ["0.25", "0.5", "0.75", "1.0"] },
-        { id: 4,  question: "ถ้า y - 5 = 10 แล้ว y มีค่าเท่าไร?",     options: ["5", "10", "15", "20"] },
-        { id: 5,  question: "เลขคู่ในข้อใดต่อไปนี้?",                 options: ["1", "3", "5", "8"] },
-        { id: 6,  question: "ผลลัพธ์ของ 2² + 3² คือข้อใด?",          options: ["5", "10", "13", "25"] },
-        { id: 7,  question: "ถ้า a = 2 และ b = 3 แล้ว a × b มีค่าเท่าไร?", options: ["5", "6", "8", "9"] },
-        { id: 8,  question: "เศษส่วน 1/2 เท่ากับข้อใดต่อไปนี้?",     options: ["0.2", "0.25", "0.5", "0.75"] },
-        { id: 9,  question: "ผลลัพธ์ของ 7 - 3 × 2 คือข้อใด?",        options: ["1", "8", "11", "14"] },
-        { id: 10, question: "ถ้า 2x = 10 แล้ว x มีค่าเท่าไร?",        options: ["2", "5", "8", "10"] },
-        { id: 11, question: "ผลลัพธ์ของ 9 ÷ 3 + 2 คือข้อใด?",        options: ["3", "5", "6", "9"] },
-        { id: 12, question: "จำนวนเต็มในข้อใดต่อไปนี้?",             options: ["0.5", "1.2", "3", "4.7"] },
-        { id: 13, question: "ผลลัพธ์ของ 4 × (2 + 3) คือข้อใด?",      options: ["14", "20", "24", "32"] },
-        { id: 14, question: "ถ้า 3x + 2 = 14 แล้ว x มีค่าเท่าไร?",   options: ["2", "4", "6", "8"] },
-        { id: 15, question: "ผลลัพธ์ของ 5² - 3² คือข้อใด?",          options: ["4", "16", "22", "34"] },
-        { id: 16, question: "เศษส่วน 2/5 เท่ากับข้อใดต่อไปนี้?",     options: ["0.2", "0.4", "0.5", "0.6"] },
-        { id: 17, question: "ผลลัพธ์ของ 8 ÷ 2 × 4 คือข้อใด?",        options: ["1", "4", "16", "32"] },
-        { id: 18, question: "ถ้า x = 4 แล้ว 2x + 3 มีค่าเท่าไร?",     options: ["7", "9", "11", "14"] },
-        { id: 19, question: "ผลลัพธ์ของ 6 + 4 × 2 คือข้อใด?",        options: ["14", "20", "24", "28"] },
-        { id: 20, question: "ถ้า 5x = 25 แล้ว x มีค่าเท่าไร?",        options: ["2", "5", "10", "15"] },
-        { id: 21, question: "ผลลัพธ์ของ 10 - 2 × 3 คือข้อใด?",       options: ["4", "6", "16", "24"] },
-        { id: 22, question: "เศษส่วน 3/8 เท่ากับข้อใดต่อไปนี้?",    options: ["0.125", "0.25", "0.375", "0.5"] },
-        { id: 23, question: "ผลลัพธ์ของ 7 × 3 - 5 คือข้อใด?",        options: ["6", "16", "21", "26"] },
-        { id: 24, question: "ถ้า 4x - 3 = 13 แล้ว x มีค่าเท่าไร?",   options: ["2", "4", "6", "8"] },
-        { id: 25, question: "ผลลัพธ์ของ 9 - 3 ÷ 3 คือข้อใด?",        options: ["2", "6", "8", "9"] },
-        { id: 26, question: "ถ้า x = 5 แล้ว 3x - 2 มีค่าเท่าไร?",    options: ["11", "13", "15", "17"] },
-
-        // ---- กลุ่ม Scratch / Computational Thinking ----
-        { id: 27, question: "คำสั่งใดใช้ในการทำซ้ำคำสั่งหลาย ๆ ครั้งใน Scratch?", options: ["repeat", "if", "wait", "say"] },
-        { id: 28, question: "บล็อกใดต่อไปนี้ใช้ในการตรวจสอบเงื่อนไข?",              options: ["move 10 steps", "if then", "play sound", "when green flag clicked"] },
-        { id: 29, question: "ใน Scratch ตัวละครเรียกว่าอะไร?",                         options: ["Stage", "Object", "Sprite", "Block"] },
-        { id: 30, question: "ถ้าต้องการให้ตัวละครเคลื่อนที่ไปทางขวา แกน x ต้องเป็นอย่างไร?", options: ["x เพิ่มขึ้น", "x ลดลง", "y เพิ่มขึ้น", "y ลดลง"] },
-        { id: 31, question: "หน่วยของมุมหมุนใน Scratch คืออะไร?",                     options: ["องศา", "เรเดียน", "เมตร", "วินาที"] },
-        { id: 32, question: "คำสั่งใดใช้ในการหยุดสคริปต์ทั้งหมด?",                    options: ["stop this script", "stop all", "stop others", "delete"] },
-        { id: 33, question: "แนวคิดเชิงคำนวณข้อใดเกี่ยวข้องกับการแบ่งปัญหาใหญ่เป็นปัญหาเล็ก ๆ?", options: ["การคิดเป็นลำดับขั้น", "การแบ่งย่อยปัญหา", "การหาลำดับแบบแผน", "การทั่วไป"] },
-        { id: 34, question: "ข้อมูลประเภทใดต่อไปนี้จัดเป็นข้อมูลเชิงตรรกะ (Boolean)?", options: ["10", "3.14", "\"สวัสดี\"", "จริง / เท็จ"] },
-        { id: 35, question: "ใน Scratch ตัวแปร (Variable) ใช้เพื่ออะไร?",             options: ["เก็บค่าข้อมูลที่เปลี่ยนแปลงได้", "วาดภาพบนเวที", "เล่นเสียงเพลง", "เปลี่ยนฉากหลัง"] },
-
-        // ---- เพิ่มอีก 5 ข้อให้ครบ 40 ----
-        { id: 36, question: "บล็อกเริ่มต้นสคริปต์ที่ใช้บ่อยที่สุดใน Scratch คือข้อใด?", options: ["when green flag clicked", "go to x:0 y:0", "say Hello!", "repeat 10"] },
-        { id: 37, question: "แนวคิดเชิงคำนวณข้อใดเน้นการมองหารูปแบบที่เกิดซ้ำ?",  options: ["การคิดเป็นลำดับขั้น", "การแบ่งย่อยปัญหา", "การหาลำดับแบบแผน", "การทั่วไป"] },
-        { id: 38, question: "เศษส่วนใดเท่ากับ 0.25?",                                 options: ["1/4", "1/2", "2/3", "3/4"] },
-        { id: 39, question: "ผลลัพธ์ของ 100 ÷ 4 คือข้อใด?",                           options: ["10", "20", "25", "30"] },
-        { id: 40, question: "2³ (สองยกกำลังสาม) มีค่าเท่าไร?",                        options: ["4", "6", "8", "9"] }
+        { 
+            id: 1,  
+            question: "โค้ดลักษณะใด เหมาะสมที่สุด สำหรับการทำงานซ้ำวนรอบที่แน่นอน", 
+            options: ["if–else", "for", "Do... while", "while"],
+            correctAnswer: 1  // for
+        },
+        { 
+            id: 2,  
+            question: "ข้อใด อธิบายความแตกต่างระหว่าง if-else และ loop ได้ถูกต้องที่สุด", 
+            options: [
+                "ทั้งสองสามารถใช้แทนกันได้ทุกกรณี",
+                "if-else ใช้ควบคุมจำนวนรอบ แต่ loop ใช้ตัดสินใจเลือกเงื่อนไข", 
+                "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้สำหรับประกาศตัวแปร",
+                "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้ควบคุมจำนวนรอบ"
+            ],
+            correctAnswer: 3  // if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้ควบคุมจำนวนรอบ
+        },
+        { 
+            id: 3,  
+            question: "นักเรียนต้องการให้ Arduino 'ทำงานบางอย่างทันทีเมื่อเปิดเครื่อง และไม่ทำซ้ำอีก' ควรเขียนคำสั่งไว้ส่วนใดของโปรแกรม", 
+            options: ["loop()", "setup()", "if~else", "switch~case"],
+            correctAnswer: 1  // setup()
+        },
+        { 
+            id: 4,  
+            question: "ค่าของ x หลังจากคำสั่งต่อไปนี้คือเท่าใด?<br><code>int x = 3;<br>if (x > 5) {<br>    x = x + 2;<br>} else {<br>    x = x * 2;<br>}</code>", 
+            options: ["3", "5", "6", "10"],
+            correctAnswer: 2  // 6
+        },
+        { 
+            id: 5,  
+            question: "โปรแกรมต่อไปนี้จะแสดงคำว่า 'Hi' กี่ครั้ง?<br><code>int i = 0;<br>while (i < 3) {<br>    Serial.println('Hi');<br>    i++;<br>}</code>", 
+            options: ["ไม่แสดงอะไรเลย", "1", "2", "3"],
+            correctAnswer: 3  // 3
+        },
+        { 
+            id: 6,  
+            question: "กรณีใดควรเลือกใช้ If-else แทน switch-case", 
+            options: [
+                "ตรวจค่าที่เป็นช่วง (มากกว่า / น้อยกว่า)",
+                "ตรวจค่าแบบตัวเลือก",
+                "เลือกเมนูตัวเลข", 
+                "ตรวจค่าแบบเท่ากันพอดี"
+            ],
+            correctAnswer: 0  // ตรวจค่าที่เป็นช่วง (มากกว่า / น้อยกว่า)
+        },
+        { 
+            id: 7,  
+            question: "ค่าของ x หลังจบโปรแกรมคือข้อใด?<br><code>int x = 1;<br>for(int i = 1; i <= 3; i++) {<br>    x = x * 2;<br>}</code>", 
+            options: ["4", "8", "12", "16"],
+            correctAnswer: 1  // 8
+        },
+        { 
+            id: 8,  
+            question: "ข้อใดอธิบายผลลัพธ์ได้ถูกต้องที่สุด?<br><code>int i;<br>for (i = 0; i < 4; i++) {<br>    Serial.println(i);<br>}</code>", 
+            options: ["แสดง 0 ถึง 4", "แสดง 1 ถึง 4", "แสดง 0 ถึง 3", "แสดง 1 ถึง 3"],
+            correctAnswer: 2  // แสดง 0 ถึง 3
+        },
+        { 
+            id: 9,  
+            question: "ข้อความ 'A' ถูกแสดงกี่ครั้ง?<br><code>for (int i = 1; i <= 5; i++) {<br>    if (i == 3) {<br>        Serial.println('A');<br>    }<br>}</code>", 
+            options: ["0 ครั้ง", "1 ครั้ง", "3 ครั้ง", "5 ครั้ง"],
+            correctAnswer: 1  // 1 ครั้ง
+        },
+        { 
+            id: 10, 
+            question: "โปรแกรมแสดงผลอะไร?<br><code>int score = 49;<br>if (score >= 50) {<br>    Serial.println('Pass');<br>} else {<br>    Serial.println('Fail');<br>}</code>", 
+            options: ["Pass", "Fail", "Pass และ Fail", "ไม่แสดงผลใด ๆ"],
+            correctAnswer: 1  // Fail
+        },
+        { 
+            id: 11, 
+            question: "ต้องการเขียนโปรแกรมให้ LED ติด/ดับ 3 ครั้ง เมื่อกดปุ่มเพียง 1 ครั้ง โครงสร้างใดเหมาะสมที่สุด", 
+            options: [
+                "if -else ครอบ for loop",
+                "while loop โดยไม่ใช้เงื่อนไข", 
+                "for loop อย่างเดียว",
+                "if -else อย่างเดียว"
+            ],
+            correctAnswer: 0  // if -else ครอบ for loop
+        },
+        { 
+            id: 12, 
+            question: "ค่าของ a หลังจากโปรแกรมนี้คือเท่าใด?<br><code>int a = 10;<br>if (a >= 10) {<br>    a = a - 5;<br>}<br>a = a + 2;</code>", 
+            options: ["7", "10", "12", "17"],
+            correctAnswer: 0  // 7
+        },
+        { 
+            id: 13, 
+            question: "โปรแกรมต่อไปนี้จะแสดงผลอะไร?<br><code>int x = 0;<br>while (x < 5) {<br>    x++;<br>}<br>Serial.println(x);</code>", 
+            options: ["0", "4", "5", "6"],
+            correctAnswer: 2  // 5
+        },
+        { 
+            id: 14, 
+            question: "ต้องการให้โปรแกรมแสดงตัวเลข 1-10 ควรใช้โครงสร้างใด?", 
+            options: ["if-else", "switch-case", "for loop", "ฟังก์ชัน"],
+            correctAnswer: 2  // for loop
+        },
+        { 
+            id: 15, 
+            question: "ค่า y หลังจากโปรแกรมนี้คือเท่าใด?<br><code>int y = 5;<br>do {<br>    y--;<br>} while (y > 0);</code>", 
+            options: ["0", "1", "4", "5"],
+            correctAnswer: 0  // 0
+        },
+        { 
+            id: 16, 
+            question: "คำสั่งใดใช้สำหรับการตัดสินใจเลือกทำเฉพาะกรณีเดียว", 
+            options: ["if", "if-else", "switch-case", "for"],
+            correctAnswer: 0  // if
+        },
+        { 
+            id: 17, 
+            question: "ข้อใดคือลักษณะของ while loop", 
+            options: [
+                "วนซ้ำจำนวนครั้งที่แน่นอน",
+                "ตรวจสอบเงื่อนไขก่อนทำ",
+                "ทำอย่างน้อย 1 ครั้งเสมอ",
+                "ใช้สำหรับการเลือกเงื่อนไข"
+            ],
+            correctAnswer: 1  // ตรวจสอบเงื่อนไขก่อนทำ
+        },
+        { 
+            id: 18, 
+            question: "โปรแกรมต่อไปนี้จะแสดงผลอะไร?<br><code>int num = 7;<br>if (num % 2 == 0) {<br>    Serial.println('Even');<br>} else {<br>    Serial.println('Odd');<br>}</code>", 
+            options: ["Even", "Odd", "7", "ไม่แสดงอะไร"],
+            correctAnswer: 1  // Odd
+        },
+        { 
+            id: 19, 
+            question: "คำสั่งใดเหมาะสมที่สุดสำหรับการทำงานตามจำนวนรอบที่แน่นอน", 
+            options: ["while", "do-while", "for", "if"],
+            correctAnswer: 2  // for
+        },
+        { 
+            id: 20, 
+            question: "โปรแกรมแสดงผลอะไร?<br><code>int i;<br>for (i = 10; i > 5; i--) {<br>    Serial.print(i);<br>    Serial.print(' ');<br>}</code>", 
+            options: ["10 9 8 7 6", "10 9 8 7 6 5", "9 8 7 6 5", "10 11 12"],
+            correctAnswer: 0  // 10 9 8 7 6
+        }
     ];
 
     // ==========================
@@ -884,8 +978,8 @@
             return;
         }
 
-        // สุ่มข้อสอบ 40 ข้อ (ถ้า allQuestions > 40)
-        questions = shuffleArray([...allQuestions]).slice(0, 40);
+        // สุ่มข้อสอบ 20 ข้อจากทั้งหมด (ในกรณีที่ต้องการสุ่ม)
+        questions = shuffleArray([...allQuestions]).slice(0, 20);
         userAnswers = new Array(questions.length).fill(null);
 
         document.getElementById('start-exam').style.display = 'none';
@@ -917,7 +1011,7 @@
 
             const questionText = document.createElement('div');
             questionText.className = 'question-text';
-            questionText.textContent = q.question;
+            questionText.innerHTML = q.question;
 
             const optionsDiv = document.createElement('div');
             optionsDiv.className = 'options';
@@ -935,7 +1029,7 @@
                 input.value = optionIndex;
 
                 const span = document.createElement('span');
-                span.textContent = option;
+                span.innerHTML = option;
 
                 optionDiv.appendChild(input);
                 optionDiv.appendChild(span);
@@ -1059,10 +1153,26 @@
         const endTime  = new Date();
         const timeUsed = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
 
+        // คำนวณคะแนนในฝั่ง client ก่อน (สำหรับแสดงผลทันที)
+        let correct = 0;
+        let wrong = 0;
+        let unanswered = 0;
+        
+        questions.forEach((q, index) => {
+            if (userAnswers[index] === null) {
+                unanswered++;
+            } else if (userAnswers[index] === q.correctAnswer) {
+                correct++;
+            } else {
+                wrong++;
+            }
+        });
+
         // แปลงข้อมูลที่ส่ง: { id, answer } ตามลำดับข้อที่ "แสดงหลังสุ่ม"
         const answersPayload = questions.map((q, index) => ({
             id: q.id,
-            answer: userAnswers[index]  // 0–3 หรือ null
+            answer: userAnswers[index],  // 0–3 หรือ null
+            correctAnswer: q.correctAnswer
         }));
 
         sendResultToSheet({
@@ -1078,6 +1188,11 @@
             number,
             room,
             timeUsedSeconds: timeUsed,
+            score: correct,
+            total: questions.length,
+            correctAnswers: correct,
+            wrongAnswers: wrong,
+            unanswered: unanswered,
             answers: answersPayload
         });
     }
@@ -1085,6 +1200,8 @@
     function sendResultToSheet(data) {
         if (!SHEET_API_URL || SHEET_API_URL === "PASTE_YOUR_WEB_APP_URL_HERE") {
             alert("ยังไม่ได้ตั้งค่า SHEET_API_URL ในโค้ด");
+            // แสดงผลลัพธ์แบบออฟไลน์
+            showResultOffline(data);
             return;
         }
 
@@ -1097,35 +1214,63 @@
         .then(result => {
             if (!result.ok) {
                 console.error("Error from server:", result.error);
-                alert("มีปัญหาในการบันทึกคะแนน กรุณาแจ้งครู");
+                // แสดงผลลัพธ์แบบออฟไลน์
+                showResultOffline(data);
                 return;
             }
 
-            const { scoreText, correct, wrong, unanswered, total } = result;
-
-            document.getElementById('question-container').style.display = 'none';
-            document.getElementById('progress-container').style.display = 'none';
-            document.getElementById('result-container').style.display = 'block';
-
-            document.getElementById('score').textContent           = scoreText;
-            document.getElementById('correct-answers').textContent = correct;
-            document.getElementById('wrong-answers').textContent   = wrong;
-            document.getElementById('unanswered').textContent      = unanswered;
-
-            const t = data.timeUsedSeconds || 0;
-            const h = Math.floor(t / 3600);
-            const m = Math.floor((t % 3600) / 60);
-            const s = t % 60;
-
-            document.getElementById('time-used').textContent =
-                `${h.toString().padStart(2, '0')}:` +
-                `${m.toString().padStart(2, '0')}:` +
-                `${s.toString().padStart(2, '0')}`;
+            // แสดงผลลัพธ์จากเซิร์ฟเวอร์
+            showResultOnline(data, result);
         })
         .catch(err => {
             console.error("Fetch error:", err);
-            alert("ไม่สามารถติดต่อเซิร์ฟเวอร์ได้ กรุณาแจ้งครู");
+            // แสดงผลลัพธ์แบบออฟไลน์
+            showResultOffline(data);
         });
+    }
+
+    function showResultOffline(data) {
+        document.getElementById('question-container').style.display = 'none';
+        document.getElementById('progress-container').style.display = 'none';
+        document.getElementById('result-container').style.display = 'block';
+
+        document.getElementById('score').textContent = `${data.score}/${data.total}`;
+        document.getElementById('correct-answers').textContent = data.correctAnswers;
+        document.getElementById('wrong-answers').textContent = data.wrongAnswers;
+        document.getElementById('unanswered').textContent = data.unanswered;
+
+        const t = data.timeUsedSeconds || 0;
+        const h = Math.floor(t / 3600);
+        const m = Math.floor((t % 3600) / 60);
+        const s = t % 60;
+
+        document.getElementById('time-used').textContent =
+            `${h.toString().padStart(2, '0')}:` +
+            `${m.toString().padStart(2, '0')}:` +
+            `${s.toString().padStart(2, '0')}`;
+    }
+
+    function showResultOnline(data, result) {
+        const { scoreText, correct, wrong, unanswered, total } = result;
+
+        document.getElementById('question-container').style.display = 'none';
+        document.getElementById('progress-container').style.display = 'none';
+        document.getElementById('result-container').style.display = 'block';
+
+        document.getElementById('score').textContent = scoreText || `${data.score}/${data.total}`;
+        document.getElementById('correct-answers').textContent = correct || data.correctAnswers;
+        document.getElementById('wrong-answers').textContent = wrong || data.wrongAnswers;
+        document.getElementById('unanswered').textContent = unanswered || data.unanswered;
+
+        const t = data.timeUsedSeconds || 0;
+        const h = Math.floor(t / 3600);
+        const m = Math.floor((t % 3600) / 60);
+        const s = t % 60;
+
+        document.getElementById('time-used').textContent =
+            `${h.toString().padStart(2, '0')}:` +
+            `${m.toString().padStart(2, '0')}:` +
+            `${s.toString().padStart(2, '0')}`;
     }
 
     // Utility: สุ่ม array
@@ -1137,10 +1282,6 @@
         }
         return newArray;
     }
-</script>
+    </script>
 </body>
 </html>
-
-
-
-
