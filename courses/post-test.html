@@ -19,8 +19,8 @@
             --purple: #9966cc;
             --light-gray: #f5f5f5;
             --medium-gray: #dddddd;
-            --border-radius: 10px;
-            --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --border-radius: 12px;
+            --box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             --transition: all 0.3s ease;
         }
         
@@ -32,12 +32,11 @@
         }
         
         body {
-            background: linear-gradient(135deg, #e6f2ff 0%, #f0f8ff 100%);
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f2ff 100%);
             color: #333;
             line-height: 1.6;
-            padding-bottom: 100px;
             min-height: 100vh;
-            position: relative;
+            padding-bottom: 20px;
         }
         
         body::before {
@@ -47,16 +46,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNTB2NTBIMHoiLz48cGF0aCBkPSJNMjUgMjVjNi45MDMgMCAxMi41LTUuNTk3IDEyLjUtMTIuNVMzMS45MDMgMCAyNSAwUzEyLjUgNS41OTcgMTIuNSAxMi41UzE4LjA5NyAyNSAyNSAyNXptMCAyNWM2LjkwMyAwIDEyLjUtNS41OTcgMTIuNS0xMi41UzMxLjkwMyAyNSAyNSAyNSA0MCAzMC41OTcgNDAgMzcuNVMyNSA1MCAyNSA1MHoiIGZpbGw9IiMwMDY2Y2MiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvZz48L3N2Zz4=');
-            opacity: 0.3;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNTB2NTBIMHoiLz48cGF0aCBkPSJNMjUgMjVjNi45MDMgMCAxMi41LTUuNTk3IDEyLjUtMTIuNVMzMS45MDMgMCAyNSAwUzEyLjUgNS41OTcgMTIuNSAxMi41UzE4LjA5NyAyNSAyNSAyNXptMCAyNWM2LjkwMyAwIDEyLjUtNS41OTcgMTIuNS0xIuNVMyMS45MDMgMjUgMjUgMjUgNDAgMzAuNTk3IDQwIDM3LjVTMjUgNTAgMjUgNTB6IiBmaWxsPSIjMDA2NmNjIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+');
+            opacity: 0.1;
             z-index: -1;
         }
         
+        /* ==================== HEADER ==================== */
         .header {
             background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
             color: white;
             padding: 1rem 0;
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -149,58 +149,59 @@
             box-shadow: 0 5px 12px rgba(255, 102, 0, 0.4);
         }
         
+        /* ==================== EXAM PAGE ==================== */
         .exam-page {
-            min-height: calc(100vh - 120px);
-            padding: 2rem 0;
+            padding: 2rem 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
         
         .exam-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .exam-header {
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+        
+        .exam-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 5px solid var(--accent-orange);
+            border-bottom: 3px solid var(--accent-orange);
         }
         
         .exam-title {
-            font-size: 1.4rem;
-            color: var(--primary-blue);
+            font-size: 1.5rem;
             font-weight: 600;
         }
-
+        
         .exam-subtitle {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 0.2rem;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-top: 0.3rem;
         }
         
         .timer {
-            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
-            color: white;
+            background: rgba(255, 255, 255, 0.2);
             padding: 0.7rem 1.5rem;
             border-radius: 30px;
             font-weight: 600;
-            box-shadow: 0 3px 8px rgba(0, 102, 204, 0.3);
+            font-size: 1.2rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
             transition: var(--transition);
         }
         
         .timer.warning {
-            background: linear-gradient(to right, var(--warning-orange), #ffb366);
+            background: rgba(255, 153, 0, 0.3);
             animation: pulse 1s infinite;
         }
         
         .timer.danger {
-            background: linear-gradient(to right, var(--danger-red), #ff6666);
+            background: rgba(255, 51, 51, 0.3);
             animation: pulse 0.5s infinite;
         }
         
@@ -210,221 +211,313 @@
             100% { transform: scale(1); }
         }
         
-        .exam-card {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+        /* ==================== START EXAM ==================== */
+        .start-exam {
             padding: 2.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--medium-gray);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .exam-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary-blue), var(--accent-orange));
-        }
-        
-        /* Section for already submitted */
-        .already-submitted {
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .already-submitted h2 {
-            color: var(--danger-red);
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-        
-        .already-submitted .result-box {
-            background: var(--light-blue);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            border-left: 5px solid var(--accent-orange);
-        }
-        
-        .already-submitted .result-item {
-            display: flex;
-            justify-content: space-between;
-            margin: 0.5rem 0;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--medium-gray);
-        }
-        
-        .already-submitted .result-label {
-            font-weight: 600;
-            color: var(--dark-blue);
-        }
-        
-        .already-submitted .result-value {
-            color: var(--primary-blue);
-            font-weight: 600;
-        }
-        
-        .ip-warning {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            color: #856404;
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            margin: 1rem 0;
-            text-align: center;
-            font-weight: 500;
-        }
-        
-        /* Exam sections */
-        .start-exam, .question-container, .result-container {
-            text-align: left;
-            padding: 1rem 0 0;
         }
         
         .start-exam h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
             color: var(--primary-blue);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .start-exam h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background-color: var(--accent-orange);
-        }
-        
-        .start-exam p {
-            color: #666;
-            margin-bottom: 0.8rem;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 3px solid var(--accent-orange);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
         
         .exam-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
+            gap: 1.2rem;
+            margin: 2rem 0;
         }
         
         .stat-card {
             background: var(--light-blue);
             border-radius: var(--border-radius);
-            padding: 1rem;
+            padding: 1.2rem;
             text-align: center;
-            border: 1px solid var(--secondary-blue);
+            border: 2px solid var(--secondary-blue);
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(51, 153, 255, 0.2);
         }
         
         .stat-number {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--primary-blue);
             margin-bottom: 0.3rem;
         }
         
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--dark-blue);
             font-weight: 500;
         }
-
-        .student-info, .exam-info {
-            margin: 1.5rem 0 1rem;
-            padding: 1.5rem;
+        
+        /* ==================== FORM STYLES ==================== */
+        .form-section {
+            background: #f8fafc;
             border-radius: var(--border-radius);
-            background-color: var(--light-blue);
-            border: 1px solid var(--secondary-blue);
-            box-shadow: inset 0 0 10px rgba(0, 102, 204, 0.1);
+            padding: 1.8rem;
+            margin: 1.5rem 0;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-
-        .student-info-title, .exam-info-title {
-            font-weight: 600;
-            margin-bottom: 0.8rem;
+        
+        .form-title {
             color: var(--primary-blue);
-            font-size: 1.1rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-orange);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-blue);
+            font-weight: 500;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-
-        .student-info-title i, .exam-info-title i {
-            color: var(--accent-orange);
-        }
-
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .form-group {
-            flex: 1 1 200px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            font-size: 0.9rem;
-            margin-bottom: 0.3rem;
-            font-weight: 500;
-            color: var(--dark-blue);
-        }
-
-        .form-group input {
-            padding: 0.6rem 0.8rem;
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
-            border: 1px solid var(--medium-gray);
-            font-size: 0.95rem;
+            font-size: 1rem;
             transition: var(--transition);
+            background: white;
         }
-
-        .form-group input:focus {
+        
+        .form-input:focus {
             outline: none;
             border-color: var(--secondary-blue);
-            box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.2);
+            box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.1);
         }
-
-        .start-btn {
-            margin-top: 1.5rem;
-            background: linear-gradient(to right, var(--secondary-blue), var(--primary-blue));
+        
+        .form-input::placeholder {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .input-icon {
+            color: var(--accent-orange);
+            font-size: 1.1rem;
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--danger-red);
+        }
+        
+        .input-hint {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 0.3rem;
+            margin-left: 0.3rem;
+        }
+        
+        .error-message {
+            color: var(--danger-red);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        /* ==================== BUTTONS ==================== */
+        .start-exam-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 2.5rem auto 1rem;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--accent-orange), #ff8533);
             color: white;
             border: none;
-            padding: 0.9rem 2.5rem;
-            border-radius: 30px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 6px 15px rgba(255, 102, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+        
+        .start-exam-btn:hover {
+            background: linear-gradient(135deg, #e55a00, #ff6600);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 102, 0, 0.4);
+        }
+        
+        .start-exam-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .start-exam-btn i {
+            font-size: 1.3rem;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, var(--accent-orange), #ff9933);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 12px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+            box-shadow: 0 6px 15px rgba(255, 102, 0, 0.3);
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
         }
         
-        .start-btn:hover {
-            background: linear-gradient(to right, var(--primary-blue), var(--dark-blue));
+        .submit-btn:hover {
+            background: linear-gradient(to right, #e55a00, #ff8000);
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 102, 204, 0.4);
+            box-shadow: 0 10px 20px rgba(255, 102, 0, 0.4);
         }
         
-        .start-btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        /* ==================== EXAM INFO ==================== */
+        .exam-info-section {
+            background: linear-gradient(135deg, #f0f9ff, #e6f7ff);
+            border: 2px dashed var(--secondary-blue);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
         }
         
+        .exam-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            font-size: 1.1rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        /* ==================== NOTICES ==================== */
+        .exam-notice {
+            background: #fff7ed;
+            border: 2px solid #fed7aa;
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            color: #92400e;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+        
+        .exam-notice i {
+            color: var(--accent-orange);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+        
+        .exam-notice strong {
+            color: var(--accent-orange);
+        }
+        
+        .exam-warning {
+            background: #fef2f2;
+            border: 2px solid #fecaca;
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            color: #dc2626;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+        
+        .exam-warning i {
+            color: var(--danger-red);
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+        
+        /* ==================== QUESTIONS SECTION ==================== */
         .question-container {
+            padding: 2rem;
             display: none;
+        }
+        
+        .exam-status {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            border: 2px solid var(--light-blue);
+        }
+        
+        .status-item {
+            text-align: center;
+            padding: 0.8rem;
+        }
+        
+        .status-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.3rem;
+        }
+        
+        .status-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
         }
         
         .section-header {
@@ -441,7 +534,7 @@
         }
         
         .question {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             padding: 1.5rem;
             border-radius: var(--border-radius);
             background-color: #fff;
@@ -476,8 +569,52 @@
         
         .question-text {
             font-size: 1.1rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             line-height: 1.5;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            background: #fff;
+        }
+        
+        .option:hover {
+            border-color: var(--secondary-blue);
+            background-color: var(--light-blue);
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            background-color: rgba(51, 153, 255, 0.1);
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.2);
+        }
+        
+        .option.selected::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            color: var(--success-green);
+        }
+        
+        .option input {
+            display: none;
         }
         
         /* Matching question styles */
@@ -567,257 +704,8 @@
             border-color: var(--secondary-blue);
             box-shadow: 0 0 0 2px rgba(51, 153, 255, 0.2);
         }
-
-        .question-image {
-            max-width: 100%;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            margin: 0.8rem 0 1rem;
-            border: 1px solid var(--medium-gray);
-        }
         
-        .options {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.8rem;
-        }
-        
-        .option {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.8rem 1rem;
-            border: 2px solid var(--medium-gray);
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            background: #fff;
-        }
-
-        .option-image {
-            max-width: 120px;
-            max-height: 80px;
-            object-fit: contain;
-            border-radius: 4px;
-            background-color: #fff;
-            flex-shrink: 0;
-        }
-        
-        .option:hover {
-            border-color: var(--secondary-blue);
-            background-color: var(--light-blue);
-            transform: translateX(5px);
-        }
-        
-        .option.selected {
-            background-color: rgba(51, 153, 255, 0.1);
-            border-color: var(--secondary-blue);
-            box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.2);
-        }
-        
-        .option.selected::after {
-            content: '\f00c';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 15px;
-            color: var(--success-green);
-        }
-        
-        .option input {
-            display: none;
-        }
-        
-        .submit-container {
-            text-align: center;
-            margin-top: 3rem;
-        }
-        
-        .submit-btn {
-            background: linear-gradient(to right, var(--accent-orange), #ff9933);
-            color: white;
-            border: none;
-            padding: 0.9rem 2.5rem;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .submit-btn:hover {
-            background: linear-gradient(to right, #e55a00, #ff8000);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(255, 102, 0, 0.4);
-        }
-        
-        .result-container {
-            display: none;
-            text-align: center;
-            padding: 2rem 0;
-        }
-        
-        .result-title {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--primary-blue);
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .result-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: var(--accent-orange);
-        }
-        
-        .score {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .result-details {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .result-card {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 1.5rem;
-            transition: var(--transition);
-            border-top: 4px solid var(--primary-blue);
-        }
-        
-        .result-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        
-        .result-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary-blue);
-        }
-        
-        .result-card p {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--secondary-blue);
-        }
-        
-        .back-btn {
-            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
-            color: white;
-            border: none;
-            padding: 0.9rem 2.5rem;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .back-btn:hover {
-            background: linear-gradient(to right, var(--dark-blue), var(--primary-blue));
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 102, 204, 0.4);
-        }
-        
-        .footer {
-            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
-            color: white;
-            padding: 3rem 0 1rem;
-            margin-top: 3rem;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .footer-col h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-        
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-orange);
-        }
-        
-        .footer-col a {
-            display: block;
-            color: #ddd;
-            margin-bottom: 0.8rem;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-col a:hover {
-            color: var(--accent-orange);
-            padding-left: 8px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            color: white;
-            transition: var(--transition);
-        }
-        
-        .social-links a:hover {
-            background-color: var(--accent-orange);
-            transform: translateY(-5px) rotate(10deg);
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.7);
-        }
-        
+        /* ==================== PROGRESS BAR ==================== */
         .progress-container {
             position: fixed;
             bottom: 0;
@@ -900,6 +788,198 @@
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
         
+        /* ==================== RESULT SECTION ==================== */
+        .result-container {
+            display: none;
+            text-align: center;
+            padding: 2.5rem;
+        }
+        
+        .result-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+        
+        .result-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-orange);
+        }
+        
+        .score {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 1.5rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-blue);
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .result-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+        }
+        
+        .result-card p {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-blue);
+        }
+        
+        /* ==================== ALREADY SUBMITTED ==================== */
+        .already-submitted {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .already-submitted h2 {
+            color: var(--danger-red);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .result-box {
+            background: var(--light-blue);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--accent-orange);
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .result-label {
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+        
+        .result-value {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        .ip-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        /* ==================== NOTIFICATION ==================== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1.2rem 1.8rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
+            display: none;
+            max-width: 350px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, var(--success-green), #44dd44);
+            border-left: 5px solid #22bb22;
+        }
+        
+        .notification.error {
+            background: linear-gradient(135deg, var(--danger-red), #ff5555);
+            border-left: 5px solid #cc0000;
+        }
+        
+        .notification.info {
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+            border-left: 5px solid var(--dark-blue);
+        }
+        
+        .notification.warning {
+            background: linear-gradient(135deg, var(--warning-orange), #ffaa44);
+            border-left: 5px solid #e68a00;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* ==================== FOOTER ==================== */
+        .footer {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-orange);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+        
+        /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
@@ -916,6 +996,28 @@
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
+                padding: 1.2rem;
+            }
+            
+            .start-exam {
+                padding: 1.5rem;
+            }
+            
+            .exam-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .exam-status {
+                grid-template-columns: 1fr;
+            }
+            
+            .matching-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
             
             .result-details {
@@ -928,225 +1030,27 @@
                 font-size: 0.9rem;
             }
             
-            .exam-card {
-                padding: 1.5rem;
-            }
-            
-            .matching-container {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .exam-stats {
-                grid-template-columns: 1fr;
+            .notification {
+                left: 20px;
+                right: 20px;
+                max-width: calc(100% - 40px);
             }
         }
         
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 1.5rem;
-            border-radius: var(--border-radius);
-            color: white;
-            font-weight: 500;
-            box-shadow: var(--box-shadow);
-            z-index: 10000;
-            animation: slideInRight 0.3s ease-out;
-            display: none;
-        }
-        
-        .notification.success {
-            background: linear-gradient(to right, var(--success-green), #66cc66);
-        }
-        
-        .notification.error {
-            background: linear-gradient(to right, var(--danger-red), #ff6666);
-        }
-        
-        .notification.info {
-            background: linear-gradient(to right, var(--secondary-blue), var(--primary-blue));
-        }
-        
-        .notification.warning {
-            background: linear-gradient(to right, var(--warning-orange), #ffb366);
-        }
-        
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        /* Modal สำหรับแจ้งเตือนหมดเวลา */
-        .time-up-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 15px;
-            padding: 2.5rem;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            border: 5px solid var(--danger-red);
-            animation: popIn 0.5s ease;
-            position: relative;
-        }
-        
-        .modal-icon {
-            background: linear-gradient(135deg, var(--danger-red), #ff6666);
-            color: white;
-            width: 90px;
-            height: 90px;
+        /* ==================== LOADING ==================== */
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 102, 204, 0.3);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-top-color: var(--primary-blue);
+            animation: spin 1s ease-in-out infinite;
             margin: 0 auto 1.5rem;
-            font-size: 2.8rem;
-            box-shadow: 0 5px 15px rgba(255, 51, 51, 0.3);
         }
         
-        .modal-title {
-            color: var(--danger-red);
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-        
-        .modal-message {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            color: #555;
-            line-height: 1.5;
-        }
-        
-        .countdown-display {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--danger-red);
-            margin: 1rem 0;
-            animation: pulse 1s infinite;
-        }
-        
-        .countdown-label {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .answer-summary {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 1.2rem;
-            margin: 1.5rem 0;
-            text-align: left;
-            border-left: 4px solid var(--accent-orange);
-        }
-        
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin: 0.5rem 0;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .summary-label {
-            color: var(--dark-blue);
-            font-weight: 500;
-        }
-        
-        .summary-value {
-            color: var(--primary-blue);
-            font-weight: 600;
-        }
-        
-        .modal-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1.5rem;
-        }
-        
-        .modal-btn {
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .modal-btn.primary {
-            background: linear-gradient(to right, var(--danger-red), #ff6666);
-            color: white;
-        }
-        
-        .modal-btn.primary:hover {
-            background: linear-gradient(to right, #cc0000, #ff3333);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 51, 51, 0.3);
-        }
-        
-        .modal-btn.secondary {
-            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
-            color: white;
-        }
-        
-        .modal-btn.secondary:hover {
-            background: linear-gradient(to right, var(--dark-blue), var(--primary-blue));
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
-        }
-        
-        .countdown-progress {
-            height: 6px;
-            background: #e0e0e0;
-            border-radius: 3px;
-            margin: 1rem 0;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(to right, var(--danger-red), #ff6666);
-            border-radius: 3px;
-            transition: width 1s linear;
-            width: 100%;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            70% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -1177,6 +1081,7 @@
     <!-- Exam Page -->
     <section class="exam-page">
         <div class="exam-container">
+            <!-- Exam Header -->
             <div class="exam-header">
                 <div>
                     <h1 class="exam-title" id="exam-title-text">แบบทดสอบวิชาหุ่นยนต์เบื้องต้น</h1>
@@ -1185,177 +1090,190 @@
                 <div class="timer" id="timer">00:40:00</div>
             </div>
             
-            <div class="exam-card">
-                <!-- Section for already submitted -->
-                <div class="already-submitted" id="already-submitted" style="display: none;">
-                    <h2><i class="fas fa-exclamation-triangle"></i> คุณได้ทำแบบทดสอบนี้แล้ว</h2>
-                    <div class="ip-warning">
-                        <i class="fas fa-desktop"></i> ระบบตรวจพบว่าคอมพิวเตอร์เครื่องนี้ได้ทำแบบทดสอบแล้ว
-                    </div>
-                    
-                    <div class="result-box">
-                        <h3>ผลการสอบครั้งล่าสุด</h3>
-                        <div class="result-item">
-                            <span class="result-label">ชื่อ-สกุล:</span>
-                            <span class="result-value" id="previous-name">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">คะแนน:</span>
-                            <span class="result-value" id="previous-score">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">วันที่สอบ:</span>
-                            <span class="result-value" id="previous-date">-</span>
-                        </div>
-                        <div class="result-item">
-                            <span class="result-label">เวลาที่ใช้:</span>
-                            <span class="result-value" id="previous-time">-</span>
-                        </div>
-                    </div>
-                    
-                    <p>หากต้องการทำแบบทดสอบอีกครั้ง กรุณาใช้คอมพิวเตอร์เครื่องอื่น</p>
-                    <p><strong>หมายเหตุ:</strong> ระบบบันทึกข้อมูลตาม IP Address เพื่อป้องกันการสอบซ้ำ</p>
-                    
-                    <button class="back-btn" onclick="window.location.href='/learning-by-ratchapon/index.html'">
-                        <i class="fas fa-home"></i> กลับสู่หน้าหลัก
-                    </button>
+            <!-- Already Submitted Section -->
+            <div class="already-submitted" id="already-submitted" style="display: none;">
+                <h2><i class="fas fa-exclamation-triangle"></i> คุณได้ทำแบบทดสอบนี้แล้ว</h2>
+                <div class="ip-warning">
+                    <i class="fas fa-desktop"></i> ระบบตรวจพบว่าคอมพิวเตอร์เครื่องนี้ได้ทำแบบทดสอบแล้ว
                 </div>
                 
-                <!-- Start Exam Section -->
-                <div class="start-exam" id="start-exam">
-                    <h2 id="exam-heading">แบบทดสอบวิชาหุ่นยนต์เบื้องต้น</h2>
-                    <p>แบบทดสอบนี้ประกอบด้วยข้อสอบทั้งหมด <strong>30 ข้อ</strong> มีเวลาในการทำ <strong>40 นาที</strong></p>
-                    
-                    <div class="exam-stats">
-                        <div class="stat-card">
-                            <div class="stat-number">30</div>
-                            <div class="stat-label">ข้อทั้งหมด</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">40</div>
-                            <div class="stat-label">นาที</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">2</div>
-                            <div class="stat-label">ส่วน</div>
-                        </div>
+                <div class="result-box">
+                    <h3>ผลการสอบครั้งล่าสุด</h3>
+                    <div class="result-item">
+                        <span class="result-label">ชื่อ-สกุล:</span>
+                        <span class="result-value" id="previous-name">-</span>
                     </div>
-                    
-                    <p>⚠️ <strong>ข้อควรทราบ:</strong> แต่ละเครื่องคอมพิวเตอร์สามารถทำแบบทดสอบได้เพียง 1 ครั้งเท่านั้น</p>
-                    <p><strong>ส่วนที่ 1:</strong> ข้อสอบปรนัย 20 ข้อ</p>
-                    <p><strong>ส่วนที่ 2:</strong> ข้อสอบจับคู่ 10 ข้อ (คัดเลือกจาก 14 ข้อ)</p>
-
-                    <!-- ข้อมูลวิชา / การสอบ -->
-                    <div class="exam-info">
-                        <div class="exam-info-title">
-                            <i class="fas fa-info-circle"></i> ข้อมูลแบบทดสอบ
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label><i class="fas fa-book"></i> วิชา</label>
-                                <input type="text" id="course-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label><i class="fas fa-hashtag"></i> รหัสวิชา</label>
-                                <input type="text" id="course-code" disabled>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label><i class="fas fa-clipboard-list"></i> ชื่อแบบทดสอบ</label>
-                                <input type="text" id="exam-name" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label><i class="fas fa-calendar-alt"></i> ภาคเรียน / ปีการศึกษา</label>
-                                <input type="text" id="term-year" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label><i class="fas fa-redo"></i> ครั้งที่สอบ</label>
-                                <input type="text" id="attempt-no" disabled>
-                            </div>
-                        </div>
+                    <div class="result-item">
+                        <span class="result-label">คะแนน:</span>
+                        <span class="result-value" id="previous-score">-</span>
                     </div>
-
-                    <!-- ข้อมูลผู้สอบ -->
-                    <div class="student-info">
-                        <div class="student-info-title">
-                            <i class="fas fa-user-graduate"></i> ข้อมูลผู้ทำแบบทดสอบ
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="student-firstname"><i class="fas fa-signature"></i> ชื่อ</label>
-                                <input type="text" id="student-firstname" placeholder="เช่น รัชพล">
-                            </div>
-                            <div class="form-group">
-                                <label for="student-lastname"><i class="fas fa-signature"></i> นามสกุล</label>
-                                <input type="text" id="student-lastname" placeholder="เช่น ไชยวงค์">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="student-number"><i class="fas fa-hashtag"></i> เลขที่</label>
-                                <input type="text" id="student-number" placeholder="เช่น 15">
-                            </div>
-                            <div class="form-group">
-                                <label for="student-room"><i class="fas fa-door-open"></i> ห้อง</label>
-                                <input type="text" id="student-room" placeholder="เช่น ม.4/1">
-                            </div>
-                        </div>
+                    <div class="result-item">
+                        <span class="result-label">วันที่สอบ:</span>
+                        <span class="result-value" id="previous-date">-</span>
                     </div>
-
-                    <button class="start-btn" id="start-btn">
-                        <i class="fas fa-play-circle"></i> เริ่มทำแบบทดสอบ
-                    </button>
-                </div>
-                
-                <!-- Questions Section -->
-                <div class="question-container" id="question-container">
-                    <div id="questions"></div>
-                    
-                    <div class="submit-container">
-                        <button class="submit-btn" id="submit-btn">
-                            <i class="fas fa-paper-plane"></i> ส่งคำตอบทั้งหมด
-                        </button>
+                    <div class="result-item">
+                        <span class="result-label">เวลาที่ใช้:</span>
+                        <span class="result-value" id="previous-time">-</span>
                     </div>
                 </div>
                 
-                <!-- Result Section -->
-                <div class="result-container" id="result-container">
-                    <h2 class="result-title">ผลการทำแบบทดสอบ</h2>
-                    <div class="score" id="score">0/30</div>
+                <p>หากต้องการทำแบบทดสอบอีกครั้ง กรุณาใช้คอมพิวเตอร์เครื่องอื่น</p>
+                <p><strong>หมายเหตุ:</strong> ระบบบันทึกข้อมูลตาม IP Address เพื่อป้องกันการสอบซ้ำ</p>
+                
+                <button class="submit-btn" onclick="window.location.href='/learning-by-ratchapon/index.html'" style="margin-top: 1rem;">
+                    <i class="fas fa-home"></i> กลับสู่หน้าหลัก
+                </button>
+            </div>
+            
+            <!-- Start Exam Section -->
+            <div class="start-exam" id="start-exam">
+                <h2><i class="fas fa-graduation-cap"></i> แบบทดสอบออนไลน์</h2>
+                
+                <!-- Exam Statistics -->
+                <div class="exam-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">30</div>
+                        <div class="stat-label">ข้อทั้งหมด</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">40</div>
+                        <div class="stat-label">นาที</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">ส่วน</div>
+                    </div>
+                </div>
+                
+                <!-- Exam Information -->
+                <div class="exam-info-section">
+                    <div class="exam-info-grid">
+                        <div class="info-item">
+                            <span class="info-label">วิชา</span>
+                            <span class="info-value" id="course-name-display">แบบทดสอบวิชาหุ่นยนต์เบื้องต้น</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">รหัสวิชา</span>
+                            <span class="info-value" id="course-code-display">ว30257</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">ภาคเรียน/ปีการศึกษา</span>
+                            <span class="info-value" id="term-year-display">2/2568</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">ครั้งที่สอบ</span>
+                            <span class="info-value" id="attempt-no-display">1</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Student Information Form -->
+                <div class="form-section">
+                    <div class="form-title">
+                        <i class="fas fa-user-graduate"></i> ข้อมูลผู้ทำแบบทดสอบ
+                    </div>
                     
-                    <div class="result-details">
-                        <div class="result-card">
-                            <h3><i class="fas fa-check-circle"></i> คำตอบที่ถูกต้อง</h3>
-                            <p id="correct-answers">0</p>
+                    <div class="form-grid">
+                        <!-- ชื่อ -->
+                        <div class="form-group">
+                            <label class="form-label required">
+                                <i class="fas fa-user input-icon"></i> ชื่อ
+                            </label>
+                            <input type="text" 
+                                   id="student-firstname" 
+                                   class="form-input" 
+                                   placeholder="กรุณากรอกชื่อจริง เช่น รัชพล"
+                                   required>
+                            <div class="input-hint">กรอกเฉพาะชื่อจริงเท่านั้น</div>
                         </div>
-                        <div class="result-card">
-                            <h3><i class="fas fa-times-circle"></i> คำตอบที่ผิด</h3>
-                            <p id="wrong-answers">0</p>
-                        </div>
-                        <div class="result-card">
-                            <h3><i class="fas fa-question-circle"></i> ข้อที่ไม่ได้ตอบ</h3>
-                            <p id="unanswered">0</p>
-                        </div>
-                        <div class="result-card">
-                            <h3><i class="fas fa-clock"></i> ใช้เวลา</h3>
-                            <p id="time-used">00:00:00</p>
+                        
+                        <!-- นามสกุล -->
+                        <div class="form-group">
+                            <label class="form-label required">
+                                <i class="fas fa-user-tag input-icon"></i> นามสกุล
+                            </label>
+                            <input type="text" 
+                                   id="student-lastname" 
+                                   class="form-input" 
+                                   placeholder="กรุณากรอกนามสกุล เช่น ไชยวงค์"
+                                   required>
+                            <div class="input-hint">กรอกนามสกุลให้ถูกต้อง</div>
                         </div>
                     </div>
                     
-                    <p style="margin: 1rem 0; color: #666; font-size: 0.9rem;">
-                        <i class="fas fa-info-circle"></i> ระบบได้บันทึกผลการสอบของคุณแล้ว
-                    </p>
-                    
-                    <button class="back-btn" id="back-btn">
-                        <i class="fas fa-home"></i> กลับสู่หน้าหลัก
-                    </button>
+                    <div class="form-grid">
+                        <!-- เลขที่ -->
+                        <div class="form-group">
+                            <label class="form-label required">
+                                <i class="fas fa-hashtag input-icon"></i> เลขที่
+                            </label>
+                            <input type="number" 
+                                   id="student-number" 
+                                   class="form-input" 
+                                   placeholder="กรุณากรอกเลขที่ เช่น 15"
+                                   min="1" 
+                                   max="99"
+                                   required>
+                            <div class="input-hint">เลขที่ในห้องเรียน (1-99)</div>
+                        </div>
+                        
+                        <!-- ห้อง -->
+                        <div class="form-group">
+                            <label class="form-label required">
+                                <i class="fas fa-door-open input-icon"></i> ห้อง
+                            </label>
+                            <input type="text" 
+                                   id="student-room" 
+                                   class="form-input" 
+                                   placeholder="กรุณากรอกห้อง เช่น ม.4/1"
+                                   required>
+                            <div class="input-hint">ตัวอย่าง: ม.4/1, ม.5/2, ม.6/3</div>
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- Important Notices -->
+                <div class="exam-notice">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <strong>หมายเหตุ:</strong> ระบบจะส่งคำตอบอัตโนมัติเมื่อหมดเวลา<br>
+                        กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนเริ่มทำแบบทดสอบ
+                    </div>
+                </div>
+                
+                <div class="exam-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>คำเตือน:</strong> แต่ละเครื่องคอมพิวเตอร์สามารถทำแบบทดสอบได้เพียง 1 ครั้งเท่านั้น<br>
+                        ระบบบันทึกข้อมูลตาม IP Address เพื่อป้องกันการสอบซ้ำ
+                    </div>
+                </div>
+                
+                <!-- Start Button -->
+                <button class="start-exam-btn" id="start-exam-btn">
+                    <i class="fas fa-play-circle"></i> เริ่มทำแบบทดสอบ
+                </button>
+                
+                <div style="text-align: center; color: #666; font-size: 0.95rem; margin-top: 2rem;">
+                    <p><i class="fas fa-clock"></i> เวลาทำข้อสอบ: 40 นาที</p>
+                    <p><i class="fas fa-list-check"></i> ข้อสอบทั้งหมด 30 ข้อ (ปรนัย 20 ข้อ + จับคู่ 10 ข้อ)</p>
+                    <p><i class="fas fa-rotate-left"></i> สามารถย้อนกลับแก้ไขคำตอบได้ตลอดเวลา</p>
+                </div>
+            </div>
+            
+            <!-- Questions Section -->
+            <div class="question-container" id="question-container">
+                <!-- Questions will be rendered here by JavaScript -->
+            </div>
+            
+            <!-- Result Section -->
+            <div class="result-container" id="result-container">
+                <!-- Results will be rendered here by JavaScript -->
             </div>
         </div>
     </section>
     
-    <!-- แถบความคืบหน้า -->
+    <!-- Progress Bar -->
     <div class="progress-container" id="progress-container" style="display: none;">
         <div class="progress-title">
             <i class="fas fa-chart-line"></i> ความคืบหน้าแบบทดสอบ (30 ข้อ)
@@ -1364,103 +1282,328 @@
         <div class="unanswered-warning" id="unanswered-warning">คุณยังมีข้อที่ยังไม่ได้ตอบ!</div>
     </div>
     
-    <!-- Notification -->
-    <div class="notification" id="notification"></div>
-    
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h3>เกี่ยวกับเรา</h3>
-                    <p>สื่อการสอนออนไลน์ By Ratchapon</p>
-                    <p>ติดตามช่องทางอื่นๆ ได้ที่</p>
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/ipaperz/"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.youtube.com/@paperkusz-999"><i class="fab fa-youtube"></i></a>
-                        <a href="https://line.me/ti/p/JgvbvajUfU"><i class="fab fa-line"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>ลิงก์ด่วน</h3>
-                    <a href="/learning-by-ratchapon/index.html"><i class="fas fa-chevron-right"></i> หน้าหลัก</a>
-                    <a href="/learning-by-ratchapon/about.html"><i class="fas fa-chevron-right"></i> ประวัติครู</a>
-                    <a href="/learning-by-ratchapon/achievements.html"><i class="fas fa-chevron-right"></i> ผลงาน</a>
-                    <a href="/learning-by-ratchapon/courses.html"><i class="fas fa-chevron-right"></i> วิชาทั้งหมด</a>
-                    <a href="/learning-by-ratchapon/knowledge.html"><i class="fas fa-chevron-right"></i> คลังความรู้</a>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>ระบบสมาชิก</h3>
-                    <a href="/learning-by-ratchapon/auth/login.html"><i class="fas fa-chevron-right"></i> เข้าสู่ระบบ</a>
-                    <a href="/learning-by-ratchapon/auth/register.html"><i class="fas fa-chevron-right"></i> สมัครสมาชิก</a>
-                    <a href="#"><i class="fas fa-chevron-right"></i> ลืมรหัสผ่าน</a>
-                    <a href="#"><i class="fas fa-chevron-right"></i> คำถามที่พบบ่อย</a>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>ติดต่อเรา</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> โรงเรียนพรตพิทยพยัต 4 ถนนหลวงพรต แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
-                    <p><i class="fas fa-phone"></i> 096-409-929-1</p>
-                    <p><i class="fas fa-envelope"></i> ratchapon@prot.ac.th</p>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>เกี่ยวกับเรา</h3>
+                <p>สื่อการสอนออนไลน์ By Ratchapon</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/ipaperz/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/@paperkusz-999"><i class="fab fa-youtube"></i></a>
+                    <a href="https://line.me/ti/p/JgvbvajUfU"><i class="fab fa-line"></i></a>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; © 2025 สื่อการสอนออนไลน์ By Ratchapon (Ratchapon@prot.ac.th)</p>
+            <div class="footer-col">
+                <h3>ติดต่อเรา</h3>
+                <p><i class="fas fa-map-marker-alt"></i> โรงเรียนพรตพิทยพยัต 4 ถนนหลวงพรต แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
+                <p><i class="fas fa-phone"></i> 096-409-929-1</p>
+                <p><i class="fas fa-envelope"></i> ratchapon@prot.ac.th</p>
             </div>
         </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; © 2025 สื่อการสอนออนไลน์ By Ratchapon (Ratchapon@prot.ac.th)</p>
+        </div>
     </footer>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
 
     <script>
     // ==========================
-    //  CONFIG ส่วนกลาง
+    // CONFIG และตัวแปรระบบ
     // ==========================
-
-    // <<< เปลี่ยน URL นี้ให้ถูกต้อง >>>
-    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxIjuh6txnH_l2O8J65d6rZ2jSLq3t2vVtWg1O70s71B6D1mP4gSoy4l1b_6UMv4QwF/exec";
-
-    // ข้อมูลวิชา / แบบทดสอบ
-    const SCHOOL_NAME   = "โรงเรียนพรตพิทยพยัต";
-    const COURSE_NAME   = "แบบทดสอบวิชาหุ่นยนต์เบื้องต้น";
-    const COURSE_CODE   = "ว30201";
-    const EXAM_TITLE    = "สอบกลางภาค";
-    const TERM          = "2";
-    const ACADEMIC_YEAR = "2568";
-    const ATTEMPT_NO    = 1;
-    const TOTAL_TIME    = 40 * 60; // 40 นาทีในวินาที
-
-    // แสดงข้อมูลวิชาบนหน้าเว็บ
-    document.getElementById("exam-title-text").textContent = `${COURSE_NAME} (${COURSE_CODE})`;
-    document.getElementById("exam-heading").textContent    = EXAM_TITLE;
-    document.getElementById("exam-subtitle-text").textContent =
-        `${SCHOOL_NAME} | ภาคเรียนที่ ${TERM} ปีการศึกษา ${ACADEMIC_YEAR} | ครั้งที่ ${ATTEMPT_NO}`;
-
-    // ตั้งค่าฟิลด์ข้อมูล
-    document.getElementById("course-name").value = COURSE_NAME;
-    document.getElementById("course-code").value = COURSE_CODE;
-    document.getElementById("exam-name").value   = EXAM_TITLE;
-    document.getElementById("term-year").value   = `ภาคเรียนที่ ${TERM} / ${ACADEMIC_YEAR}`;
-    document.getElementById("attempt-no").value  = ATTEMPT_NO;
-
-    // ==========================
-    // ระบบเก็บข้อมูลใน LocalStorage และตรวจสอบ IP
-    // ==========================
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwwBoLodgNIrMf6GqSL7oQcJM1n80sEjFVOW4wzBqaaDH0l1xOItgZorJNFdQ7U8Zxv/exec";
     
+    const EXAM_CONFIG = {
+        schoolName: "โรงเรียนพรตพิทยพยัต",
+        courseName: "แบบทดสอบวิชาหุ่นยนต์เบื้องต้น",
+        courseCode: "ว30201",
+        examTitle: "สอบกลางภาค",
+        term: "2",
+        academicYear: "2568",
+        attemptNo: 1,
+        totalTime: 40 * 60, // 40 นาทีในวินาที
+        totalQuestions: 30
+    };
+    
+    // ตั้งค่าข้อมูลบนหน้าเว็บ
+    document.getElementById("exam-title-text").textContent = `${EXAM_CONFIG.courseName}`;
+    document.getElementById("exam-subtitle-text").textContent = 
+        `${EXAM_CONFIG.schoolName} | ภาคเรียนที่ ${EXAM_CONFIG.term} ปีการศึกษา ${EXAM_CONFIG.academicYear}`;
+    
+    document.getElementById("course-name-display").textContent = EXAM_CONFIG.courseName;
+    document.getElementById("course-code-display").textContent = EXAM_CONFIG.courseCode;
+    document.getElementById("term-year-display").textContent = `${EXAM_CONFIG.term}/${EXAM_CONFIG.academicYear}`;
+    document.getElementById("attempt-no-display").textContent = EXAM_CONFIG.attemptNo;
+    
+    // ==========================
+    // ระบบเก็บข้อมูลใน LocalStorage
+    // ==========================
     const STORAGE_KEY = 'robot_exam_submission_30';
     const IP_STORAGE_KEY = 'exam_ip_tracker_30';
     
-    // ฟังก์ชันตรวจสอบว่าผู้ใช้เคยสอบแล้วหรือไม่
+    // ==========================
+    // ข้อมูลข้อสอบทั้งหมด 30 ข้อ
+    // ==========================
+    
+    // ข้อสอบปรนัย 20 ข้อ
+    const mcQuestions = [
+        { 
+            id: 1, 
+            question: "โค้ดลักษณะใด เหมาะสมที่สุด สำหรับการทำงานซ้ำวนรอบที่แน่นอน", 
+            options: ["if–else", "for", "Do... while", "while"], 
+            correct: 1  // for
+        },
+        { 
+            id: 2, 
+            question: "ข้อใด อธิบายความแตกต่างระหว่าง if-else และ loop ได้ถูกต้องที่สุด", 
+            options: [
+                "ทั้งสองสามารถใช้แทนกันได้ทุกกรณี",
+                "if-else ใช้ควบคุมจำนวนรอบ แต่ loop ใช้ตัดสินใจเลือกเงื่อนไข",
+                "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้สำหรับประกาศตัวแปร",
+                "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้ควบคุมจำนวนรอบ"
+            ], 
+            correct: 3  // ตัวที่ 4
+        },
+        { 
+            id: 3, 
+            question: "นักเรียนต้องการให้ Arduino 'ทำงานบางอย่างทันทีเมื่อเปิดเครื่อง และไม่ทำซ้ำอีก' ควรเขียนคำสั่งไว้ส่วนใดของโปรแกรม", 
+            options: ["loop()", "setup()", "if~else", "switch~case"], 
+            correct: 1  // setup()
+        },
+        { 
+            id: 4, 
+            question: "ค่าของ x หลังจากคำสั่งต่อไปนี้คือเท่าใด?<br><code>int x = 3;<br>if (x > 5) {<br>    x = x + 2;<br>} else {<br>    x = x * 2;<br>}</code>", 
+            options: ["3", "5", "6", "10"], 
+            correct: 2  // 6
+        },
+        { 
+            id: 5, 
+            question: "โปรแกรมต่อไปนี้จะแสดงคำว่า 'Hi' กี่ครั้ง?<br><code>int i = 0;<br>while (i < 3) {<br>    Serial.println('Hi');<br>    i++;<br>}</code>", 
+            options: ["ไม่แสดงอะไรเลย", "1", "2", "3"], 
+            correct: 3  // 3
+        },
+        { 
+            id: 6, 
+            question: "กรณีใดควรเลือกใช้ If-else แทน switch-case", 
+            options: ["ตรวจค่าที่เป็นช่วง (มากกว่า / น้อยกว่า)", "ตรวจค่าแบบตัวเลือก", "เลือกเมนูตัวเลข", "ตรวจค่าแบบเท่ากันพอดี"], 
+            correct: 0  // ตรวจค่าที่เป็นช่วง
+        },
+        { 
+            id: 7, 
+            question: "ค่าของ x หลังจบโปรแกรมคือข้อใด?<br><code>int x = 1;<br>for(int i = 1; i <= 3; i++) {<br>    x = x * 2;<br>}</code>", 
+            options: ["4", "8", "12", "16"], 
+            correct: 1  // 8
+        },
+        { 
+            id: 8, 
+            question: "ข้อใดอธิบายผลลัพธ์ได้ถูกต้องที่สุด?<br><code>int i;<br>for (i = 0; i < 4; i++) {<br>    Serial.println(i);<br>}</code>", 
+            options: ["แสดง 0 ถึง 4", "แสดง 1 ถึง 4", "แสดง 0 ถึง 3", "แสดง 1 ถึง 3"], 
+            correct: 2  // แสดง 0 ถึง 3
+        },
+        { 
+            id: 9, 
+            question: "ข้อความ 'A' ถูกแสดงกี่ครั้ง?<br><code>for (int i = 1; i <= 5; i++) {<br>    if (i == 3) {<br>        Serial.println('A');<br>    }<br>}</code>", 
+            options: ["0 ครั้ง", "1 ครั้ง", "3 ครั้ง", "5 ครั้ง"], 
+            correct: 1  // 1 ครั้ง
+        },
+        { 
+            id: 10, 
+            question: "โปรแกรมแสดงผลอะไร?<br><code>int score = 49;<br>if (score >= 50) {<br>    Serial.println('Pass');<br>} else {<br>    Serial.println('Fail');<br>}</code>", 
+            options: ["Pass", "Fail", "Pass และ Fail", "ไม่แสดงผลใด ๆ"], 
+            correct: 1  // Fail
+        },
+        { 
+            id: 11, 
+            question: "ต้องการเขียนโปรแกรมให้ LED ติด/ดับ 3 ครั้ง เมื่อกดปุ่มเพียง 1 ครั้ง โครงสร้างใดเหมาะสมที่สุด", 
+            options: ["if -else ครอบ for loop", "while loop โดยไม่ใช้เงื่อนไข", "for loop อย่างเดียว", "if -else อย่างเดียว"], 
+            correct: 0  // if -else ครอบ for loop
+        },
+        { 
+            id: 12, 
+            question: "ค่าของ a หลังจากโปรแกรมนี้คือเท่าใด?<br><code>int a = 10;<br>if (a >= 10) {<br>    a = a - 5;<br>}<br>a = a + 2;</code>", 
+            options: ["7", "10", "12", "17"], 
+            correct: 0  // 7
+        },
+        { 
+            id: 13, 
+            question: "โปรแกรมต่อไปนี้จะแสดงผลอะไร?<br><code>int x = 0;<br>while (x < 5) {<br>    x++;<br>}<br>Serial.println(x);</code>", 
+            options: ["0", "4", "5", "6"], 
+            correct: 2  // 5
+        },
+        { 
+            id: 14, 
+            question: "ต้องการให้โปรแกรมแสดงตัวเลข 1-10 ควรใช้โครงสร้างใด?", 
+            options: ["if-else", "switch-case", "for loop", "ฟังก์ชัน"], 
+            correct: 2  // for loop
+        },
+        { 
+            id: 15, 
+            question: "ค่า y หลังจากโปรแกรมนี้คือเท่าใด?<br><code>int y = 5;<br>do {<br>    y--;<br>} while (y > 0);</code>", 
+            options: ["0", "1", "4", "5"], 
+            correct: 0  // 0
+        },
+        { 
+            id: 16, 
+            question: "คำสั่งใดใช้สำหรับการตัดสินใจเลือกทำเฉพาะกรณีเดียว", 
+            options: ["if", "if-else", "switch-case", "for"], 
+            correct: 0  // if
+        },
+        { 
+            id: 17, 
+            question: "ข้อใดคือลักษณะของ while loop", 
+            options: ["วนซ้ำจำนวนครั้งที่แน่นอน", "ตรวจสอบเงื่อนไขก่อนทำ", "ทำอย่างน้อย 1 ครั้งเสมอ", "ใช้สำหรับการเลือกเงื่อนไข"], 
+            correct: 1  // ตรวจสอบเงื่อนไขก่อนทำ
+        },
+        { 
+            id: 18, 
+            question: "โปรแกรมต่อไปนี้จะแสดงผลอะไร?<br><code>int num = 7;<br>if (num % 2 == 0) {<br>    Serial.println('Even');<br>} else {<br>    Serial.println('Odd');<br>}</code>", 
+            options: ["Even", "Odd", "7", "ไม่แสดงอะไร"], 
+            correct: 1  // Odd
+        },
+        { 
+            id: 19, 
+            question: "คำสั่งใดเหมาะสมที่สุดสำหรับการทำงานตามจำนวนรอบที่แน่นอน", 
+            options: ["while", "do-while", "for", "if"], 
+            correct: 2  // for
+        },
+        { 
+            id: 20, 
+            question: "โปรแกรมแสดงผลอะไร?<br><code>int i;<br>for (i = 10; i > 5; i--) {<br>    Serial.print(i);<br>    Serial.print(' ');<br>}</code>", 
+            options: ["10 9 8 7 6", "10 9 8 7 6 5", "9 8 7 6 5", "10 11 12"], 
+            correct: 0  // 10 9 8 7 6
+        }
+    ];
+    
+    // ข้อสอบจับคู่ 10 ข้อ (จาก 14 ข้อ)
+    const matchingQuestions = [
+        { id: 21, text: "boolean : -----> ", answer: "O" },
+        { id: 22, text: "char : -----> ", answer: "L" },
+        { id: 23, text: "float : -----> ", answer: "D" },
+        { id: 24, text: "int : -----> ", answer: "C" },
+        { id: 25, text: "if :-----> ", answer: "G" },
+        { id: 26, text: "pinMode() :-----> ", answer: "A" },
+        { id: 27, text: "digitalRead() :-----> ", answer: "V" },
+        { id: 28, text: "digitalWrite() : -----> ", answer: "R" },
+        { id: 29, text: "analogRead() :-----> ", answer: "H" },
+        { id: 30, text: "delay() :-----> ", answer: "J" }
+        // Note: มี 14 ข้อแต่ใช้แค่ 10 ข้อ
+    ];
+    
+    const matchingOptions = [
+        { letter: "A", text: "กําหนดหน้าที่ PIN" },
+        { letter: "B", text: "False" },
+        { letter: "C", text: "จํานวนเต็ม" },
+        { letter: "D", text: "ทศนิยม" },
+        { letter: "E", text: "จบคำสั่ง" },
+        { letter: "F", text: "กําหนดเงื่อนไข" },
+        { letter: "G", text: "คำสั่งควบคุมการทำงานแบบมีเงื่อนไข " },
+        { letter: "H", text: "อ่านค่าจากอนาล็อก PIN" },
+        { letter: "I", text: "คอมเมนต์ 1 บรรทัด" },
+        { letter: "J", text: "หน่วงเวลาโปรแกรม" },
+        { letter: "K", text: "TRUE" },
+        { letter: "L", text: "ตัวอักษร" },
+        { letter: "M", text: "5.8" },
+        { letter: "O", text: "true หรือ false" },
+        { letter: "R", text: "สั่งดิจิตอล PIN ทำงาน" },
+        { letter: "S", text: "ใช้กำหนดขอบเขตของบล็อกโค้ด" },
+        { letter: "T", text: "ทำงาน ตราบใดที่เงื่อนไขยังเป็นจริง" },
+        { letter: "V", text: "อ่านค่าจากดิจิตอล PIN" }
+    ];
+
+    // ==========================
+    // ตัวแปรระบบ
+    // ==========================
+    let section1Questions = []; // ปรนัย 20 ข้อ
+    let section2Questions = []; // จับคู่ 10 ข้อ
+    let userAnswers = []; // สำหรับข้อปรนัย
+    let userMatchingAnswers = []; // สำหรับข้อจับคู่
+    let currentQuestionIndex = 0;
+    let timeLeft = EXAM_CONFIG.totalTime;
+    let timerInterval;
+    let startTime;
+    let autoSubmitTriggered = false;
+    
+    // ตั้งค่า flag สำหรับตรวจสอบสถานะ
+    window.examStarted = false;
+    window.examFinished = false;
+
+    // ==========================
+    // Event Listeners
+    // ==========================
+    document.addEventListener('DOMContentLoaded', function() {
+        // ตรวจสอบสถานะเมื่อโหลดหน้า
+        const hasPrevious = checkPreviousSubmission();
+        
+        // ถ้าไม่มีประวัติการสอบ ให้แสดงฟอร์มปกติ
+        if (!hasPrevious) {
+            document.getElementById('start-exam').style.display = 'block';
+        }
+        
+        // ปุ่มเริ่มสอบ
+        document.getElementById('start-exam-btn').addEventListener('click', startExamProcess);
+        
+        // ฟังก์ชัน Enter เพื่อเริ่มสอบ
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.getElementById('start-exam').style.display !== 'none') {
+                if (validateForm()) {
+                    startExam();
+                }
+            }
+        });
+        
+        // ตั้งค่า placeholder ให้ชัดเจน
+        const inputs = document.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = 'var(--secondary-blue)';
+                this.style.boxShadow = '0 0 0 3px rgba(51, 153, 255, 0.1)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.borderColor = '#e2e8f0';
+                this.style.boxShadow = 'none';
+            });
+        });
+        
+        // ป้องกันการรีเฟรชเมื่อกำลังสอบ
+        window.addEventListener('beforeunload', function(e) {
+            if (window.examStarted && !window.examFinished) {
+                // บันทึกสถานะปัจจุบันก่อนออก
+                saveExamState();
+                
+                e.preventDefault();
+                e.returnValue = 'คุณกำลังทำแบบทดสอบอยู่ ต้องการออกจากหน้าหรือไม่?';
+                return e.returnValue;
+            }
+        });
+    });
+    
+    // ==========================
+    // ฟังก์ชันตรวจสอบสถานะการสอบ
+    // ==========================
     function checkPreviousSubmission() {
-        // ตรวจสอบใน LocalStorage ก่อน
         const previousData = localStorage.getItem(STORAGE_KEY);
         
         if (previousData) {
             try {
                 const data = JSON.parse(previousData);
-                showAlreadySubmitted(data);
-                return true;
+                // ตรวจสอบว่าเป็นครั้งล่าสุดหรือไม่ (ภายใน 24 ชม.)
+                const submitTime = new Date(data.timestamp);
+                const now = new Date();
+                const hoursDiff = (now - submitTime) / (1000 * 60 * 60);
+                
+                if (hoursDiff < 24) {
+                    showAlreadySubmitted(data);
+                    return true;
+                } else {
+                    // ลบข้อมูลเก่าที่เกิน 24 ชม.
+                    localStorage.removeItem(STORAGE_KEY);
+                    localStorage.removeItem(IP_STORAGE_KEY);
+                }
             } catch (e) {
                 console.error('Error parsing stored data:', e);
             }
@@ -1469,7 +1612,6 @@
         return false;
     }
     
-    // แสดงหน้าสำหรับผู้ที่สอบแล้ว
     function showAlreadySubmitted(previousData) {
         document.getElementById('start-exam').style.display = 'none';
         document.getElementById('already-submitted').style.display = 'block';
@@ -1484,368 +1626,363 @@
             document.getElementById('previous-time').textContent = 
                 previousData.timeUsed || '00:00:00';
         }
+    }
+    
+    // ==========================
+    // ฟังก์ชันตรวจสอบฟอร์ม
+    // ==========================
+    function validateForm() {
+        const firstName = document.getElementById('student-firstname').value.trim();
+        const lastName = document.getElementById('student-lastname').value.trim();
+        const number = document.getElementById('student-number').value.trim();
+        const room = document.getElementById('student-room').value.trim();
         
-        // ป้องกันการกด F5 เพื่อเริ่มสอบใหม่
-        disableStartButton();
-    }
-    
-    // ปิดการใช้งานปุ่มเริ่มสอบ
-    function disableStartButton() {
-        const startBtn = document.getElementById('start-btn');
-        startBtn.disabled = true;
-        startBtn.innerHTML = '<i class="fas fa-ban"></i> ทำแบบทดสอบแล้ว (ใช้ได้ครั้งเดียว)';
-    }
-    
-    // ตรวจสอบเมื่อโหลดหน้าเว็บ
-    document.addEventListener('DOMContentLoaded', function() {
-        // ตรวจสอบว่าเคยสอบแล้วหรือไม่
-        checkPreviousSubmission();
-    });
-
-    // ==========================
-    // ข้อมูลข้อสอบ (ส่วนที่ 1: ปรนัย 20 ข้อ)
-    // ==========================
-    const encodedQuestions = [
-        { id: 1, question: "โค้ดลักษณะใด เหมาะสมที่สุด สำหรับการทำงานซ้ำวนรอบที่แน่นอน", options: ["if–else", "for", "Do... while", "while"], correct: "MQ==" },
-        { id: 2, question: "ข้อใด อธิบายความแตกต่างระหว่าง if-else และ loop ได้ถูกต้องที่สุด", options: ["ทั้งสองสามารถใช้แทนกันได้ทุกกรณี", "if-else ใช้ควบคุมจำนวนรอบ แต่ loop ใช้ตัดสินใจเลือกเงื่อนไข", "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้สำหรับประกาศตัวแปร", "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้ควบคุมจำนวนรอบ"], correct: "Mw==" },
-        { id: 3, question: "นักเรียนต้องการให้ Arduino 'ทำงานบางอย่างทันทีเมื่อเปิดเครื่อง และไม่ทำซ้ำอีก' ควรเขียนคำสั่งไว้ส่วนใดของโปรแกรม", options: ["loop()", "setup()", "if~else", "switch~case"], correct: "MQ==" },
-        { id: 4, question: "ค่าของ x หลังจากคำสั่งต่อไปนี้คือเท่าใด?<br><code>int x = 3;<br>if (x > 5) {<br>    x = x + 2;<br>} else {<br>    x = x * 2;<br>}</code>", options: ["3", "5", "6", "10"], correct: "Mg==" },
-        { id: 5, question: "โปรแกรมต่อไปนี้จะแสดงคำว่า 'Hi' กี่ครั้ง?<br><code>int i = 0;<br>while (i < 3) {<br>    Serial.println('Hi');<br>    i++;<br>}</code>", options: ["ไม่แสดงอะไรเลย", "1", "2", "3"], correct: "Mw==" },
-        { id: 6, question: "กรณีใดควรเลือกใช้ If-else แทน switch-case", options: ["ตรวจค่าที่เป็นช่วง (มากกว่า / น้อยกว่า)", "ตรวจค่าแบบตัวเลือก", "เลือกเมนูตัวเลข", "ตรวจค่าแบบเท่ากันพอดี"], correct: "MA==" },
-        { id: 7, question: "ค่าของ x หลังจบโปรแกรมคือข้อใด?<br><code>int x = 1;<br>for(int i = 1; i <= 3; i++) {<br>    x = x * 2;<br>}</code>", options: ["4", "8", "12", "16"], correct: "MQ==" },
-        { id: 8, question: "ข้อใดอธิบายผลลัพธ์ได้ถูกต้องที่สุด?<br><code>int i;<br>for (i = 0; i < 4; i++) {<br>    Serial.println(i);<br>}</code>", options: ["แสดง 0 ถึง 4", "แสดง 1 ถึง 4", "แสดง 0 ถึง 3", "แสดง 1 ถึง 3"], correct: "Mg==" },
-        { id: 9, question: "ข้อความ 'A' ถูกแสดงกี่ครั้ง?<br><code>for (int i = 1; i <= 5; i++) {<br>    if (i == 3) {<br>        Serial.println('A');<br>    }<br>}</code>", options: ["0 ครั้ง", "1 ครั้ง", "3 ครั้ง", "5 ครั้ง"], correct: "MQ==" },
-        { id: 10, question: "โปรแกรมแสดงผลอะไร?<br><code>int score = 49;<br>if (score >= 50) {<br>    Serial.println('Pass');<br>} else {<br>    Serial.println('Fail');<br>}</code>", options: ["Pass", "Fail", "Pass และ Fail", "ไม่แสดงผลใด ๆ"], correct: "MQ==" },
-        { id: 11, question: "ต้องการเขียนโปรแกรมให้ LED ติด/ดับ 3 ครั้ง เมื่อกดปุ่มเพียง 1 ครั้ง โครงสร้างใดเหมาะสมที่สุด", options: ["if -else ครอบ for loop", "while loop โดยไม่ใช้เงื่อนไข", "for loop อย่างเดียว", "if -else อย่างเดียว"], correct: "MA==" },
-        { id: 12, question: "ค่าของ a หลังจากโปรแกรมนี้คือเท่าใด?<br><code>int a = 10;<br>if (a >= 10) {<br>    a = a - 5;<br>}<br>a = a + 2;</code>", options: ["7", "10", "12", "17"], correct: "MA==" },
-        { id: 13, question: "โปรแกรมต่อไปนี้จะแสดงผลอะไร?<br><code>int x = 0;<br>while (x < 5) {<br>    x++;<br>}<br>Serial.println(x);</code>", options: ["0", "4", "5", "6"], correct: "Mg==" },
-        { id: 14, question: "ต้องการให้โปรแกรมแสดงตัวเลข 1-10 ควรใช้โครงสร้างใด?", options: ["if-else", "switch-case", "for loop", "ฟังก์ชัน"], correct: "Mg==" },
-        { id: 15, question: "ค่า y หลังจากโปรแกรมนี้คือเท่าใด?<br><code>int y = 5;<br>do {<br>    y--;<br>} while (y > 0);</code>", options: ["0", "1", "4", "5"], correct: "MA==" },
-        { id: 16, question: "คำสั่งใดใช้สำหรับการตัดสินใจเลือกทำเฉพาะกรณีเดียว", options: ["if", "if-else", "switch-case", "for"], correct: "MA==" },
-        { id: 17, question: "ข้อใดคือลักษณะของ while loop", options: ["วนซ้ำจำนวนครั้งที่แน่นอน", "ตรวจสอบเงื่อนไขก่อนทำ", "ทำอย่างน้อย 1 ครั้งเสมอ", "ใช้สำหรับการเลือกเงื่อนไข"], correct: "MQ==" },
-        { id: 18, question: "โปรแกรมต่อไปนี้จะแสดงผลอะไร?<br><code>int num = 7;<br>if (num % 2 == 0) {<br>    Serial.println('Even');<br>} else {<br>    Serial.println('Odd');<br>}</code>", options: ["Even", "Odd", "7", "ไม่แสดงอะไร"], correct: "MQ==" },
-        { id: 19, question: "คำสั่งใดเหมาะสมที่สุดสำหรับการทำงานตามจำนวนรอบที่แน่นอน", options: ["while", "do-while", "for", "if"], correct: "Mg==" },
-        { id: 20, question: "โปรแกรมแสดงผลอะไร?<br><code>int i;<br>for (i = 10; i > 5; i--) {<br>    Serial.print(i);<br>    Serial.print(' ');<br>}</code>", options: ["10 9 8 7 6", "10 9 8 7 6 5", "9 8 7 6 5", "10 11 12"], correct: "MA==" }
-    ];
-
-    // ==========================
-    // ข้อมูลข้อสอบ (ส่วนที่ 2: จับคู่ 14 ข้อ แต่ใช้ 10 ข้อ)
-    // ==========================
-    const matchingData = {
-        title: "จับคู่ความสัมพันธ์",
-        questions: [
-            { id: 21, text: "boolean : ……….", answer: "O" },
-            { id: 22, text: "char : ………", answer: "L" },
-            { id: 23, text: "float : ………", answer: "D" },
-            { id: 24, text: "int : ………", answer: "C" },
-            { id: 25, text: "if : ………", answer: "F" },
-            { id: 26, text: "pinMode() : ………", answer: "A" },
-            { id: 27, text: "digitalRead() : ………", answer: "V" },
-            { id: 28, text: "digitalWrite() : ………", answer: "R" },
-            { id: 29, text: "analogRead() : ………", answer: "H" },
-            { id: 30, text: "delay() : ………", answer: "G" },
-            { id: 31, text: "/*… */ : ………", answer: "S" },
-            { id: 32, text: "// : ………", answer: "I" },
-            { id: 33, text: "; : ………", answer: "E" },
-            { id: 34, text: "[] : ………", answer: "J" }
-        ],
-        options: [
-            { letter: "A", text: "กําหนดหน้าที่ PIN" },
-            { letter: "B", text: "False" },
-            { letter: "C", text: "จํานวนเต็ม" },
-            { letter: "D", text: "ทศนิยม" },
-            { letter: "E", text: "จบคำสั่ง" },
-            { letter: "F", text: "กําหนดเงื่อนไข" },
-            { letter: "G", text: "ถ้า" },
-            { letter: "H", text: "อ่านค่าจากอนาล็อก PIN" },
-            { letter: "I", text: "คอมเมนต์ 1 บรรทัด" },
-            { letter: "J", text: "กําหนดขอบเขตโปรแกรม" },
-            { letter: "K", text: "TRUE" },
-            { letter: "L", text: "ตัวอักษร" },
-            { letter: "M", text: "5.8" },
-            { letter: "O", text: "ความถูกต้อง" },
-            { letter: "R", text: "สั่งดิจิตอล PIN ทำงาน" },
-            { letter: "S", text: "คอมเมนต์หลายบรรทัด" },
-            { letter: "T", text: "“Son" },
-            { letter: "V", text: "อ่านค่าจากดิจิตอล PIN" }
-        ]
-    };
-
-    // ฟังก์ชันถอดรหัสเฉลย
-    function decodeAnswer(encoded) {
-        return parseInt(atob(encoded));
-    }
-
-    // สร้างข้อสอบส่วนที่ 1 พร้อมเฉลย
-    const mcQuestions = encodedQuestions.map(q => ({
-        ...q,
-        correctAnswer: decodeAnswer(q.correct),
-        type: 'multiple-choice'
-    }));
-
-    // ==========================
-    // ตัวแปรระบบ
-    // ==========================
-    let section1Questions = []; // ปรนัย 20 ข้อ
-    let section2Questions = []; // จับคู่ 10 ข้อ (จาก 14 ข้อ)
-    let userAnswers = []; // สำหรับข้อปรนัย
-    let userMatchingAnswers = []; // สำหรับข้อจับคู่
-    let currentQuestionIndex = 0;
-    let timeLeft = TOTAL_TIME;
-    let timerInterval;
-    let startTime;
-    
-    // ตั้งค่า flag สำหรับตรวจสอบสถานะ
-    window.examStarted = false;
-    window.examFinished = false;
-
-    const startBtn = document.getElementById('start-btn');
-    const submitBtn = document.getElementById('submit-btn');
-    const backBtn = document.getElementById('back-btn');
-
-    startBtn.addEventListener('click', startExam);
-    submitBtn.addEventListener('click', submitExam);
-    backBtn.addEventListener('click', () => {
-        window.location.href = '/learning-by-ratchapon/index.html';
-    });
-
-    // ==========================
-    // ฟังก์ชันแสดงข้อความแจ้งเตือน
-    // ==========================
-    function showNotification(message, type = 'info') {
-        const notification = document.getElementById('notification');
-        notification.textContent = message;
-        notification.className = `notification ${type}`;
-        notification.style.display = 'block';
+        let isValid = true;
+        let errorMessage = '';
         
-        setTimeout(() => {
-            notification.style.display = 'none';
-        }, 3000);
+        // ล้างข้อความ error เดิม
+        document.querySelectorAll('.error-message').forEach(el => el.remove());
+        
+        // ตรวจสอบชื่อ
+        if (!firstName) {
+            showInputError('student-firstname', 'กรุณากรอกชื่อ');
+            isValid = false;
+            errorMessage += '• กรุณากรอกชื่อ\n';
+        } else if (firstName.length < 2) {
+            showInputError('student-firstname', 'ชื่อต้องมีความยาวอย่างน้อย 2 ตัวอักษร');
+            isValid = false;
+            errorMessage += '• ชื่อต้องมีความยาวอย่างน้อย 2 ตัวอักษร\n';
+        } else {
+            clearInputError('student-firstname');
+        }
+        
+        // ตรวจสอบนามสกุล
+        if (!lastName) {
+            showInputError('student-lastname', 'กรุณากรอกนามสกุล');
+            isValid = false;
+            errorMessage += '• กรุณากรอกนามสกุล\n';
+        } else if (lastName.length < 2) {
+            showInputError('student-lastname', 'นามสกุลต้องมีความยาวอย่างน้อย 2 ตัวอักษร');
+            isValid = false;
+            errorMessage += '• นามสกุลต้องมีความยาวอย่างน้อย 2 ตัวอักษร\n';
+        } else {
+            clearInputError('student-lastname');
+        }
+        
+        // ตรวจสอบเลขที่
+        if (!number) {
+            showInputError('student-number', 'กรุณากรอกเลขที่');
+            isValid = false;
+            errorMessage += '• กรุณากรอกเลขที่\n';
+        } else if (isNaN(number) || parseInt(number) < 1 || parseInt(number) > 99) {
+            showInputError('student-number', 'เลขที่ต้องเป็นตัวเลขระหว่าง 1-99');
+            isValid = false;
+            errorMessage += '• เลขที่ต้องเป็นตัวเลขระหว่าง 1-99\n';
+        } else {
+            clearInputError('student-number');
+        }
+        
+        // ตรวจสอบห้อง
+        if (!room) {
+            showInputError('student-room', 'กรุณากรอกห้อง');
+            isValid = false;
+            errorMessage += '• กรุณากรอกห้อง\n';
+        } else if (!/^ม\.\d+\/\d+$/.test(room)) {
+            showInputError('student-room', 'รูปแบบห้องไม่ถูกต้อง (ตัวอย่าง: ม.4/1)');
+            isValid = false;
+            errorMessage += '• รูปแบบห้องไม่ถูกต้อง\n';
+        } else {
+            clearInputError('student-room');
+        }
+        
+        if (!isValid) {
+            showNotification('กรุณากรอกข้อมูลให้ถูกต้อง:\n' + errorMessage, 'error');
+            return false;
+        }
+        
+        return true;
     }
-
+    
+    function showInputError(inputId, message) {
+        const input = document.getElementById(inputId);
+        const formGroup = input.closest('.form-group');
+        
+        // ลบข้อความ error เดิม
+        const existingError = formGroup.querySelector('.error-message');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        // เพิ่มข้อความ error ใหม่
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+        
+        formGroup.appendChild(errorDiv);
+        
+        // เปลี่ยนสไตล์ input
+        input.style.borderColor = 'var(--danger-red)';
+        input.style.backgroundColor = '#fff5f5';
+    }
+    
+    function clearInputError(inputId) {
+        const input = document.getElementById(inputId);
+        const formGroup = input.closest('.form-group');
+        const existingError = formGroup.querySelector('.error-message');
+        
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        input.style.borderColor = '#e2e8f0';
+        input.style.backgroundColor = 'white';
+    }
+    
     // ==========================
     // ฟังก์ชันเริ่มสอบ
     // ==========================
+    function startExamProcess() {
+        if (validateForm()) {
+            startExam();
+        }
+    }
+    
     function startExam() {
-        // ตรวจสอบอีกครั้งว่าเคยสอบแล้วหรือไม่
-        if (localStorage.getItem(STORAGE_KEY)) {
-            showNotification('คุณได้ทำแบบทดสอบนี้แล้ว', 'error');
-            const previousData = JSON.parse(localStorage.getItem(STORAGE_KEY));
-            showAlreadySubmitted(previousData);
-            return;
-        }
-
-        const firstName = document.getElementById('student-firstname').value.trim();
-        const lastName  = document.getElementById('student-lastname').value.trim();
-        const number    = document.getElementById('student-number').value.trim();
-        const room      = document.getElementById('student-room').value.trim();
-
-        if (!firstName || !lastName || !number || !room) {
-            showNotification('กรุณากรอกข้อมูลให้ครบถ้วนก่อนเริ่มทำแบบทดสอบ', 'error');
-            return;
-        }
-
-        // บันทึกข้อมูลผู้สอบชั่วคราว
-        window.studentInfo = { firstName, lastName, number, room };
-
-        // สุ่มข้อสอบส่วนที่ 1 (ปรนัย 20 ข้อ)
+        // บันทึกข้อมูลผู้สอบ
+        window.studentInfo = {
+            firstName: document.getElementById('student-firstname').value.trim(),
+            lastName: document.getElementById('student-lastname').value.trim(),
+            number: document.getElementById('student-number').value.trim(),
+            room: document.getElementById('student-room').value.trim()
+        };
+        
+        // สุ่มข้อสอบ
+        prepareExamQuestions();
+        
+        // ซ่อนฟอร์มเริ่มต้น
+        document.getElementById('start-exam').style.display = 'none';
+        
+        // แสดงข้อความกำลังโหลด
+        document.getElementById('question-container').innerHTML = `
+            <div style="text-align: center; padding: 4rem 2rem;">
+                <div class="loading-spinner"></div>
+                <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">กำลังเตรียมข้อสอบ...</h3>
+                <p style="color: #666;">กรุณารอสักครู่</p>
+            </div>
+        `;
+        document.getElementById('question-container').style.display = 'block';
+        
+        // สุ่มข้อสอบและเริ่มนับถอยหลัง
+        setTimeout(() => {
+            renderAllQuestions();
+            renderProgressButtons();
+            startExamTimer();
+            scrollToQuestion(0);
+            
+            // ตั้งค่าสถานะ
+            window.examStarted = true;
+            
+            showNotification('เริ่มทำแบบทดสอบเรียบร้อย! คุณมีเวลา 40 นาที', 'success');
+        }, 1000);
+    }
+    
+    function prepareExamQuestions() {
+        // สุ่มข้อสอบปรนัย 20 ข้อ
         section1Questions = shuffleArray([...mcQuestions]).slice(0, 20);
         userAnswers = new Array(section1Questions.length).fill(null);
-
-        // สุ่มข้อสอบส่วนที่ 2 (จับคู่ 10 ข้อ จาก 14 ข้อ)
-        section2Questions = shuffleArray([...matchingData.questions]).slice(0, 10);
+        
+        // สุ่มข้อสอบจับคู่ 10 ข้อ
+        section2Questions = shuffleArray([...matchingQuestions]).slice(0, 10);
         userMatchingAnswers = new Array(section2Questions.length).fill(null);
-
-        document.getElementById('start-exam').style.display = 'none';
-        document.getElementById('question-container').style.display = 'block';
-        document.getElementById('progress-container').style.display = 'block';
-
-        renderAllQuestions();
-        renderProgressButtons();
-
-        startTime = new Date();
-        timeLeft = TOTAL_TIME;
-        startTimer();
-        scrollToQuestion(0);
-        
-        // ตั้งค่าสถานะ
-        window.examStarted = true;
-        
-        showNotification('เริ่มทำแบบทดสอบ! คุณมีเวลา 40 นาที', 'info');
     }
-
-    // แสดงคำถามทั้งหมด (ทั้ง 2 ส่วน)
+    
+    // ==========================
+    // แสดงคำถามทั้งหมด
+    // ==========================
     function renderAllQuestions() {
         const questionsElement = document.getElementById('questions');
         questionsElement.innerHTML = '';
 
         // ส่วนที่ 1: ข้อสอบปรนัย
-        const section1Header = document.createElement('div');
-        section1Header.className = 'section-header';
-        section1Header.innerHTML = `<i class="fas fa-list-ol"></i> ส่วนที่ 1: ข้อสอบปรนัย (20 ข้อ)`;
-        questionsElement.appendChild(section1Header);
+        if (section1Questions.length > 0) {
+            const section1Header = document.createElement('div');
+            section1Header.className = 'section-header';
+            section1Header.innerHTML = `<i class="fas fa-list-ol"></i> ส่วนที่ 1: ข้อสอบปรนัย (${section1Questions.length} ข้อ)`;
+            questionsElement.appendChild(section1Header);
 
-        // แสดงข้อปรนัย
-        section1Questions.forEach((q, index) => {
-            const questionDiv = document.createElement('div');
-            questionDiv.className = 'question';
-            questionDiv.id = `question-${index}`;
+            section1Questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.id = `question-${index}`;
 
-            const questionNumber = document.createElement('div');
-            questionNumber.className = 'question-number';
-            questionNumber.innerHTML = `<i class="fas fa-question-circle"></i> ข้อที่ ${index + 1}`;
+                questionDiv.innerHTML = `
+                    <div class="question-number">
+                        <i class="fas fa-question-circle"></i> ข้อที่ ${index + 1}
+                    </div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options" id="options-${index}"></div>
+                `;
 
-            const questionText = document.createElement('div');
-            questionText.className = 'question-text';
-            questionText.innerHTML = q.question;
-
-            const optionsDiv = document.createElement('div');
-            optionsDiv.className = 'options';
-
-            questionDiv.appendChild(questionNumber);
-            questionDiv.appendChild(questionText);
-
-            q.options.forEach((option, optionIndex) => {
-                const optionDiv = document.createElement('label');
-                optionDiv.className = 'option';
-
-                const input = document.createElement('input');
-                input.type = 'radio';
-                input.name = `question-${index}`;
-                input.value = optionIndex;
-
-                const span = document.createElement('span');
-                span.innerHTML = option;
-
-                optionDiv.appendChild(input);
-                optionDiv.appendChild(span);
-
-                optionDiv.addEventListener('click', () => {
-                    optionsDiv.querySelectorAll('.option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-
-                    optionDiv.classList.add('selected');
-                    userAnswers[index] = optionIndex;
-                    updateProgressButtons();
-
-                    if (index < section1Questions.length - 1) {
-                        setTimeout(() => {
-                            scrollToQuestion(index + 1);
-                        }, 300);
+                const optionsDiv = questionDiv.querySelector(`#options-${index}`);
+                
+                q.options.forEach((option, optionIndex) => {
+                    const optionDiv = document.createElement('label');
+                    optionDiv.className = 'option';
+                    if (userAnswers[index] === optionIndex) {
+                        optionDiv.classList.add('selected');
                     }
+                    
+                    optionDiv.innerHTML = `
+                        <input type="radio" name="question-${index}" value="${optionIndex}" ${userAnswers[index] === optionIndex ? 'checked' : ''}>
+                        <span>${option}</span>
+                    `;
+                    
+                    optionDiv.addEventListener('click', () => {
+                        // ลบการเลือกเก่า
+                        optionsDiv.querySelectorAll('.option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        
+                        // เลือกใหม่
+                        optionDiv.classList.add('selected');
+                        userAnswers[index] = optionIndex;
+                        
+                        // อัพเดทสถานะ
+                        updateStatusDisplay();
+                        updateProgressButtons();
+                        saveExamState();
+                    });
+                    
+                    optionsDiv.appendChild(optionDiv);
                 });
-
-                optionsDiv.appendChild(optionDiv);
+                
+                questionsElement.appendChild(questionDiv);
             });
-
-            questionDiv.appendChild(optionsDiv);
-            questionsElement.appendChild(questionDiv);
-        });
+        }
 
         // ส่วนที่ 2: ข้อสอบจับคู่
-        const section2Header = document.createElement('div');
-        section2Header.className = 'section-header';
-        section2Header.innerHTML = `<i class="fas fa-link"></i> ส่วนที่ 2: ข้อสอบจับคู่ (10 ข้อ)`;
-        questionsElement.appendChild(section2Header);
+        if (section2Questions.length > 0) {
+            const section2Header = document.createElement('div');
+            section2Header.className = 'section-header';
+            section2Header.innerHTML = `<i class="fas fa-link"></i> ส่วนที่ 2: ข้อสอบจับคู่ (${section2Questions.length} ข้อ)`;
+            questionsElement.appendChild(section2Header);
 
-        // สร้าง container สำหรับข้อจับคู่
-        const matchingContainer = document.createElement('div');
-        matchingContainer.className = 'matching-container';
-
-        // คอลัมน์ซ้าย: คำถาม
-        const questionsColumn = document.createElement('div');
-        questionsColumn.className = 'matching-column';
-        
-        const questionsTitle = document.createElement('div');
-        questionsTitle.className = 'matching-title';
-        questionsTitle.textContent = 'คำถาม';
-        questionsColumn.appendChild(questionsTitle);
-
-        // คอลัมน์ขวา: ตัวเลือก
-        const optionsColumn = document.createElement('div');
-        optionsColumn.className = 'matching-column';
-        
-        const optionsTitle = document.createElement('div');
-        optionsTitle.className = 'matching-title';
-        optionsTitle.textContent = 'ตัวเลือก';
-        optionsColumn.appendChild(optionsTitle);
-
-        // เตรียมตัวเลือกสำหรับ dropdown
-        const optionLetters = matchingData.options.map(opt => opt.letter);
-        const optionMap = {};
-        matchingData.options.forEach(opt => {
-            optionMap[opt.letter] = opt.text;
-        });
-
-        // เพิ่มตัวเลือกทั้งหมดลงในคอลัมน์ขวา
-        matchingData.options.forEach(option => {
-            const optionItem = document.createElement('div');
-            optionItem.className = 'matching-item';
+            const matchingContainer = document.createElement('div');
+            matchingContainer.className = 'matching-container';
             
-            const optionLetter = document.createElement('div');
-            optionLetter.className = 'matching-letter';
-            optionLetter.textContent = option.letter;
+            // คอลัมน์ซ้าย: คำถาม
+            const questionsColumn = document.createElement('div');
+            questionsColumn.className = 'matching-column';
+            questionsColumn.innerHTML = '<div class="matching-title">คำถาม</div>';
             
-            const optionText = document.createElement('div');
-            optionText.className = 'matching-text';
-            optionText.textContent = option.text;
+            // คอลัมน์ขวา: ตัวเลือก
+            const optionsColumn = document.createElement('div');
+            optionsColumn.className = 'matching-column';
+            optionsColumn.innerHTML = '<div class="matching-title">ตัวเลือก</div>';
             
-            optionItem.appendChild(optionLetter);
-            optionItem.appendChild(optionText);
-            optionsColumn.appendChild(optionItem);
-        });
-
-        // เพิ่มคำถามและ dropdown
-        section2Questions.forEach((q, index) => {
-            const questionItem = document.createElement('div');
-            questionItem.className = 'matching-item';
-            
-            const questionNumber = document.createElement('div');
-            questionNumber.className = 'matching-answer';
-            questionNumber.textContent = index + 21; // เริ่มจากข้อที่ 21
-            
-            const questionText = document.createElement('div');
-            questionText.className = 'matching-text';
-            questionText.textContent = q.text;
-            
-            const select = document.createElement('select');
-            select.className = 'matching-select';
-            select.dataset.questionIndex = index;
-            
-            // เพิ่มตัวเลือกว่าง
-            const emptyOption = document.createElement('option');
-            emptyOption.value = '';
-            emptyOption.textContent = '-- เลือกคำตอบ --';
-            select.appendChild(emptyOption);
-            
-            // เพิ่มตัวเลือกทั้งหมด
-            optionLetters.forEach(letter => {
-                const option = document.createElement('option');
-                option.value = letter;
-                option.textContent = `${letter}: ${optionMap[letter]}`;
-                select.appendChild(option);
+            // เพิ่มตัวเลือกในคอลัมน์ขวา
+            matchingOptions.forEach(option => {
+                const optionItem = document.createElement('div');
+                optionItem.className = 'matching-item';
+                optionItem.innerHTML = `
+                    <div class="matching-letter">${option.letter}</div>
+                    <div class="matching-text">${option.text}</div>
+                `;
+                optionsColumn.appendChild(optionItem);
             });
             
-            // ตั้งค่า event listener
-            select.addEventListener('change', function() {
-                const qIndex = parseInt(this.dataset.questionIndex);
-                userMatchingAnswers[qIndex] = this.value;
-                updateProgressButtons();
+            // เพิ่มคำถามในคอลัมน์ซ้าย
+            section2Questions.forEach((q, index) => {
+                const questionItem = document.createElement('div');
+                questionItem.className = 'matching-item';
+                
+                const questionNumber = document.createElement('div');
+                questionNumber.className = 'matching-answer';
+                questionNumber.textContent = q.id;
+                
+                const questionText = document.createElement('div');
+                questionText.className = 'matching-text';
+                questionText.textContent = q.text;
+                
+                const select = document.createElement('select');
+                select.className = 'matching-select';
+                select.dataset.index = index;
+                
+                // ตัวเลือกว่าง
+                const emptyOption = document.createElement('option');
+                emptyOption.value = '';
+                emptyOption.textContent = '-- เลือกคำตอบ --';
+                select.appendChild(emptyOption);
+                
+                // ตัวเลือกทั้งหมด
+                matchingOptions.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option.letter;
+                    optionElement.textContent = `${option.letter}: ${option.text}`;
+                    if (userMatchingAnswers[index] === option.letter) {
+                        optionElement.selected = true;
+                    }
+                    select.appendChild(optionElement);
+                });
+                
+                // Event listener
+                select.addEventListener('change', function() {
+                    const qIndex = parseInt(this.dataset.index);
+                    userMatchingAnswers[qIndex] = this.value;
+                    updateStatusDisplay();
+                    updateProgressButtons();
+                    saveExamState();
+                });
+                
+                questionItem.appendChild(questionNumber);
+                questionItem.appendChild(questionText);
+                questionItem.appendChild(select);
+                questionsColumn.appendChild(questionItem);
             });
             
-            questionItem.appendChild(questionNumber);
-            questionItem.appendChild(questionText);
-            questionItem.appendChild(select);
-            questionsColumn.appendChild(questionItem);
+            matchingContainer.appendChild(questionsColumn);
+            matchingContainer.appendChild(optionsColumn);
+            questionsElement.appendChild(matchingContainer);
+        }
+        
+        // ปุ่มส่งคำตอบ
+        const submitContainer = document.createElement('div');
+        submitContainer.className = 'submit-container';
+        submitContainer.innerHTML = `
+            <button class="submit-btn" id="submit-exam-btn">
+                <i class="fas fa-paper-plane"></i> ส่งคำตอบทั้งหมด
+            </button>
+            <button class="back-btn" id="back-to-form-btn" style="margin-left: 1rem; background: transparent; color: var(--primary-blue); border: 2px solid var(--primary-blue);">
+                <i class="fas fa-arrow-left"></i> กลับไปแก้ไขข้อมูล
+            </button>
+        `;
+        
+        questionsElement.appendChild(submitContainer);
+        
+        // Event listeners สำหรับปุ่ม
+        document.getElementById('submit-exam-btn').addEventListener('click', function() {
+            if (confirm('คุณต้องการส่งคำตอบใช่หรือไม่?')) {
+                submitExam();
+            }
         });
-
-        matchingContainer.appendChild(questionsColumn);
-        matchingContainer.appendChild(optionsColumn);
-        questionsElement.appendChild(matchingContainer);
+        
+        document.getElementById('back-to-form-btn').addEventListener('click', function() {
+            if (confirm('ต้องการกลับไปแก้ไขข้อมูลส่วนตัวหรือไม่?\nคำตอบที่ทำไว้จะไม่หายไป')) {
+                document.getElementById('question-container').style.display = 'none';
+                document.getElementById('start-exam').style.display = 'block';
+                clearInterval(timerInterval);
+                document.getElementById('progress-container').style.display = 'none';
+            }
+        });
+        
+        // แสดงแถบความคืบหน้า
+        document.getElementById('progress-container').style.display = 'block';
+        updateStatusDisplay();
     }
-
+    
+    // ==========================
     // แถบปุ่มข้อสอบด้านล่าง
+    // ==========================
     function renderProgressButtons() {
         const progressButtons = document.getElementById('progress-buttons');
         progressButtons.innerHTML = '';
@@ -1856,13 +1993,17 @@
             const btn = document.createElement('button');
             btn.className = 'progress-btn';
             btn.textContent = i + 1;
-            btn.addEventListener('click', () => scrollToQuestion(i));
+            btn.addEventListener('click', () => {
+                currentQuestionIndex = i;
+                scrollToQuestion(i);
+                updateProgressButtons();
+            });
             progressButtons.appendChild(btn);
         }
 
         updateProgressButtons();
     }
-
+    
     function updateProgressButtons() {
         const buttons = document.querySelectorAll('.progress-btn');
         let hasUnanswered = false;
@@ -1871,12 +2012,10 @@
             let answered = false;
             
             if (index < section1Questions.length) {
-                // ข้อปรนัย
                 answered = userAnswers[index] !== null;
             } else {
-                // ข้อจับคู่
                 const matchingIndex = index - section1Questions.length;
-                answered = userMatchingAnswers[matchingIndex] !== null;
+                answered = userMatchingAnswers[matchingIndex] !== null && userMatchingAnswers[matchingIndex] !== '';
             }
 
             if (answered) {
@@ -1895,350 +2034,311 @@
         document.getElementById('unanswered-warning').style.display =
             hasUnanswered ? 'block' : 'none';
     }
-
+    
     function scrollToQuestion(index) {
         currentQuestionIndex = index;
         
-        // แยกส่วนการ scroll ตามประเภทคำถาม
         if (index < section1Questions.length) {
-            // ข้อปรนัย
             const questionElement = document.getElementById(`question-${index}`);
             if (questionElement) {
                 questionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         } else {
-            // ข้อจับคู่ - scroll ไปยังส่วนที่ 2
             const section2Header = document.querySelector('.section-header:nth-child(2)');
             if (section2Header) {
                 section2Header.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
-        
-        updateProgressButtons();
     }
-
+    
     // ==========================
-    // Timer (40 นาที)
+    // อัพเดทแสดงสถานะ
     // ==========================
-    function startTimer() {
+    function updateStatusDisplay() {
+        const totalQuestions = section1Questions.length + section2Questions.length;
+        let answeredCount = 0;
+        
+        // นับข้อปรนัยที่ตอบ
+        userAnswers.forEach(answer => {
+            if (answer !== null) answeredCount++;
+        });
+        
+        // นับข้อจับคู่ที่ตอบ
+        userMatchingAnswers.forEach(answer => {
+            if (answer !== null && answer !== '') answeredCount++;
+        });
+        
+        const unansweredCount = totalQuestions - answeredCount;
+        
+        // อัพเดทสถานะ
+        const statusContainer = document.querySelector('.exam-status');
+        if (!statusContainer) {
+            const statusHTML = `
+                <div class="exam-status">
+                    <div class="status-item">
+                        <div class="status-number" id="answered-count">${answeredCount}</div>
+                        <div class="status-label">ตอบแล้ว</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-number" id="unanswered-count">${unansweredCount}</div>
+                        <div class="status-label">ยังไม่ได้ตอบ</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-number" id="time-left-display">${formatTime(timeLeft)}</div>
+                        <div class="status-label">เวลาที่เหลือ</div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('questions').insertAdjacentHTML('afterbegin', statusHTML);
+        } else {
+            document.getElementById('answered-count').textContent = answeredCount;
+            document.getElementById('unanswered-count').textContent = unansweredCount;
+            document.getElementById('time-left-display').textContent = formatTime(timeLeft);
+        }
+    }
+    
+    // ==========================
+    // Timer และ Auto-Submit
+    // ==========================
+    function startExamTimer() {
+        startTime = new Date();
+        timeLeft = EXAM_CONFIG.totalTime;
         updateTimerDisplay();
+        updateStatusDisplay();
 
         timerInterval = setInterval(() => {
             timeLeft--;
             updateTimerDisplay();
+            updateStatusDisplay();
 
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                showNotification('เวลาทำข้อสอบหมดแล้ว! ระบบจะส่งคำตอบอัตโนมัติ', 'warning');
-                autoSubmitExam();
-            }
-
-            if (timeLeft <= 60) {
-                document.getElementById('timer').classList.add('danger');
-            } else if (timeLeft <= 5 * 60) {
+            // เตือนเมื่อเหลือ 5 นาที
+            if (timeLeft === 5 * 60) {
+                showNotification('เหลือเวลาอีก 5 นาที!', 'warning');
                 document.getElementById('timer').classList.add('warning');
+            }
+            
+            // เตือนเมื่อเหลือ 1 นาที
+            if (timeLeft === 60) {
+                showNotification('เหลือเวลาอีก 1 นาที!', 'danger');
+                document.getElementById('timer').classList.add('danger');
+            }
+            
+            // Auto-submit เมื่อหมดเวลา
+            if (timeLeft <= 0 && !autoSubmitTriggered) {
+                autoSubmitTriggered = true;
+                clearInterval(timerInterval);
+                showNotification('เวลาทำข้อสอบหมดแล้ว! ระบบกำลังส่งคำตอบอัตโนมัติ...', 'warning');
+                
+                // รอ 3 วินาทีแล้วส่ง
+                setTimeout(() => {
+                    submitExam();
+                }, 3000);
             }
         }, 1000);
     }
-
+    
     function updateTimerDisplay() {
         const hours   = Math.floor(timeLeft / 3600);
         const minutes = Math.floor((timeLeft % 3600) / 60);
         const seconds = timeLeft % 60;
 
-        document.getElementById('timer').textContent =
-            `${hours.toString().padStart(2, '0')}:` +
-            `${minutes.toString().padStart(2, '0')}:` +
-            `${seconds.toString().padStart(2, '0')}`;
+        const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        document.getElementById('timer').textContent = timeStr;
     }
-
-    // ==========================
-    // ฟังก์ชันส่งคำตอบอัตโนมัติเมื่อหมดเวลา
-    // ==========================
-    function autoSubmitExam() {
-        // คำนวณสรุปคำตอบ
-        const summary = calculateAnswerSummary();
-        
-        // สร้างและแสดง modal
-        const modal = document.createElement('div');
-        modal.id = 'time-up-modal';
-        modal.className = 'time-up-modal';
-        
-        modal.innerHTML = `
-            <div class="modal-content">
-                <div class="modal-icon">
-                    <i class="fas fa-clock"></i>
-                </div>
-                
-                <h2 class="modal-title">⏰ เวลาทำข้อสอบหมดแล้ว!</h2>
-                
-                <p class="modal-message">
-                    ระบบตรวจพบว่าเวลาทำข้อสอบได้หมดลงแล้ว
-                </p>
-                
-                <div class="answer-summary">
-                    <h3 style="color: var(--dark-blue); margin-bottom: 1rem; text-align: center;">
-                        <i class="fas fa-clipboard-check"></i> สรุปคำตอบของคุณ
-                    </h3>
-                    
-                    <div class="summary-item">
-                        <span class="summary-label">ตอบแล้ว:</span>
-                        <span class="summary-value" style="color: var(--success-green);">
-                            ${summary.answered} ข้อ
-                        </span>
-                    </div>
-                    
-                    <div class="summary-item">
-                        <span class="summary-label">ยังไม่ได้ตอบ:</span>
-                        <span class="summary-value" style="color: var(--danger-red);">
-                            ${summary.unanswered} ข้อ
-                        </span>
-                    </div>
-                    
-                    <div class="summary-item">
-                        <span class="summary-label">ทั้งหมด:</span>
-                        <span class="summary-value">${summary.total} ข้อ</span>
-                    </div>
-                </div>
-                
-                <div class="countdown-progress">
-                    <div class="progress-bar" id="progress-bar"></div>
-                </div>
-                
-                <div class="countdown-display" id="countdown-display">5</div>
-                <div class="countdown-label">
-                    ระบบจะส่งคำตอบอัตโนมัติในอีก <span id="countdown-text">5</span> วินาที
-                </div>
-                
-                <div class="modal-buttons">
-                    <button class="modal-btn primary" id="submit-immediately">
-                        <i class="fas fa-bolt"></i> ส่งทันที
-                    </button>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(modal);
-        
-        // นับถอยหลังและส่งอัตโนมัติ
-        let countdown = 5;
-        const countdownDisplay = document.getElementById('countdown-display');
-        const countdownText = document.getElementById('countdown-text');
-        const progressBar = document.getElementById('progress-bar');
-        
-        const countdownInterval = setInterval(() => {
-            countdown--;
-            countdownDisplay.textContent = countdown;
-            countdownText.textContent = countdown;
-            
-            // อัปเดต progress bar
-            const progressPercent = ((5 - countdown) / 5) * 100;
-            progressBar.style.width = progressPercent + '%';
-            
-            // เอฟเฟกต์ตัวเลข
-            countdownDisplay.style.transform = 'scale(1.2)';
-            setTimeout(() => {
-                countdownDisplay.style.transform = 'scale(1)';
-            }, 200);
-            
-            if (countdown <= 0) {
-                clearInterval(countdownInterval);
-                closeModalAndSubmit();
-            }
-        }, 1000);
-        
-        // ปุ่มส่งทันที
-        document.getElementById('submit-immediately').addEventListener('click', () => {
-            clearInterval(countdownInterval);
-            closeModalAndSubmit();
-        });
+    
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
-
-    function closeModalAndSubmit() {
-        const modal = document.getElementById('time-up-modal');
-        if (modal) {
-            modal.remove();
-        }
-        submitExam();
-    }
-
+    
     // ==========================
-    // ฟังก์ชันคำนวณและแสดงสรุปคำตอบก่อนส่ง
+    // บันทึกและโหลดสถานะ
     // ==========================
-    function calculateAnswerSummary() {
-        let answeredCount = 0;
-        let unansweredCount = 0;
+    function saveExamState() {
+        if (!window.examStarted || window.examFinished) return;
         
-        // นับข้อปรนัย
-        userAnswers.forEach(answer => {
-            if (answer !== null) answeredCount++;
-            else unansweredCount++;
-        });
-        
-        // นับข้อจับคู่
-        userMatchingAnswers.forEach(answer => {
-            if (answer !== null) answeredCount++;
-            else unansweredCount++;
-        });
-        
-        return {
-            answered: answeredCount,
-            unanswered: unansweredCount,
-            total: section1Questions.length + section2Questions.length
+        const examState = {
+            studentInfo: window.studentInfo,
+            section1Questions: section1Questions,
+            section2Questions: section2Questions,
+            userAnswers: userAnswers,
+            userMatchingAnswers: userMatchingAnswers,
+            startTime: startTime.toISOString(),
+            timeLeft: timeLeft,
+            currentQuestionIndex: currentQuestionIndex
         };
+        
+        localStorage.setItem('exam_current_state', JSON.stringify(examState));
     }
-
+    
     // ==========================
-    // ส่งคำตอบและบันทึกข้อมูล
+    // ส่งคำตอบ
     // ==========================
     function submitExam() {
-        // ป้องกันการ submit ซ้ำ
-        if (window.examFinished) return;
-        
         clearInterval(timerInterval);
-        
-        // ตั้งค่าสถานะ
         window.examFinished = true;
         window.examStarted = false;
+        
+        // ลบสถานะที่ค้าง
+        localStorage.removeItem('exam_current_state');
 
         const endTime  = new Date();
         const timeUsed = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
-
-        // คำนวณคะแนนส่วนที่ 1 (ปรนัย)
-        let correctMC = 0;
-        let wrongMC = 0;
-        let unansweredMC = 0;
         
+        // คำนวณคะแนน
+        let correctCount = 0;
+        let totalCount = 0;
+        
+        // ตรวจข้อปรนัย
         section1Questions.forEach((q, index) => {
-            if (userAnswers[index] === null) {
-                unansweredMC++;
-            } else if (userAnswers[index] === q.correctAnswer) {
-                correctMC++;
-            } else {
-                wrongMC++;
+            totalCount++;
+            if (userAnswers[index] === q.correct) {
+                correctCount++;
             }
         });
-
-        // คำนวณคะแนนส่วนที่ 2 (จับคู่)
-        let correctMatch = 0;
-        let wrongMatch = 0;
-        let unansweredMatch = 0;
         
+        // ตรวจข้อจับคู่
         section2Questions.forEach((q, index) => {
-            if (userMatchingAnswers[index] === null) {
-                unansweredMatch++;
-            } else if (userMatchingAnswers[index] === q.answer) {
-                correctMatch++;
-            } else {
-                wrongMatch++;
+            totalCount++;
+            if (userMatchingAnswers[index] === q.answer) {
+                correctCount++;
             }
         });
-
-        // รวมคะแนนทั้งหมด
-        const totalCorrect = correctMC + correctMatch;
-        const totalWrong = wrongMC + wrongMatch;
-        const totalUnanswered = unansweredMC + unansweredMatch;
-        const totalQuestions = section1Questions.length + section2Questions.length;
         
-        // ตรวจสอบว่าเป็นการส่งเพราะหมดเวลาหรือไม่
-        const isTimeUp = timeLeft <= 0;
-
-        // บันทึกลง LocalStorage
+        const wrongCount = totalCount - correctCount;
+        const unansweredCount = totalCount - (userAnswers.filter(a => a !== null).length + 
+                                            userMatchingAnswers.filter(a => a !== null && a !== '').length);
+        
+        // บันทึกผลลัพธ์
         const resultData = {
-            firstName: window.studentInfo.firstName,
-            lastName: window.studentInfo.lastName,
-            number: window.studentInfo.number,
-            room: window.studentInfo.room,
-            courseName: COURSE_NAME,
-            courseCode: COURSE_CODE,
-            examTitle: EXAM_TITLE,
-            score: totalCorrect,
-            total: totalQuestions,
-            correctAnswers: totalCorrect,
-            wrongAnswers: totalWrong,
-            unanswered: totalUnanswered,
+            ...window.studentInfo,
+            courseName: EXAM_CONFIG.courseName,
+            courseCode: EXAM_CONFIG.courseCode,
+            examTitle: EXAM_CONFIG.examTitle,
+            schoolName: EXAM_CONFIG.schoolName,
+            term: EXAM_CONFIG.term,
+            academicYear: EXAM_CONFIG.academicYear,
+            attemptNo: EXAM_CONFIG.attemptNo,
+            score: correctCount,
+            total: totalCount,
+            correctAnswers: correctCount,
+            wrongAnswers: wrongCount,
+            unanswered: unansweredCount,
             timeUsed: formatTime(timeUsed),
             timeUsedSeconds: timeUsed,
             submitDate: new Date().toLocaleDateString('th-TH'),
             submitTime: new Date().toLocaleTimeString('th-TH'),
             timestamp: new Date().toISOString(),
-            submittedDueToTimeUp: isTimeUp,
-            // ข้อมูลแยกส่วน
-            section1: {
-                correct: correctMC,
-                wrong: wrongMC,
-                unanswered: unansweredMC,
-                total: section1Questions.length
-            },
-            section2: {
-                correct: correctMatch,
-                wrong: wrongMatch,
-                unanswered: unansweredMatch,
-                total: section2Questions.length
-            }
+            ip: 'auto-detected'
         };
-
-        // บันทึกผลลัพธ์ลง LocalStorage
+        
+        // บันทึกลง localStorage
         localStorage.setItem(STORAGE_KEY, JSON.stringify(resultData));
+        
+        // บันทึก IP ลง LocalStorage
+        try {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const ipInfo = {
+                        ip: data.ip,
+                        timestamp: new Date().toISOString(),
+                        submitted: true
+                    };
+                    localStorage.setItem(IP_STORAGE_KEY, JSON.stringify(ipInfo));
+                })
+                .catch(() => {
+                    const ipInfo = {
+                        ip: 'unknown',
+                        timestamp: new Date().toISOString(),
+                        submitted: true
+                    };
+                    localStorage.setItem(IP_STORAGE_KEY, JSON.stringify(ipInfo));
+                });
+        } catch (e) {
+            console.log('ไม่สามารถบันทึก IP ได้:', e);
+        }
         
         // แสดงผลลัพธ์
         showResult(resultData);
         
-        // ส่งข้อมูลไปยัง Google Sheets
+        // ส่งไป Google Sheets
         sendToGoogleSheets(resultData);
-        
-        // ป้องกันการเริ่มใหม่
-        disableStartButton();
     }
-
-    // แสดงผลลัพธ์
+    
     function showResult(data) {
         document.getElementById('question-container').style.display = 'none';
         document.getElementById('progress-container').style.display = 'none';
         document.getElementById('result-container').style.display = 'block';
 
-        document.getElementById('score').textContent = `${data.score}/${data.total}`;
-        document.getElementById('correct-answers').textContent = data.correctAnswers;
-        document.getElementById('wrong-answers').textContent = data.wrongAnswers;
-        document.getElementById('unanswered').textContent = data.unanswered;
-        document.getElementById('time-used').textContent = data.timeUsed;
-
-        // เปลี่ยนสีตามคะแนน
         const percentage = Math.round((data.score / data.total) * 100);
-        const scoreElement = document.getElementById('score');
         
-        if (percentage >= 80) {
-            scoreElement.style.color = "var(--success-green)";
-        } else if (percentage >= 50) {
-            scoreElement.style.color = "var(--warning-orange)";
-        } else {
-            scoreElement.style.color = "var(--danger-red)";
-        }
+        document.getElementById('result-container').innerHTML = `
+            <h2 class="result-title"><i class="fas fa-chart-line"></i> ผลการทำแบบทดสอบ</h2>
+            
+            <div class="score" style="color: ${percentage >= 80 ? 'var(--success-green)' : percentage >= 50 ? 'var(--warning-orange)' : 'var(--danger-red)'}">
+                ${data.score}/${data.total}
+            </div>
+            
+            <div class="result-details">
+                <div class="result-card">
+                    <h3><i class="fas fa-check-circle"></i> คำตอบที่ถูกต้อง</h3>
+                    <p id="correct-answers">${data.correctAnswers}</p>
+                </div>
+                <div class="result-card">
+                    <h3><i class="fas fa-times-circle"></i> คำตอบที่ผิด</h3>
+                    <p id="wrong-answers">${data.wrongAnswers}</p>
+                </div>
+                <div class="result-card">
+                    <h3><i class="fas fa-question-circle"></i> ข้อที่ไม่ได้ตอบ</h3>
+                    <p id="unanswered">${data.unanswered}</p>
+                </div>
+                <div class="result-card">
+                    <h3><i class="fas fa-clock"></i> ใช้เวลา</h3>
+                    <p id="time-used">${data.timeUsed}</p>
+                </div>
+            </div>
+            
+            <p style="margin: 1rem 0; color: #666; font-size: 0.95rem;">
+                <i class="fas fa-info-circle"></i> ระบบได้บันทึกผลการสอบของคุณแล้ว
+            </p>
+            
+            <button class="submit-btn" id="back-to-home">
+                <i class="fas fa-home"></i> กลับสู่หน้าหลัก
+            </button>
+        `;
         
-        showNotification('บันทึกผลสอบเรียบร้อยแล้ว!', 'success');
+        // Event listener สำหรับปุ่มกลับหน้าหลัก
+        document.getElementById('back-to-home').addEventListener('click', function() {
+            window.location.href = '/learning-by-ratchapon/index.html';
+        });
+        
+        showNotification('ส่งคำตอบเรียบร้อยแล้ว!', 'success');
     }
-
-    // ส่งข้อมูลไปยัง Google Sheets
+    
+    // ==========================
+    // Google Sheets Integration
+    // ==========================
     function sendToGoogleSheets(data) {
         if (!SHEET_API_URL || SHEET_API_URL.includes("https://script.google.com/macros/s/AKfycbwwBoLodgNIrMf6GqSL7oQcJM1n80sEjFVOW4wzBqaaDH0l1xOItgZorJNFdQ7U8Zxv/exec")) {
             console.log('ไม่ได้ตั้งค่า URL Google Sheets');
             return;
         }
-
+        
         // เตรียมข้อมูลสำหรับส่ง
         const sheetData = {
             action: 'submitExam',
             ...data,
-            schoolName: SCHOOL_NAME,
-            term: TERM,
-            academicYear: ACADEMIC_YEAR,
-            attemptNo: ATTEMPT_NO,
-            // เพิ่มข้อมูล IP ถ้ามี
+            schoolName: EXAM_CONFIG.schoolName,
+            term: EXAM_CONFIG.term,
+            academicYear: EXAM_CONFIG.academicYear,
+            attemptNo: EXAM_CONFIG.attemptNo,
             ip: localStorage.getItem(IP_STORAGE_KEY) ? 
                 JSON.parse(localStorage.getItem(IP_STORAGE_KEY)).ip : 'unknown'
         };
 
-        // ส่งข้อมูลแบบไม่ต้องรอ response (fire and forget)
+        // ส่งข้อมูล
         fetch(SHEET_API_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -2250,16 +2350,23 @@
             console.log('ไม่สามารถส่งข้อมูลไปยัง Google Sheets ได้:', error);
         });
     }
-
-    // ฟังก์ชันแปลงเวลา
-    function formatTime(seconds) {
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const secs = seconds % 60;
-        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    
+    // ==========================
+    // Utility Functions
+    // ==========================
+    function showNotification(message, type = 'info') {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.className = `notification ${type}`;
+        notification.style.display = 'block';
+        
+        const duration = type === 'error' ? 5000 : 3000;
+        
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, duration);
     }
-
-    // Utility: สุ่ม array
+    
     function shuffleArray(array) {
         const newArray = [...array];
         for (let i = newArray.length - 1; i > 0; i--) {
@@ -2271,4 +2378,3 @@
     </script>
 </body>
 </html>
-
