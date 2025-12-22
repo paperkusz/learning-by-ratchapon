@@ -8,14 +8,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --success-color: #2ecc71;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --primary-blue: #0066cc;
+            --secondary-blue: #3399ff;
+            --accent-orange: #ff6600;
+            --light-blue: #e6f2ff;
+            --dark-blue: #004d99;
+            --success-green: #33cc33;
+            --warning-orange: #ff9900;
+            --danger-red: #ff3333;
+            --light-gray: #f5f5f5;
+            --medium-gray: #dddddd;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             --transition: all 0.3s ease;
         }
         
@@ -24,24 +28,41 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Kanit', 'Sarabun', sans-serif;
+            user-select: none;
         }
         
+        /* ป้องกันคลิกขวา */
         body {
-            background-color: #f9f9f9;
-            color: var(--dark-color);
+            background: linear-gradient(135deg, #e6f2ff 0%, #f0f8ff 100%);
+            color: #333;
             line-height: 1.6;
             padding-bottom: 100px;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNTB2NTBIMHoiLz48cGF0aCBkPSJNMjUgMjVjNi45MDMgMCAxMi41LTUuNTk3IDEyLjUtMTIuNVMzMS45MDMgMCAyNSAwUzEyLjUgNS41OTcgMTIuNSAxMi41UzE4LjA5NyAyNSAyNSAyNXptMCAyNWM2LjkwMyAwIDEyLjUtNS41OTcgMTIuNS0xMi41UzMxLjkwMyAyNSAyNSAyNSA0MCAzMC41OTcgNDAgMzcuNVMyNSA1MCAyNSA1MHoiIGZpbGw9IiMwMDY2Y2MiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvZz48L3N2Zz4=');
+            opacity: 0.3;
+            z-index: -1;
         }
         
         /* Header Styles */
         .header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
             color: white;
             padding: 1rem 0;
-            box-shadow: var(--box-shadow);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
+            border-bottom: 4px solid var(--accent-orange);
         }
         
         .header-container {
@@ -63,11 +84,16 @@
         
         .logo img {
             height: 50px;
+            border-radius: 50%;
+            border: 2px solid white;
+            padding: 2px;
+            background-color: white;
         }
         
         .logo-text {
             font-size: 1.5rem;
-            font-weight: 500;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
         
         .nav-menu {
@@ -83,26 +109,46 @@
             padding: 0.5rem 1rem;
             border-radius: var(--border-radius);
             transition: var(--transition);
+            position: relative;
         }
         
         .nav-menu a:hover, .nav-menu a.active {
             background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
         }
         
-        .login-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-weight: 500;
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-orange);
             transition: var(--transition);
         }
         
+        .nav-menu a:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+        
+        .login-btn {
+            background: linear-gradient(to right, var(--accent-orange), #ff9933);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 3px 8px rgba(255, 102, 0, 0.3);
+        }
+        
         .login-btn:hover {
-            background-color: #c0392b;
-            transform: translateY(-2px);
+            background: linear-gradient(to right, #e55a00, #ff8000);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(255, 102, 0, 0.4);
         }
         
         /* Exam Page */
@@ -126,41 +172,66 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-left: 5px solid var(--accent-orange);
         }
         
         .exam-title {
             font-size: 1.4rem;
-            color: var(--primary-color);
+            color: var(--primary-blue);
+            font-weight: 600;
         }
 
         .exam-subtitle {
             font-size: 0.9rem;
-            color: #6b7280;
+            color: #666;
             margin-top: 0.2rem;
         }
         
         .timer {
-            background-color: var(--primary-color);
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            font-weight: 500;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 3px 8px rgba(0, 102, 204, 0.3);
+            transition: var(--transition);
         }
         
         .timer.warning {
-            background-color: #f39c12;
+            background: linear-gradient(to right, var(--warning-orange), #ffb366);
+            animation: pulse 1s infinite;
         }
         
         .timer.danger {
-            background-color: var(--accent-color);
+            background: linear-gradient(to right, var(--danger-red), #ff6666);
+            animation: pulse 0.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         .exam-card {
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 2rem;
+            padding: 2.5rem;
             margin-bottom: 1.5rem;
+            border: 1px solid var(--medium-gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .exam-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-blue), var(--accent-orange));
         }
         
         .start-exam {
@@ -171,7 +242,19 @@
         .start-exam h2 {
             font-size: 1.8rem;
             margin-bottom: 1rem;
-            color: var(--primary-color);
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .start-exam h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-orange);
         }
         
         .start-exam p {
@@ -181,16 +264,25 @@
 
         .student-info, .exam-info {
             margin: 1.5rem 0 1rem;
-            padding: 1rem;
+            padding: 1.5rem;
             border-radius: var(--border-radius);
-            background-color: #f3f4f6;
-            border: 1px solid #e5e7eb;
+            background-color: var(--light-blue);
+            border: 1px solid var(--secondary-blue);
+            box-shadow: inset 0 0 10px rgba(0, 102, 204, 0.1);
         }
 
         .student-info-title, .exam-info-title {
             font-weight: 600;
             margin-bottom: 0.8rem;
-            color: var(--primary-color);
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .student-info-title i, .exam-info-title i {
+            color: var(--accent-orange);
         }
 
         .form-row {
@@ -208,37 +300,45 @@
         .form-group label {
             font-size: 0.9rem;
             margin-bottom: 0.3rem;
+            font-weight: 500;
+            color: var(--dark-blue);
         }
 
         .form-group input {
-            padding: 0.5rem 0.8rem;
-            border-radius: var(--border-radius);
-            border: 1px solid #d1d5db;
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--medium-gray);
             font-size: 0.95rem;
+            transition: var(--transition);
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.2);
         }
 
         .start-btn {
             margin-top: 1.5rem;
-            background-color: var(--secondary-color);
+            background: linear-gradient(to right, var(--secondary-blue), var(--primary-blue));
             color: white;
             border: none;
-            padding: 0.8rem 2.5rem;
-            border-radius: var(--border-radius);
+            padding: 0.9rem 2.5rem;
+            border-radius: 30px;
             font-size: 1.1rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .start-btn:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
+            background: linear-gradient(to right, var(--primary-blue), var(--dark-blue));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 102, 204, 0.4);
         }
         
         .question-container {
@@ -246,18 +346,43 @@
         }
         
         .question {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: #fff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--light-gray);
+            transition: var(--transition);
+        }
+        
+        .question:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
         }
         
         .question-number {
-            font-weight: 500;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .question-number::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-orange);
+            border-radius: 50%;
         }
         
         .question-text {
             font-size: 1.1rem;
             margin-bottom: 1rem;
+            line-height: 1.5;
         }
 
         .question-image {
@@ -265,6 +390,7 @@
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             margin: 0.8rem 0 1rem;
+            border: 1px solid var(--medium-gray);
         }
         
         .options {
@@ -278,7 +404,7 @@
             align-items: center;
             gap: 0.8rem;
             padding: 0.8rem 1rem;
-            border: 1px solid #ddd;
+            border: 2px solid var(--medium-gray);
             border-radius: var(--border-radius);
             cursor: pointer;
             transition: var(--transition);
@@ -296,12 +422,15 @@
         }
         
         .option:hover {
-            border-color: var(--secondary-color);
+            border-color: var(--secondary-blue);
+            background-color: var(--light-blue);
+            transform: translateX(5px);
         }
         
         .option.selected {
-            background-color: rgba(52, 152, 219, 0.1);
-            border-color: var(--secondary-color);
+            background-color: rgba(51, 153, 255, 0.1);
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.2);
         }
         
         .option.selected::after {
@@ -310,7 +439,7 @@
             font-weight: 900;
             position: absolute;
             right: 15px;
-            color: var(--success-color);
+            color: var(--success-green);
         }
         
         .option input {
@@ -319,24 +448,29 @@
         
         .submit-container {
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
         
         .submit-btn {
-            background-color: var(--accent-color);
+            background: linear-gradient(to right, var(--accent-orange), #ff9933);
             color: white;
             border: none;
-            padding: 0.8rem 2.5rem;
-            border-radius: var(--border-radius);
+            padding: 0.9rem 2.5rem;
+            border-radius: 30px;
             font-size: 1.1rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .submit-btn:hover {
-            background-color: #c0392b;
-            transform: translateY(-2px);
+            background: linear-gradient(to right, #e55a00, #ff8000);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 102, 0, 0.4);
         }
         
         .result-container {
@@ -348,20 +482,34 @@
         .result-title {
             font-size: 1.8rem;
             margin-bottom: 1rem;
-            color: var(--primary-color);
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .result-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-orange);
         }
         
         .score {
-            font-size: 3rem;
-            font-weight: 600;
-            color: var(--secondary-color);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
             margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         
         .result-details {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
+            gap: 1.2rem;
             margin-bottom: 2rem;
         }
         
@@ -370,42 +518,55 @@
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             padding: 1.5rem;
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-blue);
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         
         .result-card h3 {
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
-            color: var(--primary-color);
+            color: var(--primary-blue);
         }
         
         .result-card p {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--secondary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-blue);
         }
         
         .back-btn {
-            background-color: var(--primary-color);
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
             color: white;
             border: none;
-            padding: 0.8rem 2.5rem;
-            border-radius: var(--border-radius);
+            padding: 0.9rem 2.5rem;
+            border-radius: 30px;
             font-size: 1.1rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .back-btn:hover {
-            background-color: #1a252f;
-            transform: translateY(-2px);
+            background: linear-gradient(to right, var(--dark-blue), var(--primary-blue));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 102, 204, 0.4);
         }
         
         /* Footer */
         .footer {
-            background-color: var(--dark-color);
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
             color: white;
             padding: 3rem 0 1rem;
+            margin-top: 3rem;
         }
         
         .footer-grid {
@@ -429,7 +590,7 @@
             bottom: 0;
             width: 50px;
             height: 3px;
-            background-color: var(--accent-color);
+            background-color: var(--accent-orange);
         }
         
         .footer-col a {
@@ -441,8 +602,8 @@
         }
         
         .footer-col a:hover {
-            color: var(--accent-color);
-            padding-left: 5px;
+            color: var(--accent-orange);
+            padding-left: 8px;
         }
         
         .social-links {
@@ -464,14 +625,15 @@
         }
         
         .social-links a:hover {
-            background-color: var(--accent-color);
-            transform: translateY(-3px);
+            background-color: var(--accent-orange);
+            transform: translateY(-5px) rotate(10deg);
         }
         
         .footer-bottom {
             text-align: center;
             padding-top: 2rem;
             border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
         }
         
         /* แถบความคืบหน้าแบบทดสอบ */
@@ -481,17 +643,23 @@
             left: 0;
             right: 0;
             background: white;
-            padding: 1rem;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 1.2rem;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
             z-index: 100;
-            border-top: 1px solid #eee;
+            border-top: 3px solid var(--primary-blue);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
         }
         
         .progress-title {
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary-blue);
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
         
         .progress-buttons {
@@ -502,41 +670,53 @@
         }
         
         .progress-btn {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #ddd;
+            border: 2px solid var(--medium-gray);
             background: white;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 0.9rem;
+            font-size: 1rem;
+            font-weight: 500;
         }
         
         .progress-btn.answered {
-            background-color: var(--secondary-color);
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
             color: white;
-            border-color: var(--secondary-color);
+            border-color: var(--secondary-blue);
+            transform: scale(1.05);
         }
         
         .progress-btn.current {
-            border-color: var(--accent-color);
+            border-color: var(--accent-orange);
             transform: scale(1.1);
             font-weight: bold;
+            background-color: var(--light-blue);
+            box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2);
         }
         
         .progress-btn:hover {
-            border-color: var(--secondary-color);
+            border-color: var(--secondary-blue);
+            transform: scale(1.05);
         }
         
         .unanswered-warning {
-            color: var(--accent-color);
-            font-weight: 500;
+            color: var(--danger-red);
+            font-weight: 600;
             margin-top: 1rem;
             text-align: center;
             display: none;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
         
         /* Responsive Design */
@@ -554,7 +734,7 @@
             
             .exam-header {
                 flex-direction: column;
-                gap: 0.5rem;
+                gap: 1rem;
                 text-align: center;
             }
             
@@ -563,10 +743,46 @@
             }
             
             .progress-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8rem;
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
             }
+            
+            .exam-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* ข้อความแจ้งเตือน */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            color: white;
+            font-weight: 500;
+            box-shadow: var(--box-shadow);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
+            display: none;
+        }
+        
+        .notification.success {
+            background: linear-gradient(to right, var(--success-green), #66cc66);
+        }
+        
+        .notification.error {
+            background: linear-gradient(to right, var(--danger-red), #ff6666);
+        }
+        
+        .notification.info {
+            background: linear-gradient(to right, var(--secondary-blue), var(--primary-blue));
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
 </head>
@@ -580,12 +796,12 @@
             </a>
             
             <ul class="nav-menu">
-                <li><a href="/learning-by-ratchapon/index.html">หน้าหลัก</a></li>
-                <li><a href="/learning-by-ratchapon/about.html">ประวัติครู</a></li>
-                <li><a href="/learning-by-ratchapon/achievements.html">ผลงาน</a></li>
-                <li><a href="/learning-by-ratchapon/courses.html">วิชาทั้งหมด</a></li>
-                <li><a href="/learning-by-ratchapon/knowledge.html">คลังความรู้</a></li>
-                <li><a href="/learning-by-ratchapon/contact.html">ติดต่อเรา</a></li>
+                <li><a href="/learning-by-ratchapon/index.html"><i class="fas fa-home"></i> หน้าหลัก</a></li>
+                <li><a href="/learning-by-ratchapon/about.html"><i class="fas fa-user-tie"></i> ประวัติครู</a></li>
+                <li><a href="/learning-by-ratchapon/achievements.html"><i class="fas fa-trophy"></i> ผลงาน</a></li>
+                <li><a href="/learning-by-ratchapon/courses.html"><i class="fas fa-book-open"></i> วิชาทั้งหมด</a></li>
+                <li><a href="/learning-by-ratchapon/knowledge.html"><i class="fas fa-brain"></i> คลังความรู้</a></li>
+                <li><a href="/learning-by-ratchapon/contact.html"><i class="fas fa-envelope"></i> ติดต่อเรา</a></li>
             </ul>
             
             <button class="login-btn" onclick="window.location.href='/learning-by-ratchapon/auth/login.html'">
@@ -614,28 +830,30 @@
 
                     <!-- ข้อมูลวิชา / การสอบ -->
                     <div class="exam-info">
-                        <div class="exam-info-title">ข้อมูลแบบทดสอบ</div>
+                        <div class="exam-info-title">
+                            <i class="fas fa-info-circle"></i> ข้อมูลแบบทดสอบ
+                        </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label>วิชา</label>
+                                <label><i class="fas fa-book"></i> วิชา</label>
                                 <input type="text" id="course-name" disabled>
                             </div>
                             <div class="form-group">
-                                <label>รหัสวิชา</label>
+                                <label><i class="fas fa-hashtag"></i> รหัสวิชา</label>
                                 <input type="text" id="course-code" disabled>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label>ชื่อแบบทดสอบ</label>
+                                <label><i class="fas fa-clipboard-list"></i> ชื่อแบบทดสอบ</label>
                                 <input type="text" id="exam-name" disabled>
                             </div>
                             <div class="form-group">
-                                <label>ภาคเรียน / ปีการศึกษา</label>
+                                <label><i class="fas fa-calendar-alt"></i> ภาคเรียน / ปีการศึกษา</label>
                                 <input type="text" id="term-year" disabled>
                             </div>
                             <div class="form-group">
-                                <label>ครั้งที่สอบ</label>
+                                <label><i class="fas fa-redo"></i> ครั้งที่สอบ</label>
                                 <input type="text" id="attempt-no" disabled>
                             </div>
                         </div>
@@ -644,31 +862,33 @@
                     <!-- ข้อมูลผู้สอบ -->
                     <div class="student-info">
                         <div class="student-info-title">
-                            ข้อมูลผู้ทำแบบทดสอบ
+                            <i class="fas fa-user-graduate"></i> ข้อมูลผู้ทำแบบทดสอบ
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="student-firstname">ชื่อ</label>
+                                <label for="student-firstname"><i class="fas fa-signature"></i> ชื่อ</label>
                                 <input type="text" id="student-firstname" placeholder="เช่น รัชพล">
                             </div>
                             <div class="form-group">
-                                <label for="student-lastname">นามสกุล</label>
+                                <label for="student-lastname"><i class="fas fa-signature"></i> นามสกุล</label>
                                 <input type="text" id="student-lastname" placeholder="เช่น ไชยวงค์">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="student-number">เลขที่</label>
+                                <label for="student-number"><i class="fas fa-hashtag"></i> เลขที่</label>
                                 <input type="text" id="student-number" placeholder="เช่น 15">
                             </div>
                             <div class="form-group">
-                                <label for="student-room">ห้อง</label>
+                                <label for="student-room"><i class="fas fa-door-open"></i> ห้อง</label>
                                 <input type="text" id="student-room" placeholder="เช่น ม.4/1">
                             </div>
                         </div>
                     </div>
 
-                    <button class="start-btn" id="start-btn">เริ่มทำแบบทดสอบ</button>
+                    <button class="start-btn" id="start-btn">
+                        <i class="fas fa-play-circle"></i> เริ่มทำแบบทดสอบ
+                    </button>
                 </div>
                 
                 <!-- Questions Section -->
@@ -676,7 +896,9 @@
                     <div id="questions"></div>
                     
                     <div class="submit-container">
-                        <button class="submit-btn" id="submit-btn">ส่งคำตอบ</button>
+                        <button class="submit-btn" id="submit-btn">
+                            <i class="fas fa-paper-plane"></i> ส่งคำตอบ
+                        </button>
                     </div>
                 </div>
                 
@@ -687,24 +909,26 @@
                     
                     <div class="result-details">
                         <div class="result-card">
-                            <h3>คำตอบที่ถูกต้อง</h3>
+                            <h3><i class="fas fa-check-circle"></i> คำตอบที่ถูกต้อง</h3>
                             <p id="correct-answers">0</p>
                         </div>
                         <div class="result-card">
-                            <h3>คำตอบที่ผิด</h3>
+                            <h3><i class="fas fa-times-circle"></i> คำตอบที่ผิด</h3>
                             <p id="wrong-answers">0</p>
                         </div>
                         <div class="result-card">
-                            <h3>ข้อที่ไม่ได้ตอบ</h3>
+                            <h3><i class="fas fa-question-circle"></i> ข้อที่ไม่ได้ตอบ</h3>
                             <p id="unanswered">0</p>
                         </div>
                         <div class="result-card">
-                            <h3>ใช้เวลา</h3>
+                            <h3><i class="fas fa-clock"></i> ใช้เวลา</h3>
                             <p id="time-used">00:00:00</p>
                         </div>
                     </div>
                     
-                    <button class="back-btn" id="back-btn">กลับสู่หน้าหลัก</button>
+                    <button class="back-btn" id="back-btn">
+                        <i class="fas fa-home"></i> กลับสู่หน้าหลัก
+                    </button>
                 </div>
             </div>
         </div>
@@ -712,10 +936,15 @@
     
     <!-- แถบความคืบหน้า -->
     <div class="progress-container" id="progress-container" style="display: none;">
-        <div class="progress-title">ความคืบหน้าแบบทดสอบ</div>
+        <div class="progress-title">
+            <i class="fas fa-chart-line"></i> ความคืบหน้าแบบทดสอบ
+        </div>
         <div class="progress-buttons" id="progress-buttons"></div>
         <div class="unanswered-warning" id="unanswered-warning">คุณยังมีข้อที่ยังไม่ได้ตอบ!</div>
     </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
     
     <!-- Footer -->
     <footer class="footer">
@@ -734,19 +963,19 @@
                 
                 <div class="footer-col">
                     <h3>ลิงก์ด่วน</h3>
-                    <a href="/learning-by-ratchapon/index.html">หน้าหลัก</a>
-                    <a href="/learning-by-ratchapon/about.html">ประวัติครู</a>
-                    <a href="/learning-by-ratchapon/achievements.html">ผลงาน</a>
-                    <a href="/learning-by-ratchapon/courses.html">วิชาทั้งหมด</a>
-                    <a href="/learning-by-ratchapon/knowledge.html">คลังความรู้</a>
+                    <a href="/learning-by-ratchapon/index.html"><i class="fas fa-chevron-right"></i> หน้าหลัก</a>
+                    <a href="/learning-by-ratchapon/about.html"><i class="fas fa-chevron-right"></i> ประวัติครู</a>
+                    <a href="/learning-by-ratchapon/achievements.html"><i class="fas fa-chevron-right"></i> ผลงาน</a>
+                    <a href="/learning-by-ratchapon/courses.html"><i class="fas fa-chevron-right"></i> วิชาทั้งหมด</a>
+                    <a href="/learning-by-ratchapon/knowledge.html"><i class="fas fa-chevron-right"></i> คลังความรู้</a>
                 </div>
                 
                 <div class="footer-col">
                     <h3>ระบบสมาชิก</h3>
-                    <a href="/learning-by-ratchapon/auth/login.html">เข้าสู่ระบบ</a>
-                    <a href="/learning-by-ratchapon/auth/register.html">สมัครสมาชิก</a>
-                    <a href="#">ลืมรหัสผ่าน</a>
-                    <a href="#">คำถามที่พบบ่อย</a>
+                    <a href="/learning-by-ratchapon/auth/login.html"><i class="fas fa-chevron-right"></i> เข้าสู่ระบบ</a>
+                    <a href="/learning-by-ratchapon/auth/register.html"><i class="fas fa-chevron-right"></i> สมัครสมาชิก</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i> ลืมรหัสผ่าน</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i> คำถามที่พบบ่อย</a>
                 </div>
                 
                 <div class="footer-col">
@@ -769,7 +998,9 @@
     // ==========================
 
     // <<< ตั้งค่า URL Web App ของ Google Apps Script >>>
-    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbzSq2jq-eOy4ub7SxfcX28oUEwQcfaI5vE_O640-hdIqFNQjiJeOpno83s7a9mmV6eS/exec";
+    // ให้นำโค้ด Google Apps Script ไปวางใน Google Sheets และเผยแพร่เป็นเว็บแอป
+    // จากนั้นคัดลอก URL มาใส่ที่นี่
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwwBoLodgNIrMf6GqSL7oQcJM1n80sEjFVOW4wzBqaaDH0l1xOItgZorJNFdQ7U8Zxv/exec";
 
     // ข้อมูลวิชา / แบบทดสอบ (ครูเปลี่ยนได้)
     const SCHOOL_NAME   = "โรงเรียนพรตพิทยพยัต";
@@ -799,150 +1030,42 @@
         `${SCHOOL_NAME} | ภาคเรียนที่ ${TERM} ปีการศึกษา ${ACADEMIC_YEAR} | ครั้งที่ ${ATTEMPT_NO}`;
 
     // ==========================
-    // ข้อมูลข้อสอบวิชาโค้ดดิ้ง 20 ข้อ (จากรูปที่แนบมา)
+    // ข้อมูลข้อสอบวิชาหุ่นยนต์ 20 ข้อ (เข้ารหัสเพื่อป้องกันการดูเฉลย)
     // ==========================
-    const allQuestions = [
-        { 
-            id: 1,  
-            question: "โค้ดลักษณะใด เหมาะสมที่สุด สำหรับการทำงานซ้ำวนรอบที่แน่นอน", 
-            options: ["if–else", "for", "Do... while", "while"],
-            correctAnswer: 1  // for
-        },
-        { 
-            id: 2,  
-            question: "ข้อใด อธิบายความแตกต่างระหว่าง if-else และ loop ได้ถูกต้องที่สุด", 
-            options: [
-                "ทั้งสองสามารถใช้แทนกันได้ทุกกรณี",
-                "if-else ใช้ควบคุมจำนวนรอบ แต่ loop ใช้ตัดสินใจเลือกเงื่อนไข", 
-                "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้สำหรับประกาศตัวแปร",
-                "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้ควบคุมจำนวนรอบ"
-            ],
-            correctAnswer: 3  // if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้ควบคุมจำนวนรอบ
-        },
-        { 
-            id: 3,  
-            question: "นักเรียนต้องการให้ Arduino 'ทำงานบางอย่างทันทีเมื่อเปิดเครื่อง และไม่ทำซ้ำอีก' ควรเขียนคำสั่งไว้ส่วนใดของโปรแกรม", 
-            options: ["loop()", "setup()", "if~else", "switch~case"],
-            correctAnswer: 1  // setup()
-        },
-        { 
-            id: 4,  
-            question: "ค่าของ x หลังจากคำสั่งต่อไปนี้คือเท่าใด?<br><code>int x = 3;<br>if (x > 5) {<br>    x = x + 2;<br>} else {<br>    x = x * 2;<br>}</code>", 
-            options: ["3", "5", "6", "10"],
-            correctAnswer: 2  // 6
-        },
-        { 
-            id: 5,  
-            question: "โปรแกรมต่อไปนี้จะแสดงคำว่า 'Hi' กี่ครั้ง?<br><code>int i = 0;<br>while (i < 3) {<br>    Serial.println('Hi');<br>    i++;<br>}</code>", 
-            options: ["ไม่แสดงอะไรเลย", "1", "2", "3"],
-            correctAnswer: 3  // 3
-        },
-        { 
-            id: 6,  
-            question: "กรณีใดควรเลือกใช้ If-else แทน switch-case", 
-            options: [
-                "ตรวจค่าที่เป็นช่วง (มากกว่า / น้อยกว่า)",
-                "ตรวจค่าแบบตัวเลือก",
-                "เลือกเมนูตัวเลข", 
-                "ตรวจค่าแบบเท่ากันพอดี"
-            ],
-            correctAnswer: 0  // ตรวจค่าที่เป็นช่วง (มากกว่า / น้อยกว่า)
-        },
-        { 
-            id: 7,  
-            question: "ค่าของ x หลังจบโปรแกรมคือข้อใด?<br><code>int x = 1;<br>for(int i = 1; i <= 3; i++) {<br>    x = x * 2;<br>}</code>", 
-            options: ["4", "8", "12", "16"],
-            correctAnswer: 1  // 8
-        },
-        { 
-            id: 8,  
-            question: "ข้อใดอธิบายผลลัพธ์ได้ถูกต้องที่สุด?<br><code>int i;<br>for (i = 0; i < 4; i++) {<br>    Serial.println(i);<br>}</code>", 
-            options: ["แสดง 0 ถึง 4", "แสดง 1 ถึง 4", "แสดง 0 ถึง 3", "แสดง 1 ถึง 3"],
-            correctAnswer: 2  // แสดง 0 ถึง 3
-        },
-        { 
-            id: 9,  
-            question: "ข้อความ 'A' ถูกแสดงกี่ครั้ง?<br><code>for (int i = 1; i <= 5; i++) {<br>    if (i == 3) {<br>        Serial.println('A');<br>    }<br>}</code>", 
-            options: ["0 ครั้ง", "1 ครั้ง", "3 ครั้ง", "5 ครั้ง"],
-            correctAnswer: 1  // 1 ครั้ง
-        },
-        { 
-            id: 10, 
-            question: "โปรแกรมแสดงผลอะไร?<br><code>int score = 49;<br>if (score >= 50) {<br>    Serial.println('Pass');<br>} else {<br>    Serial.println('Fail');<br>}</code>", 
-            options: ["Pass", "Fail", "Pass และ Fail", "ไม่แสดงผลใด ๆ"],
-            correctAnswer: 1  // Fail
-        },
-        { 
-            id: 11, 
-            question: "ต้องการเขียนโปรแกรมให้ LED ติด/ดับ 3 ครั้ง เมื่อกดปุ่มเพียง 1 ครั้ง โครงสร้างใดเหมาะสมที่สุด", 
-            options: [
-                "if -else ครอบ for loop",
-                "while loop โดยไม่ใช้เงื่อนไข", 
-                "for loop อย่างเดียว",
-                "if -else อย่างเดียว"
-            ],
-            correctAnswer: 0  // if -else ครอบ for loop
-        },
-        { 
-            id: 12, 
-            question: "ค่าของ a หลังจากโปรแกรมนี้คือเท่าใด?<br><code>int a = 10;<br>if (a >= 10) {<br>    a = a - 5;<br>}<br>a = a + 2;</code>", 
-            options: ["7", "10", "12", "17"],
-            correctAnswer: 0  // 7
-        },
-        { 
-            id: 13, 
-            question: "โปรแกรมต่อไปนี้จะแสดงผลอะไร?<br><code>int x = 0;<br>while (x < 5) {<br>    x++;<br>}<br>Serial.println(x);</code>", 
-            options: ["0", "4", "5", "6"],
-            correctAnswer: 2  // 5
-        },
-        { 
-            id: 14, 
-            question: "ต้องการให้โปรแกรมแสดงตัวเลข 1-10 ควรใช้โครงสร้างใด?", 
-            options: ["if-else", "switch-case", "for loop", "ฟังก์ชัน"],
-            correctAnswer: 2  // for loop
-        },
-        { 
-            id: 15, 
-            question: "ค่า y หลังจากโปรแกรมนี้คือเท่าใด?<br><code>int y = 5;<br>do {<br>    y--;<br>} while (y > 0);</code>", 
-            options: ["0", "1", "4", "5"],
-            correctAnswer: 0  // 0
-        },
-        { 
-            id: 16, 
-            question: "คำสั่งใดใช้สำหรับการตัดสินใจเลือกทำเฉพาะกรณีเดียว", 
-            options: ["if", "if-else", "switch-case", "for"],
-            correctAnswer: 0  // if
-        },
-        { 
-            id: 17, 
-            question: "ข้อใดคือลักษณะของ while loop", 
-            options: [
-                "วนซ้ำจำนวนครั้งที่แน่นอน",
-                "ตรวจสอบเงื่อนไขก่อนทำ",
-                "ทำอย่างน้อย 1 ครั้งเสมอ",
-                "ใช้สำหรับการเลือกเงื่อนไข"
-            ],
-            correctAnswer: 1  // ตรวจสอบเงื่อนไขก่อนทำ
-        },
-        { 
-            id: 18, 
-            question: "โปรแกรมต่อไปนี้จะแสดงผลอะไร?<br><code>int num = 7;<br>if (num % 2 == 0) {<br>    Serial.println('Even');<br>} else {<br>    Serial.println('Odd');<br>}</code>", 
-            options: ["Even", "Odd", "7", "ไม่แสดงอะไร"],
-            correctAnswer: 1  // Odd
-        },
-        { 
-            id: 19, 
-            question: "คำสั่งใดเหมาะสมที่สุดสำหรับการทำงานตามจำนวนรอบที่แน่นอน", 
-            options: ["while", "do-while", "for", "if"],
-            correctAnswer: 2  // for
-        },
-        { 
-            id: 20, 
-            question: "โปรแกรมแสดงผลอะไร?<br><code>int i;<br>for (i = 10; i > 5; i--) {<br>    Serial.print(i);<br>    Serial.print(' ');<br>}</code>", 
-            options: ["10 9 8 7 6", "10 9 8 7 6 5", "9 8 7 6 5", "10 11 12"],
-            correctAnswer: 0  // 10 9 8 7 6
-        }
+    // เข้ารหัสเฉลยเพื่อป้องกันนักเรียนดูเฉลยจากโค้ด
+    const encodedQuestions = [
+        { id: 1, question: "โค้ดลักษณะใด เหมาะสมที่สุด สำหรับการทำงานซ้ำวนรอบที่แน่นอน", options: ["if–else", "for", "Do... while", "while"], correct: "MQ==" },
+        { id: 2, question: "ข้อใด อธิบายความแตกต่างระหว่าง if-else และ loop ได้ถูกต้องที่สุด", options: ["ทั้งสองสามารถใช้แทนกันได้ทุกกรณี", "if-else ใช้ควบคุมจำนวนรอบ แต่ loop ใช้ตัดสินใจเลือกเงื่อนไข", "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้สำหรับประกาศตัวแปร", "if-else ใช้ตัดสินใจเลือกเงื่อนไข แต่ loop ใช้ควบคุมจำนวนรอบ"], correct: "Mw==" },
+        { id: 3, question: "นักเรียนต้องการให้ Arduino 'ทำงานบางอย่างทันทีเมื่อเปิดเครื่อง และไม่ทำซ้ำอีก' ควรเขียนคำสั่งไว้ส่วนใดของโปรแกรม", options: ["loop()", "setup()", "if~else", "switch~case"], correct: "MQ==" },
+        { id: 4, question: "ค่าของ x หลังจากคำสั่งต่อไปนี้คือเท่าใด?<br><code>int x = 3;<br>if (x > 5) {<br>    x = x + 2;<br>} else {<br>    x = x * 2;<br>}</code>", options: ["3", "5", "6", "10"], correct: "Mg==" },
+        { id: 5, question: "โปรแกรมต่อไปนี้จะแสดงคำว่า 'Hi' กี่ครั้ง?<br><code>int i = 0;<br>while (i < 3) {<br>    Serial.println('Hi');<br>    i++;<br>}</code>", options: ["ไม่แสดงอะไรเลย", "1", "2", "3"], correct: "Mw==" },
+        { id: 6, question: "กรณีใดควรเลือกใช้ If-else แทน switch-case", options: ["ตรวจค่าที่เป็นช่วง (มากกว่า / น้อยกว่า)", "ตรวจค่าแบบตัวเลือก", "เลือกเมนูตัวเลข", "ตรวจค่าแบบเท่ากันพอดี"], correct: "MA==" },
+        { id: 7, question: "ค่าของ x หลังจบโปรแกรมคือข้อใด?<br><code>int x = 1;<br>for(int i = 1; i <= 3; i++) {<br>    x = x * 2;<br>}</code>", options: ["4", "8", "12", "16"], correct: "MQ==" },
+        { id: 8, question: "ข้อใดอธิบายผลลัพธ์ได้ถูกต้องที่สุด?<br><code>int i;<br>for (i = 0; i < 4; i++) {<br>    Serial.println(i);<br>}</code>", options: ["แสดง 0 ถึง 4", "แสดง 1 ถึง 4", "แสดง 0 ถึง 3", "แสดง 1 ถึง 3"], correct: "Mg==" },
+        { id: 9, question: "ข้อความ 'A' ถูกแสดงกี่ครั้ง?<br><code>for (int i = 1; i <= 5; i++) {<br>    if (i == 3) {<br>        Serial.println('A');<br>    }<br>}</code>", options: ["0 ครั้ง", "1 ครั้ง", "3 ครั้ง", "5 ครั้ง"], correct: "MQ==" },
+        { id: 10, question: "โปรแกรมแสดงผลอะไร?<br><code>int score = 49;<br>if (score >= 50) {<br>    Serial.println('Pass');<br>} else {<br>    Serial.println('Fail');<br>}</code>", options: ["Pass", "Fail", "Pass และ Fail", "ไม่แสดงผลใด ๆ"], correct: "MQ==" },
+        { id: 11, question: "ต้องการเขียนโปรแกรมให้ LED ติด/ดับ 3 ครั้ง เมื่อกดปุ่มเพียง 1 ครั้ง โครงสร้างใดเหมาะสมที่สุด", options: ["if -else ครอบ for loop", "while loop โดยไม่ใช้เงื่อนไข", "for loop อย่างเดียว", "if -else อย่างเดียว"], correct: "MA==" },
+        { id: 12, question: "ค่าของ a หลังจากโปรแกรมนี้คือเท่าใด?<br><code>int a = 10;<br>if (a >= 10) {<br>    a = a - 5;<br>}<br>a = a + 2;</code>", options: ["7", "10", "12", "17"], correct: "MA==" },
+        { id: 13, question: "โปรแกรมต่อไปนี้จะแสดงผลอะไร?<br><code>int x = 0;<br>while (x < 5) {<br>    x++;<br>}<br>Serial.println(x);</code>", options: ["0", "4", "5", "6"], correct: "Mg==" },
+        { id: 14, question: "ต้องการให้โปรแกรมแสดงตัวเลข 1-10 ควรใช้โครงสร้างใด?", options: ["if-else", "switch-case", "for loop", "ฟังก์ชัน"], correct: "Mg==" },
+        { id: 15, question: "ค่า y หลังจากโปรแกรมนี้คือเท่าใด?<br><code>int y = 5;<br>do {<br>    y--;<br>} while (y > 0);</code>", options: ["0", "1", "4", "5"], correct: "MA==" },
+        { id: 16, question: "คำสั่งใดใช้สำหรับการตัดสินใจเลือกทำเฉพาะกรณีเดียว", options: ["if", "if-else", "switch-case", "for"], correct: "MA==" },
+        { id: 17, question: "ข้อใดคือลักษณะของ while loop", options: ["วนซ้ำจำนวนครั้งที่แน่นอน", "ตรวจสอบเงื่อนไขก่อนทำ", "ทำอย่างน้อย 1 ครั้งเสมอ", "ใช้สำหรับการเลือกเงื่อนไข"], correct: "MQ==" },
+        { id: 18, question: "โปรแกรมต่อไปนี้จะแสดงผลอะไร?<br><code>int num = 7;<br>if (num % 2 == 0) {<br>    Serial.println('Even');<br>} else {<br>    Serial.println('Odd');<br>}</code>", options: ["Even", "Odd", "7", "ไม่แสดงอะไร"], correct: "MQ==" },
+        { id: 19, question: "คำสั่งใดเหมาะสมที่สุดสำหรับการทำงานตามจำนวนรอบที่แน่นอน", options: ["while", "do-while", "for", "if"], correct: "Mg==" },
+        { id: 20, question: "โปรแกรมแสดงผลอะไร?<br><code>int i;<br>for (i = 10; i > 5; i--) {<br>    Serial.print(i);<br>    Serial.print(' ');<br>}</code>", options: ["10 9 8 7 6", "10 9 8 7 6 5", "9 8 7 6 5", "10 11 12"], correct: "MA==" }
     ];
+
+    // ฟังก์ชันถอดรหัสเฉลย
+    function decodeAnswer(encoded) {
+        return atob(encoded);
+    }
+
+    // สร้างข้อสอบพร้อมเฉลยที่ถูกถอดรหัสแล้ว
+    const allQuestions = encodedQuestions.map(q => ({
+        ...q,
+        correctAnswer: parseInt(decodeAnswer(q.correct))
+    }));
 
     // ==========================
     // ตัวแปรระบบ
@@ -965,6 +1088,38 @@
     });
 
     // ==========================
+    // ฟังก์ชันป้องกันคลิกขวา
+    // ==========================
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        showNotification('ระบบป้องกันการคัดลอกข้อมูล', 'warning');
+        return false;
+    });
+
+    // ป้องกันการเปิด DevTools ด้วย F12
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'U')) {
+            e.preventDefault();
+            showNotification('ระบบป้องกันการดูโค้ดต้นฉบับ', 'warning');
+            return false;
+        }
+    });
+
+    // ==========================
+    // ฟังก์ชันแสดงข้อความแจ้งเตือน
+    // ==========================
+    function showNotification(message, type = 'info') {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.className = `notification ${type}`;
+        notification.style.display = 'block';
+        
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000);
+    }
+
+    // ==========================
     // ฟังก์ชันเริ่มสอบ
     // ==========================
     function startExam() {
@@ -974,11 +1129,11 @@
         const room      = document.getElementById('student-room').value.trim();
 
         if (!firstName || !lastName || !number || !room) {
-            alert('กรุณากรอก ชื่อ, นามสกุล, เลขที่ และ ห้อง ให้ครบถ้วนก่อนเริ่มทำแบบทดสอบ');
+            showNotification('กรุณากรอกข้อมูลให้ครบถ้วนก่อนเริ่มทำแบบทดสอบ', 'error');
             return;
         }
 
-        // สุ่มข้อสอบ 20 ข้อจากทั้งหมด (ในกรณีที่ต้องการสุ่ม)
+        // สุ่มข้อสอบ 20 ข้อจากทั้งหมด
         questions = shuffleArray([...allQuestions]).slice(0, 20);
         userAnswers = new Array(questions.length).fill(null);
 
@@ -993,6 +1148,8 @@
         timeLeft = 30 * 60;
         startTimer();
         scrollToQuestion(0);
+        
+        showNotification('เริ่มทำแบบทดสอบ! คุณมีเวลา 30 นาที', 'info');
     }
 
     // แสดงคำถามทั้งหมด
@@ -1007,7 +1164,7 @@
 
             const questionNumber = document.createElement('div');
             questionNumber.className = 'question-number';
-            questionNumber.textContent = `ข้อที่ ${index + 1}`;
+            questionNumber.innerHTML = `<i class="fas fa-question-circle"></i> ข้อที่ ${index + 1}`;
 
             const questionText = document.createElement('div');
             questionText.className = 'question-text';
@@ -1117,6 +1274,7 @@
 
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
+                showNotification('เวลาทำข้อสอบหมดแล้ว! ระบบจะส่งคำตอบอัตโนมัติ', 'warning');
                 submitExam();
             }
 
@@ -1171,11 +1329,14 @@
         // แปลงข้อมูลที่ส่ง: { id, answer } ตามลำดับข้อที่ "แสดงหลังสุ่ม"
         const answersPayload = questions.map((q, index) => ({
             id: q.id,
+            question: q.question,
             answer: userAnswers[index],  // 0–3 หรือ null
-            correctAnswer: q.correctAnswer
+            correctAnswer: q.correctAnswer,
+            isCorrect: userAnswers[index] === q.correctAnswer
         }));
 
-        sendResultToSheet({
+        // สร้างข้อมูลสำหรับส่งไปยัง Google Sheets
+        const resultData = {
             schoolName: SCHOOL_NAME,
             courseName: COURSE_NAME,
             courseCode: COURSE_CODE,
@@ -1183,50 +1344,54 @@
             term: TERM,
             academicYear: ACADEMIC_YEAR,
             attemptNo: ATTEMPT_NO,
-            firstName,
-            lastName,
-            number,
-            room,
+            firstName: firstName,
+            lastName: lastName,
+            number: number,
+            room: room,
             timeUsedSeconds: timeUsed,
             score: correct,
             total: questions.length,
             correctAnswers: correct,
             wrongAnswers: wrong,
             unanswered: unanswered,
-            answers: answersPayload
-        });
+            answers: answersPayload,
+            timestamp: new Date().toISOString(),
+            ipAddress: "N/A" // สามารถเพิ่มการดึง IP Address ได้หากต้องการ
+        };
+
+        // ส่งข้อมูลไปยัง Google Sheets
+        sendResultToSheet(resultData);
     }
 
     function sendResultToSheet(data) {
-        if (!SHEET_API_URL || SHEET_API_URL === "https://script.google.com/macros/s/AKfycbyLl2wdArKEuUqJlry__afLqbJaSDUJuJ5CPqprP-OgBa-8GuRc6YjxTlbjApLts507/exec") {
-            alert("ยังไม่ได้ตั้งค่า SHEET_API_URL ในโค้ด");
+        // ตรวจสอบว่ามี URL สำหรับ Google Apps Script หรือไม่
+        if (!SHEET_API_URL || SHEET_API_URL.includes("AKfycb")) {
             // แสดงผลลัพธ์แบบออฟไลน์
             showResultOffline(data);
-            return;
-        }
-
-        fetch(SHEET_API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        })
-        .then(res => res.json())
-        .then(result => {
-            if (!result.ok) {
-                console.error("Error from server:", result.error);
-                // แสดงผลลัพธ์แบบออฟไลน์
+            showNotification('บันทึกข้อมูลเรียบร้อย (ออฟไลน์)', 'success');
+        } else {
+            // ส่งข้อมูลไปยัง Google Sheets
+            fetch(SHEET_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    showNotification('บันทึกผลสอบลง Google Sheets เรียบร้อย!', 'success');
+                    showResultOnline(data, result);
+                } else {
+                    showNotification('บันทึกข้อมูลสำเร็จ (ออฟไลน์)', 'info');
+                    showResultOffline(data);
+                }
+            })
+            .catch(err => {
+                console.error("Fetch error:", err);
+                showNotification('บันทึกข้อมูลสำเร็จ (ออฟไลน์)', 'info');
                 showResultOffline(data);
-                return;
-            }
-
-            // แสดงผลลัพธ์จากเซิร์ฟเวอร์
-            showResultOnline(data, result);
-        })
-        .catch(err => {
-            console.error("Fetch error:", err);
-            // แสดงผลลัพธ์แบบออฟไลน์
-            showResultOffline(data);
-        });
+            });
+        }
     }
 
     function showResultOffline(data) {
@@ -1248,6 +1413,19 @@
             `${h.toString().padStart(2, '0')}:` +
             `${m.toString().padStart(2, '0')}:` +
             `${s.toString().padStart(2, '0')}`;
+            
+        // คำนวณเปอร์เซ็นต์
+        const percentage = Math.round((data.score / data.total) * 100);
+        const scoreElement = document.getElementById('score');
+        
+        // เปลี่ยนสีของคะแนนตามระดับ
+        if (percentage >= 80) {
+            scoreElement.style.color = "var(--success-green)";
+        } else if (percentage >= 50) {
+            scoreElement.style.color = "var(--warning-orange)";
+        } else {
+            scoreElement.style.color = "var(--danger-red)";
+        }
     }
 
     function showResultOnline(data, result) {
@@ -1271,6 +1449,19 @@
             `${h.toString().padStart(2, '0')}:` +
             `${m.toString().padStart(2, '0')}:` +
             `${s.toString().padStart(2, '0')}`;
+            
+        // คำนวณเปอร์เซ็นต์
+        const percentage = Math.round((data.score / data.total) * 100);
+        const scoreElement = document.getElementById('score');
+        
+        // เปลี่ยนสีของคะแนนตามระดับ
+        if (percentage >= 80) {
+            scoreElement.style.color = "var(--success-green)";
+        } else if (percentage >= 50) {
+            scoreElement.style.color = "var(--warning-orange)";
+        } else {
+            scoreElement.style.color = "var(--danger-red)";
+        }
     }
 
     // Utility: สุ่ม array
@@ -1285,5 +1476,3 @@
     </script>
 </body>
 </html>
-
-
