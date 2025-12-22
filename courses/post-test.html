@@ -1137,7 +1137,7 @@
         }
         
         /* เพิ่มสไตล์สำหรับปุ่มตรวจสอบเฉลย */
-        /*.verify-answers-btn {
+        .verify-answers-btn {
             margin-top: 1rem;
             background: linear-gradient(to right, #9966cc, #aa77cc);
             color: white;
@@ -1386,6 +1386,13 @@
                         <i class="fas fa-external-link-alt"></i> เข้าสู่โหมดทำแบบทดสอบ
                     </button>
                     
+                    <!-- ปุ่มสำหรับตรวจสอบคำตอบ (สำหรับผู้ดูแลระบบ) -->
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="verify-answers-btn" id="verify-answers-btn">
+                            <i class="fas fa-check-circle"></i> ตรวจสอบเฉลยทั้งหมด
+                        </button>
+                    </div>
+                </div>
                 
                 <!-- Questions Section -->
                 <div class="question-container" id="question-container">
@@ -2596,8 +2603,5 @@
     </script>
 </body>
 </html>
-
-
-
 
 
