@@ -48,7 +48,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNTB2NTBIMHoiLz48cGF0aCBkPSJNMjUgMjVjNi45MDMgMCAxMi41LTUuNTk3IDEyLjUtMTIuNVMzMS45MDMgMCAyNSAwUzEyLjUgNS41OTcgMTIuNSAxMi41UzE4LjA5NyAyNSAyNSAyNXptMCAyNWM2LjkwMyAwIDEyLjUtNS41OTcgMTIuNS0xMi41UzMxLjkwMyAyNSAyNSAyNSA0MCAzMC41OTซ 40IDM3LjVTMjUgNTAgMjUgNTB6IiBmaWxsPSIjMDA2NmNjIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+');
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNTB2NTBIMHoiLz48cGF0aCBkPSJNMjUgMjVjNi45MDMgMCAxMi41LTUuNTk3IDEyLjUtMTIuNVMzMS45MDMgMCAyNSAwUzEyLjUgNS41OTcgMTIuNSAxMi41UzE4LjA5NyAyNSAyNSAyNXptMCAyNWM2LjkwMyAwIDEyLjUtNS41OTcgMTIuNS0xIuNVMyMS45MDMgMjUgMjUgMjUgNDAgMzAuNTk3IDQwIDM3LjVTMjUgNTAgMjUgNTB6IiBmaWxsPSIjMDA2NmNjIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+');
             opacity: 0.3;
             z-index: -1;
         }
@@ -148,6 +148,164 @@
             background: linear-gradient(to right, #e55a00, #ff8000);
             transform: translateY(-3px);
             box-shadow: 0 5px 12px rgba(255, 102, 0, 0.4);
+        }
+        
+        /* ปุ่มเข้าสู่โหมดเต็มหน้าจอ */
+        .enter-exam-btn {
+            margin-top: 2rem;
+            background: linear-gradient(to right, #ff3366, #ff6699);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .enter-exam-btn:hover {
+            background: linear-gradient(to right, #e52e5e, #ff3366);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 51, 102, 0.4);
+        }
+        
+        /* โหมดเต็มหน้าจอ */
+        body.fullscreen-mode {
+            overflow: hidden;
+            background: #0a192f;
+        }
+        
+        body.fullscreen-mode .header {
+            background: #0a192f;
+            border-bottom: 3px solid var(--accent-orange);
+        }
+        
+        body.fullscreen-mode .exam-page {
+            min-height: 100vh;
+            padding: 0;
+        }
+        
+        body.fullscreen-mode .exam-container {
+            max-width: 100%;
+            padding: 0;
+        }
+        
+        body.fullscreen-mode .exam-card {
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+            min-height: 100vh;
+            padding: 1.5rem;
+            background: #0a192f;
+            color: #e6f1ff;
+        }
+        
+        body.fullscreen-mode .exam-header {
+            border-radius: 0;
+            background: #112240;
+            color: #e6f1ff;
+            border-left: 5px solid var(--accent-orange);
+        }
+        
+        body.fullscreen-mode .exam-title {
+            color: #64ffda;
+        }
+        
+        body.fullscreen-mode .section-header {
+            background: linear-gradient(135deg, #112240, #0a192f);
+            border: 1px solid #233554;
+        }
+        
+        body.fullscreen-mode .question {
+            background: #112240;
+            border: 1px solid #233554;
+            color: #e6f1ff;
+        }
+        
+        body.fullscreen-mode .option {
+            background: #0a192f;
+            border-color: #233554;
+            color: #a8b2d1;
+        }
+        
+        body.fullscreen-mode .option:hover {
+            background: #1d3a5f;
+            border-color: #64ffda;
+        }
+        
+        body.fullscreen-mode .option.selected {
+            background: #1d3a5f;
+            border-color: #64ffda;
+        }
+        
+        body.fullscreen-mode .matching-column {
+            background: #112240;
+            border-color: #233554;
+            color: #e6f1ff;
+        }
+        
+        body.fullscreen-mode .matching-item {
+            background: #0a192f;
+            border-color: #233554;
+            color: #a8b2d1;
+        }
+        
+        body.fullscreen-mode .matching-select {
+            background: #0a192f;
+            border-color: #233554;
+            color: #e6f1ff;
+        }
+        
+        body.fullscreen-mode .progress-container {
+            background: #0a192f;
+            border-top: 3px solid var(--accent-orange);
+        }
+        
+        body.fullscreen-mode .progress-btn {
+            background: #112240;
+            border-color: #233554;
+            color: #e6f1ff;
+        }
+        
+        body.fullscreen-mode .submit-btn, 
+        body.fullscreen-mode .back-btn,
+        body.fullscreen-mode .fullscreen-exit-btn {
+            background: linear-gradient(to right, #ff3366, #ff6699);
+        }
+        
+        body.fullscreen-mode .submit-btn:hover,
+        body.fullscreen-mode .back-btn:hover,
+        body.fullscreen-mode .fullscreen-exit-btn:hover {
+            background: linear-gradient(to right, #e52e5e, #ff3366);
+        }
+        
+        /* ปุ่มออกจากโหมดเต็มหน้าจอ */
+        .fullscreen-exit-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(to right, var(--danger-red), #ff6666);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        
+        .fullscreen-exit-btn:hover {
+            background: linear-gradient(to right, #cc0000, #ff3333);
+            transform: translateY(-2px);
         }
         
         .exam-page {
@@ -977,6 +1135,92 @@
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
+        
+        /* เพิ่มสไตล์สำหรับปุ่มตรวจสอบเฉลย */
+        .verify-answers-btn {
+            margin-top: 1rem;
+            background: linear-gradient(to right, #9966cc, #aa77cc);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+        
+        .verify-answers-btn:hover {
+            background: linear-gradient(to right, #8855bb, #9966cc);
+            transform: translateY(-2px);
+        }
+        
+        /* สไตล์สำหรับการแสดงผลการตรวจสอบ */
+        .answer-check-container {
+            display: none;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 5px solid var(--accent-orange);
+        }
+        
+        .answer-check-title {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .answer-check-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .answer-check-item {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .answer-check-item.correct {
+            border-left: 4px solid var(--success-green);
+        }
+        
+        .answer-check-item.incorrect {
+            border-left: 4px solid var(--danger-red);
+        }
+        
+        .answer-check-item .question-num {
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        
+        .answer-check-item .correct-answer {
+            color: var(--success-green);
+            font-weight: 600;
+        }
+        
+        .answer-check-item .user-answer {
+            color: var(--danger-red);
+            font-weight: 600;
+        }
+        
+        .answer-check-summary {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+            border: 2px solid var(--secondary-blue);
+        }
     </style>
 </head>
 <body>
@@ -1002,6 +1246,11 @@
             </button>
         </div>
     </header>
+    
+    <!-- ปุ่มออกจากโหมดเต็มหน้าจอ -->
+    <button class="fullscreen-exit-btn" id="fullscreen-exit-btn">
+        <i class="fas fa-times"></i> ออกจากโหมดสอบ
+    </button>
     
     <!-- Exam Page -->
     <section class="exam-page">
@@ -1132,9 +1381,17 @@
                         </div>
                     </div>
 
-                    <button class="start-btn" id="start-btn">
-                        <i class="fas fa-play-circle"></i> เริ่มทำแบบทดสอบ
+                    <!-- ปุ่มสำหรับเข้าสู่โหมดสอบเต็มหน้าจอ -->
+                    <button class="enter-exam-btn" id="enter-exam-btn">
+                        <i class="fas fa-external-link-alt"></i> เข้าสู่โหมดทำแบบทดสอบ
                     </button>
+                    
+                    <!-- ปุ่มสำหรับตรวจสอบคำตอบ (สำหรับผู้ดูแลระบบ) -->
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="verify-answers-btn" id="verify-answers-btn">
+                            <i class="fas fa-check-circle"></i> ตรวจสอบเฉลยทั้งหมด
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Questions Section -->
@@ -1179,6 +1436,15 @@
                     <button class="back-btn" id="back-btn">
                         <i class="fas fa-home"></i> กลับสู่หน้าหลัก
                     </button>
+                </div>
+                
+                <!-- ส่วนสำหรับตรวจสอบคำตอบทั้งหมด -->
+                <div class="answer-check-container" id="answer-check-container">
+                    <div class="answer-check-title">
+                        <i class="fas fa-clipboard-check"></i> ผลการตรวจสอบเฉลยข้อสอบทั้งหมด
+                    </div>
+                    <div id="answer-check-results" class="answer-check-results"></div>
+                    <div id="answer-check-summary" class="answer-check-summary"></div>
                 </div>
             </div>
         </div>
@@ -1321,24 +1587,12 @@
     // ปิดการใช้งานปุ่มเริ่มสอบ
     function disableStartButton() {
         const startBtn = document.getElementById('start-btn');
-        startBtn.disabled = true;
-        startBtn.innerHTML = '<i class="fas fa-ban"></i> ทำแบบทดสอบแล้ว (ใช้ได้ครั้งเดียว)';
+        if (startBtn) {
+            startBtn.disabled = true;
+            startBtn.innerHTML = '<i class="fas fa-ban"></i> ทำแบบทดสอบแล้ว (ใช้ได้ครั้งเดียว)';
+        }
     }
     
-    // ตรวจสอบเมื่อโหลดหน้าเว็บ
-    document.addEventListener('DOMContentLoaded', function() {
-        // ตรวจสอบว่าเคยสอบแล้วหรือไม่
-        const hasSubmitted = checkPreviousSubmission();
-        
-        // ป้องกันการกด F5 เพื่อเริ่มใหม่
-        window.addEventListener('beforeunload', function(e) {
-            if (window.examStarted && !window.examFinished) {
-                e.preventDefault();
-                e.returnValue = 'คุณกำลังทำแบบทดสอบอยู่ ต้องการออกจากหน้าหรือไม่?';
-            }
-        });
-    });
-
     // ==========================
     // ข้อมูลข้อสอบ (ส่วนที่ 1: ปรนัย 20 ข้อ)
     // ==========================
@@ -1417,8 +1671,22 @@
     const mcQuestions = encodedQuestions.map(q => ({
         ...q,
         correctAnswer: decodeAnswer(q.correct),
+        correctIndex: decodeAnswer(q.correct), // บันทึก index ของคำตอบที่ถูกต้อง
         type: 'multiple-choice'
     }));
+
+    // ตรวจสอบเฉลยส่วนที่ 1
+    console.log("=== ตรวจสอบเฉลยข้อสอบปรนัย 20 ข้อ ===");
+    mcQuestions.forEach((q, i) => {
+        console.log(`ข้อ ${i+1}: คำตอบที่ถูกต้องคือตัวเลือกที่ ${q.correctAnswer + 1} (${q.options[q.correctAnswer]})`);
+    });
+
+    // ตรวจสอบเฉลยส่วนที่ 2
+    console.log("=== ตรวจสอบเฉลยข้อสอบจับคู่ 14 ข้อ ===");
+    matchingData.questions.forEach((q, i) => {
+        const option = matchingData.options.find(opt => opt.letter === q.answer);
+        console.log(`ข้อ ${q.id} (${q.text}): คำตอบที่ถูกต้องคือ ${q.answer} (${option ? option.text : 'ไม่พบข้อมูล'})`);
+    });
 
     // ==========================
     // ตัวแปรระบบ
@@ -1435,16 +1703,24 @@
     // ตั้งค่า flag สำหรับตรวจสอบสถานะ
     window.examStarted = false;
     window.examFinished = false;
+    window.fullscreenMode = false;
 
+    const enterExamBtn = document.getElementById('enter-exam-btn');
     const startBtn = document.getElementById('start-btn');
     const submitBtn = document.getElementById('submit-btn');
     const backBtn = document.getElementById('back-btn');
+    const verifyAnswersBtn = document.getElementById('verify-answers-btn');
+    const fullscreenExitBtn = document.getElementById('fullscreen-exit-btn');
 
-    startBtn.addEventListener('click', startExam);
-    submitBtn.addEventListener('click', submitExam);
-    backBtn.addEventListener('click', () => {
+    // เพิ่ม Event Listeners
+    if (enterExamBtn) enterExamBtn.addEventListener('click', enterFullscreenExam);
+    if (startBtn) startBtn.addEventListener('click', startExam);
+    if (submitBtn) submitBtn.addEventListener('click', submitExam);
+    if (backBtn) backBtn.addEventListener('click', () => {
         window.location.href = '/learning-by-ratchapon/index.html';
     });
+    if (verifyAnswersBtn) verifyAnswersBtn.addEventListener('click', verifyAllAnswers);
+    if (fullscreenExitBtn) fullscreenExitBtn.addEventListener('click', exitFullscreenMode);
 
     // ==========================
     // ฟังก์ชันป้องกันคลิกขวาและ F12
@@ -1468,6 +1744,13 @@
             showNotification('กำลังทำข้อสอบอยู่ ไม่สามารถรีเฟรชหน้าได้', 'warning');
             return false;
         }
+        
+        // ป้องกันการปิดแท็บเมื่ออยู่ในโหมดเต็มหน้าจอ
+        if (window.fullscreenMode && e.ctrlKey && (e.key === 'w' || e.key === 'W')) {
+            e.preventDefault();
+            showNotification('ไม่สามารถปิดแท็บได้ขณะทำข้อสอบ', 'warning');
+            return false;
+        }
     });
 
     // ==========================
@@ -1485,7 +1768,182 @@
     }
 
     // ==========================
-    // ฟังก์ชันเริ่มสอบ
+    // ฟังก์ชันเข้าสู่โหมดเต็มหน้าจอ
+    // ==========================
+    function enterFullscreenExam() {
+        // ตรวจสอบอีกครั้งว่าเคยสอบแล้วหรือไม่
+        if (localStorage.getItem(STORAGE_KEY)) {
+            showNotification('คุณได้ทำแบบทดสอบนี้แล้ว', 'error');
+            const previousData = JSON.parse(localStorage.getItem(STORAGE_KEY));
+            showAlreadySubmitted(previousData);
+            return;
+        }
+
+        const firstName = document.getElementById('student-firstname').value.trim();
+        const lastName  = document.getElementById('student-lastname').value.trim();
+        const number    = document.getElementById('student-number').value.trim();
+        const room      = document.getElementById('student-room').value.trim();
+
+        if (!firstName || !lastName || !number || !room) {
+            showNotification('กรุณากรอกข้อมูลให้ครบถ้วนก่อนเริ่มทำแบบทดสอบ', 'error');
+            return;
+        }
+
+        // บันทึกข้อมูลผู้สอบชั่วคราว
+        window.studentInfo = { firstName, lastName, number, room };
+
+        // เปิดโหมดเต็มหน้าจอ
+        enableFullscreenMode();
+        
+        // สุ่มข้อสอบ
+        prepareExamQuestions();
+        
+        // เริ่มสอบ
+        startExamInFullscreen();
+    }
+
+    function enableFullscreenMode() {
+        // เพิ่มคลาส fullscreen-mode ให้กับ body
+        document.body.classList.add('fullscreen-mode');
+        
+        // แสดงปุ่มออกจากโหมดเต็มหน้าจอ
+        fullscreenExitBtn.style.display = 'flex';
+        
+        // ตั้งค่าสถานะ
+        window.fullscreenMode = true;
+        
+        // ป้องกันการออกจากโหมดเต็มหน้าจอโดยไม่ตั้งใจ
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        
+        // ป้องกันการคลิกขวา
+        document.addEventListener('contextmenu', preventContextMenu);
+        
+        // ป้องกันการใช้ปุ่มลัด
+        document.addEventListener('keydown', preventShortcuts);
+    }
+
+    function exitFullscreenMode() {
+        // ตรวจสอบว่ากำลังทำข้อสอบอยู่หรือไม่
+        if (window.examStarted && !window.examFinished) {
+            const confirmExit = confirm('คุณกำลังทำข้อสอบอยู่ ต้องการออกจากโหมดสอบหรือไม่? การออกจะทำให้ข้อสอบถูกส่งอัตโนมัติ');
+            if (!confirmExit) return;
+            
+            // ส่งข้อสอบอัตโนมัติ
+            submitExam();
+        }
+        
+        // ปิดโหมดเต็มหน้าจอ
+        document.body.classList.remove('fullscreen-mode');
+        fullscreenExitBtn.style.display = 'none';
+        window.fullscreenMode = false;
+        
+        // ลบ event listeners
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+        document.removeEventListener('contextmenu', preventContextMenu);
+        document.removeEventListener('keydown', preventShortcuts);
+        
+        // รีเซ็ตหน้าจอ
+        document.getElementById('start-exam').style.display = 'block';
+        document.getElementById('question-container').style.display = 'none';
+        document.getElementById('progress-container').style.display = 'none';
+        document.getElementById('result-container').style.display = 'none';
+        
+        // รีเซ็ตตัวจับเวลา
+        if (timerInterval) clearInterval(timerInterval);
+        
+        showNotification('ออกจากโหมดสอบแล้ว', 'info');
+    }
+
+    function handleBeforeUnload(e) {
+        if (window.examStarted && !window.examFinished) {
+            e.preventDefault();
+            e.returnValue = 'คุณกำลังทำข้อสอบอยู่ ต้องการออกจากหน้าหรือไม่? การออกจะทำให้ข้อสอบถูกส่งอัตโนมัติ';
+            return e.returnValue;
+        }
+    }
+
+    function preventContextMenu(e) {
+        if (window.fullscreenMode) {
+            e.preventDefault();
+            showNotification('ไม่สามารถใช้คลิกขวาได้ในโหมดสอบ', 'warning');
+            return false;
+        }
+    }
+
+    function preventShortcuts(e) {
+        if (window.fullscreenMode && window.examStarted && !window.examFinished) {
+            // ป้องกันปุ่มลัดต่างๆ
+            const blockedKeys = ['F5', 'F11', 'F12', 'Escape'];
+            const blockedCombinations = [
+                { ctrl: true, key: 'r' },
+                { ctrl: true, key: 'R' },
+                { ctrl: true, shift: true, key: 'r' },
+                { ctrl: true, shift: true, key: 'R' },
+                { ctrl: true, key: 'w' },
+                { ctrl: true, key: 'W' },
+                { ctrl: true, key: 't' },
+                { ctrl: true, key: 'T' },
+                { ctrl: true, key: 'n' },
+                { ctrl: true, key: 'N' }
+            ];
+            
+            // ตรวจสอบปุ่มเดี่ยว
+            if (blockedKeys.includes(e.key)) {
+                e.preventDefault();
+                showNotification(`ปุ่ม ${e.key} ถูกปิดใช้งานในโหมดสอบ`, 'warning');
+                return false;
+            }
+            
+            // ตรวจสอบปุ่มผสม
+            for (const combo of blockedCombinations) {
+                if (e.ctrlKey === combo.ctrl && 
+                    (!combo.shift || e.shiftKey) && 
+                    e.key.toLowerCase() === combo.key.toLowerCase()) {
+                    e.preventDefault();
+                    showNotification('ปุ่มลัดนี้ถูกปิดใช้งานในโหมดสอบ', 'warning');
+                    return false;
+                }
+            }
+        }
+    }
+
+    // ==========================
+    // ฟังก์ชันเตรียมข้อสอบ
+    // ==========================
+    function prepareExamQuestions() {
+        // สุ่มข้อสอบส่วนที่ 1 (ปรนัย 20 ข้อ)
+        section1Questions = shuffleArray([...mcQuestions]).slice(0, 20);
+        userAnswers = new Array(section1Questions.length).fill(null);
+
+        // สุ่มข้อสอบส่วนที่ 2 (จับคู่ 10 ข้อ จาก 14 ข้อ)
+        section2Questions = shuffleArray([...matchingData.questions]).slice(0, 10);
+        userMatchingAnswers = new Array(section2Questions.length).fill(null);
+    }
+
+    // ==========================
+    // ฟังก์ชันเริ่มสอบในโหมดเต็มหน้าจอ
+    // ==========================
+    function startExamInFullscreen() {
+        document.getElementById('start-exam').style.display = 'none';
+        document.getElementById('question-container').style.display = 'block';
+        document.getElementById('progress-container').style.display = 'block';
+
+        renderAllQuestions();
+        renderProgressButtons();
+
+        startTime = new Date();
+        timeLeft = TOTAL_TIME;
+        startTimer();
+        scrollToQuestion(0);
+        
+        // ตั้งค่าสถานะ
+        window.examStarted = true;
+        
+        showNotification('เริ่มทำแบบทดสอบ! คุณมีเวลา 40 นาที', 'info');
+    }
+
+    // ==========================
+    // ฟังก์ชันเริ่มสอบ (สำหรับกรณีปกติ)
     // ==========================
     function startExam() {
         // ตรวจสอบอีกครั้งว่าเคยสอบแล้วหรือไม่
@@ -1509,13 +1967,8 @@
         // บันทึกข้อมูลผู้สอบชั่วคราว
         window.studentInfo = { firstName, lastName, number, room };
 
-        // สุ่มข้อสอบส่วนที่ 1 (ปรนัย 20 ข้อ)
-        section1Questions = shuffleArray([...mcQuestions]).slice(0, 20);
-        userAnswers = new Array(section1Questions.length).fill(null);
-
-        // สุ่มข้อสอบส่วนที่ 2 (จับคู่ 10 ข้อ จาก 14 ข้อ)
-        section2Questions = shuffleArray([...matchingData.questions]).slice(0, 10);
-        userMatchingAnswers = new Array(section2Questions.length).fill(null);
+        // สุ่มข้อสอบ
+        prepareExamQuestions();
 
         document.getElementById('start-exam').style.display = 'none';
         document.getElementById('question-container').style.display = 'block';
@@ -1814,6 +2267,112 @@
     }
 
     // ==========================
+    // ฟังก์ชันตรวจสอบเฉลยทั้งหมด
+    // ==========================
+    function verifyAllAnswers() {
+        const answerCheckContainer = document.getElementById('answer-check-container');
+        const answerCheckResults = document.getElementById('answer-check-results');
+        const answerCheckSummary = document.getElementById('answer-check-summary');
+        
+        answerCheckResults.innerHTML = '';
+        answerCheckSummary.innerHTML = '';
+        
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let totalQuestions = 0;
+        
+        // ตรวจสอบข้อปรนัย (20 ข้อ)
+        console.log("=== ผลการตรวจสอบข้อปรนัย ===");
+        mcQuestions.forEach((q, index) => {
+            totalQuestions++;
+            const isCorrect = q.correctAnswer === q.correctIndex;
+            const item = document.createElement('div');
+            item.className = `answer-check-item ${isCorrect ? 'correct' : 'incorrect'}`;
+            
+            item.innerHTML = `
+                <div class="question-num">ข้อ ${index + 1}</div>
+                <div>คำถาม: ${q.question}</div>
+                <div>ตัวเลือก: ${q.options.map((opt, i) => `${i+1}. ${opt}`).join(', ')}</div>
+                <div>เฉลย: <span class="correct-answer">${q.correctAnswer + 1}. ${q.options[q.correctAnswer]}</span></div>
+                ${!isCorrect ? `<div>⚠️ ตรวจพบปัญหา: คำตอบในระบบไม่ตรงกับข้อสอบ</div>` : ''}
+            `;
+            
+            answerCheckResults.appendChild(item);
+            
+            if (isCorrect) {
+                correctCount++;
+                console.log(`ข้อ ${index + 1}: ✓ ถูกต้อง (${q.correctAnswer + 1}. ${q.options[q.correctAnswer]})`);
+            } else {
+                incorrectCount++;
+                console.log(`ข้อ ${index + 1}: ✗ ผิดพลาด - คำตอบในระบบ: ${q.correctAnswer + 1}, แต่ควรเป็น: ${q.correctIndex + 1}`);
+            }
+        });
+        
+        // ตรวจสอบข้อจับคู่ (14 ข้อ)
+        console.log("\n=== ผลการตรวจสอบข้อจับคู่ ===");
+        matchingData.questions.forEach((q, index) => {
+            totalQuestions++;
+            const correctOption = matchingData.options.find(opt => opt.letter === q.answer);
+            const item = document.createElement('div');
+            item.className = 'answer-check-item correct';
+            
+            if (correctOption) {
+                item.innerHTML = `
+                    <div class="question-num">ข้อ ${q.id}</div>
+                    <div>คำถาม: ${q.text}</div>
+                    <div>เฉลย: <span class="correct-answer">${q.answer}. ${correctOption.text}</span></div>
+                `;
+                correctCount++;
+                console.log(`ข้อ ${q.id} (${q.text}): ✓ ถูกต้อง (${q.answer}. ${correctOption.text})`);
+            } else {
+                item.className = 'answer-check-item incorrect';
+                item.innerHTML = `
+                    <div class="question-num">ข้อ ${q.id}</div>
+                    <div>คำถาม: ${q.text}</div>
+                    <div>⚠️ ตรวจพบปัญหา: ไม่พบตัวเลือก ${q.answer} ในระบบ</div>
+                `;
+                incorrectCount++;
+                console.log(`ข้อ ${q.id} (${q.text}): ✗ ผิดพลาด - ไม่พบตัวเลือก ${q.answer} ในระบบ`);
+            }
+            
+            answerCheckResults.appendChild(item);
+        });
+        
+        // สรุปผลการตรวจสอบ
+        answerCheckSummary.innerHTML = `
+            <h3>สรุปผลการตรวจสอบ</h3>
+            <p>ทั้งหมด ${totalQuestions} ข้อ</p>
+            <p>✓ ถูกต้อง: ${correctCount} ข้อ</p>
+            <p>✗ ผิดพลาด: ${incorrectCount} ข้อ</p>
+            <p>ความถูกต้อง: ${((correctCount / totalQuestions) * 100).toFixed(2)}%</p>
+            ${incorrectCount === 0 ? 
+                '<p style="color: var(--success-green); font-weight: bold;">✅ เฉลยทั้งหมดถูกต้อง!</p>' : 
+                '<p style="color: var(--danger-red); font-weight: bold;">⚠️ พบข้อผิดพลาดในเฉลยบางข้อ</p>'}
+        `;
+        
+        // แสดงผลลัพธ์
+        answerCheckContainer.style.display = 'block';
+        
+        // Scroll ไปยังส่วนผลการตรวจสอบ
+        answerCheckContainer.scrollIntoView({ behavior: 'smooth' });
+        
+        // แสดงใน console
+        console.log(`\n=== สรุปผลการตรวจสอบ ===`);
+        console.log(`ทั้งหมด: ${totalQuestions} ข้อ`);
+        console.log(`ถูกต้อง: ${correctCount} ข้อ`);
+        console.log(`ผิดพลาด: ${incorrectCount} ข้อ`);
+        console.log(`ความถูกต้อง: ${((correctCount / totalQuestions) * 100).toFixed(2)}%`);
+        
+        if (incorrectCount === 0) {
+            console.log('✅ เฉลยทั้งหมดถูกต้อง!');
+            showNotification('✅ เฉลยทั้งหมดถูกต้อง!', 'success');
+        } else {
+            console.log('⚠️ พบข้อผิดพลาดในเฉลยบางข้อ');
+            showNotification(`⚠️ พบข้อผิดพลาด ${incorrectCount} ข้อ`, 'warning');
+        }
+    }
+
+    // ==========================
     // ส่งคำตอบและบันทึกข้อมูล
     // ==========================
     function submitExam() {
@@ -1932,6 +2491,13 @@
         
         // ป้องกันการเริ่มใหม่โดยปิดการใช้งานปุ่ม
         disableStartButton();
+        
+        // ออกจากโหมดเต็มหน้าจอถ้าเปิดอยู่
+        if (window.fullscreenMode) {
+            setTimeout(() => {
+                exitFullscreenMode();
+            }, 3000);
+        }
     }
 
     // แสดงผลลัพธ์
@@ -2011,6 +2577,29 @@
         }
         return newArray;
     }
+    
+    // ==========================
+    // ตรวจสอบเมื่อโหลดหน้าเว็บ
+    // ==========================
+    document.addEventListener('DOMContentLoaded', function() {
+        // ตรวจสอบว่าเคยสอบแล้วหรือไม่
+        const hasSubmitted = checkPreviousSubmission();
+        
+        // ป้องกันการกด F5 เพื่อเริ่มใหม่
+        window.addEventListener('beforeunload', function(e) {
+            if (window.examStarted && !window.examFinished) {
+                e.preventDefault();
+                e.returnValue = 'คุณกำลังทำแบบทดสอบอยู่ ต้องการออกจากหน้าหรือไม่?';
+            }
+        });
+        
+        // ตรวจสอบเฉลยและแสดงใน console
+        console.log("=== ระบบตรวจสอบเฉลยข้อสอบ ===");
+        console.log(`วิชา: ${COURSE_NAME} (${COURSE_CODE})`);
+        console.log(`จำนวนข้อปรนัย: ${mcQuestions.length} ข้อ`);
+        console.log(`จำนวนข้อจับคู่: ${matchingData.questions.length} ข้อ`);
+        console.log("=============================");
+    });
     </script>
 </body>
 </html>
