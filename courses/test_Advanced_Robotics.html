@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>แบบทดสอบ | หุ่นยนต์เบื้องต้น (สุ่ม 40/100)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0066cc;
+  --secondary: #3399ff;
+  --accent: #ff6600;
+  --bg: #f3f8ff;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --ok: #22c55e;
+  --warn: #f59e0b;
+  --bad: #ef4444;
+  --radius: 12px;
+  --shadow: 0 10px 30px rgba(0,0,0,0.10);
+  --transition: all 0.2s ease;
+}
+* { box-sizing: border-box; font-family: 'Kanit','Sarabun',sans-serif; user-select:none; }
+body {
+  margin:0; background: linear-gradient(135deg, #e6f2ff 0%, #f8fbff 100%);
+  color: var(--text); min-height:100vh; padding-bottom:90px;
+}
+.header {
+  position: sticky; top:0; z-index:1000;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color:#fff; padding: 14px 18px; border-bottom: 4px solid var(--accent);
+  box-shadow: 0 6px 16px rgba(0,102,204,0.25);
+}
+.header-row { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:600; }
+.brand i { color:#fff; }
+.pill {
+  background: rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.25);
+  padding:8px 12px; border-radius:999px;
+  display:flex; align-items:center; gap:8px;
+}
+.timer.pulse-warn { background: rgba(245, 158, 11, 0.25); border-color: rgba(245,158,11,0.55); }
+.timer.pulse-bad  { background: rgba(239, 68, 68, 0.25); border-color: rgba(239,68,68,0.55); }
+.container { max-width:1100px; margin: 18px auto; padding: 0 14px; }
+.card {
+  background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.card-pad { padding: 18px; }
+h1,h2 { margin:0; }
+.sub { color: var(--muted); font-size: 0.95rem; margin-top:6px; }
+.grid { display:grid; gap:12px; }
+.grid-2 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 900px) { .grid-2 { grid-template-columns:1fr; } }
+.field label { font-size:0.9rem; color:#1f3a60; font-weight:500; display:block; margin-bottom:6px; }
+.field input {
+  width:100%; padding: 12px 12px; border-radius: 10px;
+  border:1px solid #d9e3f2; outline:none; font-size: 1rem;
+}
+.field input:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(51,153,255,0.18); }
+.btn {
+  border:0; cursor:pointer; padding: 12px 18px; border-radius: 999px;
+  font-weight:600; transition: var(--transition); display:inline-flex; align-items:center; gap:8px;
+}
+.btn-primary {
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  color:#fff; box-shadow: 0 10px 18px rgba(0,102,204,0.22);
+}
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-accent {
+  background: linear-gradient(90deg, var(--accent), #ff9b3a);
+  color:#fff; box-shadow: 0 10px 18px rgba(255,102,0,0.22);
+}
+.btn-accent:hover { transform: translateY(-2px); }
+.note {
+  background: #eef6ff; border:1px solid #cfe4ff; border-left: 5px solid var(--accent);
+  padding: 12px 12px; border-radius: 12px; color:#204b7a;
+}
+.warn {
+  background: #fff7ed; border:1px solid #ffd6a5; border-left: 5px solid var(--warn);
+  padding: 12px 12px; border-radius: 12px; color:#7a4a0f;
+}
+.bad {
+  background: #fff1f2; border:1px solid #fecdd3; border-left: 5px solid var(--bad);
+  padding: 12px 12px; border-radius: 12px; color:#7f1d1d;
+}
+.qcard {
+  margin-top: 12px; padding: 14px; border-radius: 14px;
+  border:1px solid #e5e7eb;
+}
+.qtitle {
+  font-weight:600; color: var(--primary); display:flex; align-items:center; gap:8px; margin-bottom: 10px;
+}
+.options { display:grid; gap:10px; }
+.option {
+  border:2px solid #e5e7eb; border-radius: 12px; padding: 10px 12px;
+  cursor:pointer; transition: var(--transition); position:relative; background:#fff;
+}
+.option:hover { border-color: var(--secondary); background:#f3f9ff; transform: translateX(4px); }
+.option.selected { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(51,153,255,0.18); background: rgba(51,153,255,0.08); }
+.option.selected::after {
+  content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+  position:absolute; right: 12px; top: 10px; color: var(--ok);
+}
+.progress {
+  position: fixed; left:0; right:0; bottom:0; z-index:100;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+  border-top: 3px solid var(--primary);
+  box-shadow: 0 -10px 25px rgba(0,0,0,0.08);
+  padding: 12px 12px;
+}
+.pb-title { text-align:center; font-weight:600; color: var(--primary); margin-bottom: 8px; }
+.pb { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; }
+.pb button {
+  width: 38px; height: 38px; border-radius:999px; border:2px solid #e5e7eb;
+  background:#fff; cursor:pointer; font-weight:600;
+}
+.pb button.answered { background: linear-gradient(135deg, var(--secondary), var(--primary)); color:#fff; border-color: var(--secondary); }
+.pb button.current { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255,102,0,0.18); transform: scale(1.05); }
+.toast {
+  position: fixed; right: 16px; top: 16px; z-index: 9999;
+  padding: 12px 14px; border-radius: 12px; color:#fff; font-weight:600;
+  display:none; box-shadow: var(--shadow);
+}
+.toast.info { background: linear-gradient(90deg, var(--secondary), var(--primary)); }
+.toast.warn { background: linear-gradient(90deg, var(--warn), #fbbf24); }
+.toast.bad  { background: linear-gradient(90deg, var(--bad), #fb7185); }
+.toast.ok   { background: linear-gradient(90deg, var(--ok), #86efac); }
+/* Lock overlay */
+.lock {
+  position: fixed; inset:0; z-index: 10000; display:none;
+  background: rgba(0,0,0,0.68);
+  align-items:center; justify-content:center; padding: 16px;
+}
+.lock .box {
+  width:min(720px, 96vw); background:#fff; border-radius: 18px; padding: 18px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.lock h3 { margin:0 0 8px 0; color: #b91c1c; }
+.lock p { margin: 6px 0; color: #374151; }
+.lock .mini { color:#6b7280; font-size:0.95rem; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-row">
+    <div class="brand"><i class="fa-solid fa-robot"></i> แบบทดสอบวิชาหุ่นยนต์เบื้องต้น (สุ่ม 40/100)</div>
+    <div class="pill timer" id="timer"><i class="fa-regular fa-clock"></i> <span id="timerText">00:40:00</span></div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="card card-pad" id="screenStart">
+    <h2><i class="fa-solid fa-file-pen"></i> เริ่มทำแบบทดสอบ</h2>
+    <div class="sub">ระบบจะสุ่มข้อสอบ <b>40 ข้อ</b> จากคลัง <b>100 ข้อ</b> (ปรนัย 4 ตัวเลือก) เวลา <b>40 นาที</b></div>
+
+    <div class="note" style="margin-top:12px">
+      <b>ข้อควรทราบ (โหมดคุมสอบ)</b><br>
+      • ระบบจะพยายามเข้าสู่โหมดเต็มหน้าจออัตโนมัติ (คล้ายกด F11)<br>
+      • ระหว่างทำข้อสอบ: หากสลับแท็บ/ออกจากหน้า/ออกจากเต็มหน้าจอ ระบบจะ <b>ส่งข้อสอบทันที</b> เพื่อความยุติธรรม<br>
+      • ทำได้ 1 ครั้งต่อเครื่อง (บันทึกด้วย LocalStorage)
+    </div>
+
+    <div class="grid grid-2" style="margin-top:14px">
+      <div class="field">
+        <label><i class="fa-solid fa-signature"></i> ชื่อ</label>
+        <input id="firstName" placeholder="เช่น รัชพล" />
+      </div>
+      <div class="field">
+        <label><i class="fa-solid fa-signature"></i> นามสกุล</label>
+        <input id="lastName" placeholder="เช่น ไชยวงค์" />
+      </div>
+      <div class="field">
+        <label><i class="fa-solid fa-hashtag"></i> เลขที่</label>
+        <input id="number" placeholder="เช่น 15" />
+      </div>
+      <div class="field">
+        <label><i class="fa-solid fa-door-open"></i> ห้อง</label>
+        <input id="room" placeholder="เช่น ม.4/1" />
+      </div>
+    </div>
+
+    <div class="warn" style="margin-top:12px">
+      <i class="fa-solid fa-shield-halved"></i>
+      <b>หมายเหตุ:</b> เบราว์เซอร์ไม่สามารถ “บล็อก Print Screen/Alt+Tab” ได้ 100% ในทุกระบบปฏิบัติการ
+      แต่ระบบจะตรวจจับการสลับแท็บ/เสียโฟกัส/ออกเต็มหน้าจอ และ <b>ส่งข้อสอบอัตโนมัติ</b>
+    </div>
+
+    <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+      <button class="btn btn-primary" id="btnStart"><i class="fa-solid fa-play"></i> เริ่มทำแบบทดสอบ (เข้าสู่เต็มหน้าจอ)</button>
+    </div>
+  </div>
+
+  <div class="card card-pad" id="screenAlready" style="display:none">
+    <h2 style="color: var(--bad)"><i class="fa-solid fa-triangle-exclamation"></i> คุณได้ทำแบบทดสอบนี้แล้ว</h2>
+    <div class="bad" style="margin-top:12px">
+      ระบบตรวจพบผลการสอบเดิมในเครื่องนี้ (LocalStorage) — หากต้องการสอบใหม่ ให้ใช้เครื่อง/โปรไฟล์เบราว์เซอร์อื่น
+    </div>
+    <div class="note" style="margin-top:12px">
+      <div><b>ชื่อ-สกุล:</b> <span id="prevName">-</span></div>
+      <div><b>คะแนน:</b> <span id="prevScore">-</span></div>
+      <div><b>วันที่สอบ:</b> <span id="prevDate">-</span></div>
+      <div><b>เวลาที่ใช้:</b> <span id="prevTime">-</span></div>
+    </div>
+  </div>
+
+  <div class="card card-pad" id="screenExam" style="display:none">
+    <h2><i class="fa-solid fa-list-check"></i> ข้อสอบ</h2>
+    <div class="sub" id="examSub"></div>
+    <div id="questions"></div>
+
+    <div style="margin-top:16px; display:flex; justify-content:center">
+      <button class="btn btn-accent" id="btnSubmit"><i class="fa-solid fa-paper-plane"></i> ส่งคำตอบทั้งหมด</button>
+    </div>
+  </div>
+
+  <div class="card card-pad" id="screenResult" style="display:none">
+    <h2><i class="fa-solid fa-square-poll-vertical"></i> ผลการทำแบบทดสอบ</h2>
+    <div class="note" style="margin-top:12px">
+      <div><b>ผู้สอบ:</b> <span id="rName"></span> | <b>ห้อง:</b> <span id="rRoom"></span> | <b>เลขที่:</b> <span id="rNo"></span></div>
+      <div style="margin-top:6px"><b>คะแนน:</b> <span id="rScore" style="font-size:1.4rem; font-weight:700; color:var(--primary)"></span></div>
+      <div style="margin-top:6px"><b>ถูก:</b> <span id="rCorrect"></span> | <b>ผิด:</b> <span id="rWrong"></span> | <b>ไม่ตอบ:</b> <span id="rUnanswered"></span></div>
+      <div style="margin-top:6px"><b>ใช้เวลา:</b> <span id="rTime"></span></div>
+    </div>
+  </div>
+</div>
+
+<div class="progress" id="progress" style="display:none">
+  <div class="pb-title"><i class="fa-solid fa-chart-line"></i> ความคืบหน้า (40 ข้อ)</div>
+  <div class="pb" id="pb"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="lock" id="lock">
+  <div class="box">
+    <h3><i class="fa-solid fa-ban"></i> ตรวจพบการออกจากโหมดคุมสอบ</h3>
+    <p>ระบบตรวจพบว่าออกจากเต็มหน้าจอ/สลับแท็บ/เสียโฟกัส ระหว่างทำข้อสอบ</p>
+    <p class="mini">เพื่อความยุติธรรม ระบบจะ <b>ส่งข้อสอบทันที</b> และแสดงผลลัพธ์</p>
+    <div style="margin-top:12px; display:flex; justify-content:flex-end">
+      <button class="btn btn-accent" id="lockOk"><i class="fa-solid fa-check"></i> รับทราบ</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================
+   CONFIG
+========================= */
+const STORAGE_KEY = "robot_exam_v2_once";
+const TOTAL_TIME = 40 * 60; // 40 นาที (วินาที)
+const DRAW_COUNT = 40;      // สุ่ม 40 จาก 100
+
+// คลังข้อสอบ 100 ข้อ (คำตอบถูกซ่อนไว้เป็น Base64 ของเลข index 0-3)
+const questionBank = [{"id": 1, "question": "ข้อใดเป็นองค์ประกอบของหุ่นยนต์ตามแนวคิดในเอกสาร", "options": ["การเข้าใจ (Cognition)", "การทำบัญชี", "การตลาด", "การจัดตกแต่ง"], "correct": "MA=="}, {"id": 2, "question": "ตัวอย่างในเอกสาร: โดราเอม่อนแยกใบหน้าของโนบิตะและชิสุกะได้ จัดเป็นความสามารถด้านใด", "options": ["การเข้าใจ (Cognition)", "การรับรู้ (Perception)", "การเคลื่อนไหว (Manipulation)", "ไม่เกี่ยวกับหุ่นยนต์"], "correct": "MA=="}, {"id": 3, "question": "ข้อใดอยู่ในรายการ 'ศาสตร์ในการสร้างหุ่นยนต์' ตามเอกสาร", "options": ["ไฟฟ้า", "วรรณคดี", "ภูมิศาสตร์", "พลศึกษา"], "correct": "MA=="}, {"id": 4, "question": "ข้อใดอยู่ในรายการ 'ศาสตร์ในการสร้างหุ่นยนต์' ตามเอกสาร", "options": ["คณิตศาสตร์", "ดนตรีสากล", "นาฏศิลป์", "การงานอาชีพ"], "correct": "MA=="}, {"id": 5, "question": "ข้อใดอยู่ในรายการ 'ศาสตร์ในการสร้างหุ่นยนต์' ตามเอกสาร", "options": ["วิทยาศาสตร์", "ศิลปะ", "เศรษฐศาสตร์", "สุขศึกษา"], "correct": "MA=="}, {"id": 6, "question": "หากหุ่นยนต์ต้อง 'รับรู้สิ่งต่างๆ' เพื่อใช้ตัดสินใจ ควรเชื่อมโยงกับองค์ประกอบใดมากที่สุด", "options": ["Perception", "Manipulation", "การตกแต่ง", "การพิมพ์"], "correct": "MA=="}, {"id": 7, "question": "การที่หุ่นยนต์ 'เข้าใจสิ่งต่างๆ ได้อย่างไร' ในใบกิจกรรม หมายถึงการอธิบายส่วนใด", "options": ["Cognition", "Perception", "Manipulation", "MAC Address"], "correct": "MA=="}, {"id": 8, "question": "ใบกิจกรรมให้ผู้เรียนอธิบาย 'หุ่นยนต์ที่เลือกสามารถแสดงออกได้อย่างไร' สอดคล้องกับองค์ประกอบใด", "options": ["Manipulation", "Cognition", "Perception", "Broker"], "correct": "MA=="}, {"id": 9, "question": "หัวข้อ 'เทคโนโลยีหุ่นยนต์' ในเอกสารเกี่ยวข้องกับการศึกษาเรื่องใด", "options": ["องค์ประกอบและศาสตร์ที่ใช้สร้างหุ่นยนต์", "กฎระเบียบห้องเรียน", "งบการเงินบริษัท", "การพิมพ์งาน"], "correct": "MA=="}, {"id": 10, "question": "ข้อใดเป็นคำอังกฤษที่ปรากฏในเอกสารเพื่ออธิบายองค์ประกอบหุ่นยนต์", "options": ["Cognition", "Accounting", "Marketing", "Finance"], "correct": "MA=="}, {"id": 11, "question": "ข้อใดเป็นคำอังกฤษที่ปรากฏในเอกสารเพื่ออธิบายองค์ประกอบหุ่นยนต์", "options": ["Perception", "Budgeting", "Taxation", "Audit"], "correct": "MA=="}, {"id": 12, "question": "ข้อใดเป็นคำอังกฤษที่ปรากฏในเอกสารเพื่ออธิบายองค์ประกอบหุ่นยนต์", "options": ["Manipulation", "Depreciation", "Revenue", "Expense"], "correct": "MA=="}, {"id": 13, "question": "ถ้าต้องการสร้างหุ่นยนต์ให้ทำงานได้ จำเป็นต้องบูรณาการหลายศาสตร์ ข้อใด 'ไม่ได้' อยู่ในรายการศาสตร์ตามเอกสาร", "options": ["ภาษาไทย", "เครื่องกล", "ไฟฟ้า", "คอมพิวเตอร์"], "correct": "MA=="}, {"id": 14, "question": "จากเอกสาร ศาสตร์ในการสร้างหุ่นยนต์ที่เพิ่มเข้ามาในสไลด์ท้าย ๆ นอกเหนือจากเครื่องกล-ไฟฟ้า-คอมพิวเตอร์ คือข้อใด", "options": ["คณิตศาสตร์และวิทยาศาสตร์", "การตลาดและบัญชี", "ศิลปะและดนตรี", "กีฬาและสุขศึกษา"], "correct": "MA=="}, {"id": 15, "question": "ลำดับแนวคิดองค์ประกอบหุ่นยนต์ตามเอกสาร ข้อใดถูกต้อง", "options": ["การรับรู้ → การเข้าใจ → การเคลื่อนไหว", "การเข้าใจ → การเคลื่อนไหว → การรับรู้", "การเคลื่อนไหว → การรับรู้ → การเข้าใจ", "ไม่มีลำดับ"], "correct": "MA=="}, {"id": 16, "question": "ในเอกสาร ESP-NOW คำว่า 'master' ESP32 หมายถึงอะไร", "options": ["ESP32 ตัวหลักที่ส่งข้อมูลไปยังหลายตัว", "ESP32 ที่รับอย่างเดียว", "เซนเซอร์วัดระยะ", "คอมพิวเตอร์ที่รัน Node-RED"], "correct": "MA=="}, {"id": 17, "question": "ระบบ 'master ส่งไปหลาย slave' ในเอกสารถูกยกตัวอย่างใช้ทำอะไร", "options": ["ทำรีโมทควบคุมอุปกรณ์หลายตัว", "ทำบัญชีรายรับรายจ่าย", "ทำสไลด์นำเสนอ", "ทำเว็บข่าวสาร"], "correct": "MA=="}, {"id": 18, "question": "ในเอกสาร ระบุว่า master สามารถส่งคำสั่งแบบใดไปยัง slave ได้", "options": ["คำสั่งเดียวกันหรือแตกต่างกันไปยังแต่ละตัว", "ได้เฉพาะคำสั่งเดียวกันเท่านั้น", "ได้เฉพาะคำสั่งแตกต่างเท่านั้น", "ส่งไม่ได้ ต้องใช้สาย"], "correct": "MA=="}, {"id": 19, "question": "ตัวอย่างอุปกรณ์ที่ควบคุมได้จาก master ตามเอกสารคือข้อใด", "options": ["ควบคุม ESP32 หลายตัวในบ้าน", "ควบคุมเครื่องพิมพ์เลเซอร์", "ควบคุมบัญชีธนาคาร", "ควบคุมดาวเทียม"], "correct": "MA=="}, {"id": 20, "question": "ในเอกสาร คำว่า macAddr ใน callback หมายถึงอะไร", "options": ["ที่อยู่ MAC ของอุปกรณ์ที่ส่งข้อมูล", "ชื่อผู้ใช้ Wi‑Fi", "หมายเลขห้องเรียน", "รหัสวิชา"], "correct": "MA=="}, {"id": 21, "question": "ตัวแปร incomingData ใน callback ใช้แทนอะไร", "options": ["ข้อมูลที่ได้รับ", "ข้อมูลที่ส่งออก", "เวลาที่เหลือ", "คะแนนสอบ"], "correct": "MA=="}, {"id": 22, "question": "ตัวแปร len ใน callback ใช้แทนอะไร", "options": ["ความยาวของข้อมูลที่ได้รับ", "จำนวน slave ทั้งหมด", "จำนวนคำสั่งใน loop()", "ความยาวสายไฟ"], "correct": "MA=="}, {"id": 23, "question": "ในเอกสาร ฟังก์ชัน callback ใช้ฟังก์ชันใดเพื่อคัดลอกข้อมูลที่ได้รับไปยังตัวแปร", "options": ["memcpy", "printf", "delay", "pinMode"], "correct": "MA=="}, {"id": 24, "question": "หลังคัดลอกข้อมูลแล้ว ในเอกสารระบุว่ามีการแสดงผลอะไรใน Serial Monitor", "options": ["ระยะทางที่ได้รับ", "MAC Address ของตัวเองเท่านั้น", "อุณหภูมิจาก DHT", "คะแนนรวม"], "correct": "MA=="}, {"id": 25, "question": "เอกสารระบุว่าในฟังก์ชัน loop() ต้องทำอะไร", "options": ["ไม่ต้องทำอะไร เพราะ ESP-NOW รอรับข้อมูลอัตโนมัติ", "ต้องอ่านเซนเซอร์ทุกครั้ง", "ต้องวนส่งข้อมูลตลอดเวลา", "ต้องรีสตาร์ทบอร์ด"], "correct": "MA=="}, {"id": 26, "question": "ตามเอกสาร ESP-NOW มีการแบ่งบทบาท 'ตัวส่ง/ตัวรับ' ชัดเจนหรือไม่", "options": ["ไม่ชัดเจน ทุกบอร์ดส่งหรือรับได้", "ชัดเจนมาก ส่งได้อย่างเดียว", "ชัดเจนมาก รับได้อย่างเดียว", "ขึ้นอยู่กับ Node-RED"], "correct": "MA=="}, {"id": 27, "question": "เอกสารบอกว่าทุกบอร์ดสามารถทำอะไรได้พร้อมกัน", "options": ["ส่งและรับข้อมูลพร้อมกัน", "ทำงานได้เฉพาะส่ง", "ทำงานได้เฉพาะรับ", "ทำงานได้เฉพาะเมื่อเสียบสาย LAN"], "correct": "MA=="}, {"id": 28, "question": "ในเอกสาร เหตุผลที่ยังใช้คำว่า 'ตัวหลีก/ตัวรอง' (Master/Slave) คืออะไร", "options": ["เพื่อให้อธิบายเข้าใจง่ายในการยกตัวอย่าง", "เพราะบอร์ดถูกล็อกบทบาทจริงๆ", "เพราะ ESP-NOW บังคับเสมอ", "เพราะ MQTT ต้องใช้"], "correct": "MA=="}, {"id": 29, "question": "ในเอกสาร ระบบ 'slave receiving data from multiple masters' เหมาะสำหรับงานใด", "options": ["เก็บข้อมูลจากเซนเซอร์หลายตัวมายังบอร์ดเดียว", "สั่งพิมพ์เอกสารหลายเครื่อง", "ทำบัญชีหลายบริษัท", "ถ่ายทอดสดวิดีโอ 4K"], "correct": "MA=="}, {"id": 30, "question": "แนวคิด 'ส่งคำสั่งไปยังแต่ละตัวได้' ช่วยให้ทำอะไรได้", "options": ["ควบคุมอุปกรณ์แต่ละจุดต่างกันได้", "ทำให้ต้องใช้สายมากขึ้น", "ทำให้รับข้อมูลไม่ได้", "ทำให้ Serial Monitor ปิด"], "correct": "MA=="}, {"id": 31, "question": "Serial Monitor ในเอกสารถูกใช้เพื่ออะไร", "options": ["แสดงผลข้อมูลที่ได้รับ", "สร้างกราฟ Node-RED", "ทำเว็บเพจสอบ", "บันทึกภาพหน้าจอ"], "correct": "MA=="}, {"id": 32, "question": "ข้อใดตรงกับข้อมูลในเอกสารเกี่ยวกับ ESP-NOW", "options": ["ESP-NOW รอรับข้อมูลอัตโนมัติหลังตั้งค่า", "ต้องเรียก fetch() ทุกครั้งเพื่อรับข้อมูล", "ต้องใช้ Broker เสมอ", "ต้องต่ออินเทอร์เน็ตตลอดเวลา"], "correct": "MA=="}, {"id": 33, "question": "ข้อใดอธิบายความสามารถของระบบในเอกสารได้ถูกต้อง", "options": ["บอร์ดสองตัวสามารถคุยและแลกเปลี่ยนข้อมูลกันได้", "บอร์ดหนึ่งรับได้อย่างเดียวตลอดไป", "ต้องมีสาย USB เชื่อมตลอดเวลา", "ใช้ได้เฉพาะในอินเทอร์เน็ตคาเฟ่"], "correct": "MA=="}, {"id": 34, "question": "คำว่า 'ตัวส่ง' และ 'ตัวรับ' ในเอกสารถูกใช้เพื่ออะไร", "options": ["ใช้เรียกแทนบทบาทเพื่อให้เข้าใจง่าย", "เป็นชื่อฟังก์ชันใน C++", "เป็นชื่อของ MQTT topic", "เป็นชื่อของเซนเซอร์"], "correct": "MA=="}, {"id": 35, "question": "หากต้องการให้บอร์ด A คุยกับบอร์ด B แบบแลกเปลี่ยนข้อมูลกัน เอกสารชี้ว่า ESP-NOW รองรับหรือไม่", "options": ["รองรับ เพราะส่งและรับพร้อมกันได้", "ไม่รองรับ ต้องใช้สาย", "ไม่รองรับ ต้องใช้ Bluetooth เท่านั้น", "รองรับเฉพาะเมื่อใช้ Node-RED"], "correct": "MA=="}, {"id": 36, "question": "ในเอกสาร การใช้ memcpy ใน callback มีเป้าหมายเพื่ออะไร", "options": ["คัดลอกข้อมูลจาก incomingData ไปยังตัวแปรที่กำหนด", "หน่วงเวลาให้ข้อมูลนิ่ง", "เข้ารหัสข้อมูลเป็น Base64", "สร้าง MAC Address ใหม่"], "correct": "MA=="}, {"id": 37, "question": "len ใน callback มีหน่วยเป็นอะไรตามความหมายในเอกสาร", "options": ["จำนวนไบต์ของข้อมูลที่ได้รับ", "จำนวนวินาทีที่รอ", "จำนวนเมตรของระยะทาง", "จำนวนบอร์ดที่เชื่อมต่อ"], "correct": "MA=="}, {"id": 38, "question": "ข้อใดเป็นข้อมูลที่ callback ได้รับตามเอกสาร", "options": ["macAddr, incomingData, len", "SSID, Password, Token", "Topic, QoS, Broker", "GPIO, PWM, ADC"], "correct": "MA=="}, {"id": 39, "question": "การที่ loop() ไม่ต้องทำอะไรในตัวอย่าง หมายถึงอะไร", "options": ["การทำงานหลักอยู่ที่การรับข้อมูลผ่าน ESP-NOW event/callback", "โปรแกรมไม่ทำงานจริง", "ต้องใส่ while(1) เสมอ", "ต้องใช้ delay(1000)"], "correct": "MA=="}, {"id": 40, "question": "จากเอกสาร หากต้องการให้ master ควบคุมหลายอุปกรณ์ในบ้าน แนวคิดนี้ตรงกับข้อใด", "options": ["master ส่งคำสั่งไปยังหลาย slave", "slave ส่งคำสั่งไปยัง master", "ใช้ DHT อย่างเดียว", "ใช้ print screen"], "correct": "MA=="}, {"id": 41, "question": "ระบบ 'master ส่งข้อมูลไปหลาย slave' สามารถทำให้คำสั่งของแต่ละ slave เป็นแบบใดได้", "options": ["แตกต่างกันได้ต่อแต่ละตัว", "ต้องเหมือนกันเท่านั้น", "ทำได้เฉพาะตัวแรก", "ขึ้นกับ Node.js"], "correct": "MA=="}, {"id": 42, "question": "ข้อใด 'ไม่ใช่' สิ่งที่เอกสารระบุเกี่ยวกับ ESP-NOW", "options": ["จำเป็นต้องมี MQTT Broker", "ทุกบอร์ดส่งและรับได้", "ใช้คำ master/slave เพื่ออธิบายให้เข้าใจ", "สามารถแลกเปลี่ยนข้อมูลกันได้"], "correct": "MA=="}, {"id": 43, "question": "ถ้าต้องการเก็บข้อมูลจากเซนเซอร์หลายชุดมาที่บอร์ดเดียว เอกสารเสนอรูปแบบใด", "options": ["slave receiving data from multiple masters", "master sending data to multiple slaves", "publish to broker only", "loop() ส่งข้อมูลทุก 1ms"], "correct": "MA=="}, {"id": 44, "question": "Serial Monitor ในตัวอย่างช่วยให้ผู้พัฒนาตรวจสอบอะไร", "options": ["ค่าระยะทางที่ได้รับ", "รายชื่อผู้เข้าสอบ", "จำนวนข้อสอบทั้งหมด", "เวลาสอบคงเหลือ"], "correct": "MA=="}, {"id": 45, "question": "ข้อใดเป็นคำที่เอกสารใช้เรียก 'ตัวหลัก' ในระบบ", "options": ["Master", "Broker", "Server", "Gateway"], "correct": "MA=="}, {"id": 46, "question": "ข้อใดเป็นคำที่เอกสารใช้เรียก 'ตัวรอง' ในระบบ", "options": ["Slave", "Client", "Node.js", "Dashboard"], "correct": "MA=="}, {"id": 47, "question": "ข้อมูลใน incomingData ถูกคัดลอกไปยังตัวแปร receivedData เพื่ออะไรตามเอกสาร", "options": ["เพื่อใช้งาน/แสดงผลข้อมูลที่รับมาได้สะดวก", "เพื่อสร้างหัวข้อ (topic)", "เพื่อบันทึกเป็น PDF", "เพื่อเปิดโหมด fullscreen"], "correct": "MA=="}, {"id": 48, "question": "ในเอกสาร ระบบ master/slave ถูกยกเป็นตัวอย่างในบริบทใด", "options": ["รีโมทควบคุมอุปกรณ์หลายตัว", "การจัดการห้องเรียนวันแรก", "การบริหารการเงินสีเขียว", "การสอนภาษาอังกฤษ"], "correct": "MA=="}, {"id": 49, "question": "เอกสารระบุว่ากำลังเรียนรู้เทคโนโลยีใดเพื่อควบคุมอุปกรณ์ IoTs", "options": ["MQTT", "HDMI", "USB OTG", "VGA"], "correct": "MA=="}, {"id": 50, "question": "เอกสารระบุว่าจะควบคุมอุปกรณ์ IoTs ด้วยเครื่องมือใด", "options": ["Node-RED", "Photoshop", "PowerPoint", "Excel Macro"], "correct": "MA=="}, {"id": 51, "question": "เอกสารระบุว่าจะใช้บอร์ดใดร่วมกับ Node-RED", "options": ["ESP32", "Arduino Uno เท่านั้น", "Raspberry Pi เท่านั้น", "PLC เท่านั้น"], "correct": "MA=="}, {"id": 52, "question": "ก่อนใช้งาน Node-RED เอกสารแนะนำให้โหลดโปรแกรมใด", "options": ["Node.js — Run JavaScript Everywhere", "Python IDLE", "Java JDK", "Unity"], "correct": "MA=="}, {"id": 53, "question": "เอกสารให้ลิงก์สำหรับเรียนการติดตั้ง Node-RED ในรูปแบบใด", "options": ["วิดีโอ YouTube (ep-01 วิธีการติดตั้ง)", "หนังสือเล่มพิมพ์", "โปสเตอร์ A0", "ไฟล์เสียง mp3"], "correct": "MA=="}, {"id": 54, "question": "เอกสารให้ลิงก์ตัวอย่างโปรเจกต์สำหรับทดลองออนไลน์ที่ใด", "options": ["wokwi.com", "github.com เท่านั้น", "google.com/maps", "facebook.com"], "correct": "MA=="}, {"id": 55, "question": "โปรเจกต์ตัวอย่างในเอกสารเกี่ยวข้องกับเซนเซอร์ใด", "options": ["DHT Sensor", "Ultrasonic HC-SR04", "pH Sensor", "LDR"], "correct": "MA=="}, {"id": 56, "question": "จุดประสงค์ของตัวอย่างในเอกสารคือข้อใด", "options": ["แสดงค่าที่อ่านจาก DHT บน Node-RED", "คำนวณงบกำไรขาดทุน", "ออกแบบกฎห้องเรียน", "บล็อกการกด F11"], "correct": "MA=="}, {"id": 57, "question": "หัวข้อของเอกสารกล่าวถึง 'ควบคุมอุปกรณ์ IoTs' ด้วยสิ่งใด", "options": ["MQTT และ Node-RED", "HTML และ CSS", "Excel และ Word", "Bluetooth และ NFC"], "correct": "MA=="}, {"id": 58, "question": "ข้อใดถูกต้องตามเอกสาร", "options": ["เรียนรู้ MQTT และควบคุม IoTs ด้วย Node-RED with ESP32", "MQTT ใช้สำหรับพิมพ์เอกสาร", "Node-RED ใช้สำหรับตัดต่อวิดีโอ", "ESP32 ใช้ทำสไลด์"], "correct": "MA=="}, {"id": 59, "question": "Node.js ถูกกล่าวถึงในเอกสารในบทบาทใด", "options": ["โปรแกรมที่ต้องโหลดเพื่อใช้งาน Node-RED", "เป็นเซนเซอร์วัดอุณหภูมิ", "เป็นชื่อ MAC Address", "เป็นโหมดของเบราว์เซอร์"], "correct": "MA=="}, {"id": 60, "question": "ในเอกสาร ข้อความ 'DHT Sensor with ESP || Display Reading on Node-RED' สื่อถึงอะไร", "options": ["การอ่านค่าจากเซนเซอร์ DHT ด้วย ESP แล้วแสดงผลบน Node-RED", "การสร้างบัญชีรายรับรายจ่าย", "การตั้งกฎระเบียบห้องเรียน", "การอัปโหลดไฟล์ PDF"], "correct": "MA=="}, {"id": 61, "question": "ในเอกสาร คำว่า 'IoTs' หมายถึงบริบทของอุปกรณ์ประเภทใด", "options": ["อุปกรณ์ที่เชื่อมต่อและควบคุมได้ผ่านระบบ IoT", "อุปกรณ์เครื่องกลอย่างเดียว", "อุปกรณ์ที่ไม่ใช้ไฟฟ้า", "อุปกรณ์การเงิน"], "correct": "MA=="}, {"id": 62, "question": "เอกสารชี้ว่าเราควร 'โหลดโปรแกรมตรงนี้' ก่อนทำงานกับ Node-RED ซึ่งคืออะไร", "options": ["Node.js", "Arduino IDE", "Fritzing", "Proteus"], "correct": "MA=="}, {"id": 63, "question": "คำขวัญ 'Run JavaScript Everywhere' ในเอกสารถูกกล่าวถึงร่วมกับสิ่งใด", "options": ["Node.js", "ESP-NOW", "Cognition", "Serial Monitor"], "correct": "MA=="}, {"id": 64, "question": "เอกสารให้ลิงก์ Wokwi เพื่อทำอะไร", "options": ["ทดลองโปรเจกต์ตัวอย่างบนเว็บ", "ค้นหา MAC Address", "ดูผลคะแนนสอบ", "พิมพ์รายงาน"], "correct": "MA=="}, {"id": 65, "question": "ข้อใดเป็นงานที่เอกสารระบุว่า Node-RED ทำร่วมกับ ESP32", "options": ["ควบคุมอุปกรณ์ IoTs", "ออกแบบโลโก้โรงเรียน", "ทำแบบทดสอบวิชาหุ่นยนต์", "จัดเก็บภาพถ่าย"], "correct": "MA=="}, {"id": 66, "question": "เอกสารแนะนำแหล่งเรียนรู้การติดตั้ง Node-RED ไว้ที่ใด", "options": ["YouTube", "TikTok", "Wikipedia", "LINE OpenChat"], "correct": "MA=="}, {"id": 67, "question": "จากเอกสาร คำว่า 'Node-Red ep-01' สื่อถึงอะไร", "options": ["ตอน/บทเรียนสำหรับการติดตั้ง Node-RED", "ชื่อ Topic ของ MQTT", "ชื่อรุ่นของ ESP32", "ชื่อหุ่นยนต์"], "correct": "MA=="}, {"id": 68, "question": "ในตัวอย่าง DHT Sensor with ESP การนำค่าไปแสดงบน Node-RED ต้องมีขั้นตอนใดตามเอกสาร", "options": ["อ่านค่า → ส่ง/แสดงผลบน Node-RED", "พิมพ์รายงาน → ส่งอีเมล", "ถ่ายรูป → อัปโหลด", "คัดลอก → วาง"], "correct": "MA=="}, {"id": 69, "question": "เอกสารเกี่ยวกับ MQTT และ Node-RED มีเป้าหมายเชิงการเรียนรู้อะไร", "options": ["เรียนรู้และทดลองควบคุม/แสดงผลอุปกรณ์ IoT", "เรียนรู้กฎห้องเรียน", "เรียนรู้การเงินสีเขียว", "เรียนรู้การวาดรูป"], "correct": "MA=="}, {"id": 70, "question": "ข้อใดเป็นข้อความที่ปรากฏในเอกสาร", "options": ["Thank you very much!", "Classroom Rules", "Balance Sheet", "Robot Arm Torque"], "correct": "MA=="}, {"id": 71, "question": "เอกสารระบุแพลตฟอร์มลิงก์โปรเจกต์ตัวอย่างแบบ URL ว่าเริ่มต้นด้วยโดเมนใด", "options": ["wokwi.com", "nodejs.org", "nodered.org", "arduino.cc"], "correct": "MA=="}, {"id": 72, "question": "การใช้ Node-RED ในเอกสารเกี่ยวข้องกับการทำงานประเภทใด", "options": ["การทำ Flow เพื่อควบคุม/แสดงผล IoT", "การตัดต่อวิดีโอ", "การทำสไลด์นำเสนอ", "การทำเกม 3 มิติ"], "correct": "MA=="}, {"id": 73, "question": "หากต้องการเริ่มต้นตามเอกสาร สิ่งที่ต้องมีคือข้อใด", "options": ["ESP32 และ Node-RED (พร้อมติดตั้ง Node.js)", "เครื่องพิมพ์สี", "โปรเจกเตอร์ 4K", "ไมโครโฟนไร้สาย"], "correct": "MA=="}, {"id": 74, "question": "ในเอกสาร การทดลอง DHT Sensor ถูกผูกกับลิงก์ใด", "options": ["ลิงก์โปรเจกต์ Wokwi", "ลิงก์ Jamboard", "ลิงก์ NASA", "ลิงก์ Wired"], "correct": "MA=="}, {"id": 75, "question": "ข้อใดกล่าวถึงในเอกสารในบริบท 'ควบคุมอุปกรณ์ IoTs'", "options": ["MQTT", "memcpy", "Cognition", "macAddr"], "correct": "MA=="}, {"id": 76, "question": "ถ้าต้องการให้ master ควบคุมอุปกรณ์หลายตัวด้วยคำสั่งเดียว ระบบในเอกสารตรงกับรูปแบบใด", "options": ["master sending data to multiple slaves", "slave receiving data from multiple masters", "MQTT on Node.js", "Cognition on Robot"], "correct": "MA=="}, {"id": 77, "question": "ข้อใดเป็นข้อมูลเมตาที่ callback ได้ตามเอกสาร", "options": ["macAddr (ที่อยู่ MAC ของผู้ส่ง)", "topic (หัวข้อ)", "qos (ระดับบริการ)", "ssid (ชื่อไวไฟ)"], "correct": "MA=="}, {"id": 78, "question": "ฟังก์ชัน callback ทำงานเมื่อใดตามตัวอย่าง ESP-NOW", "options": ["เมื่อมีข้อมูลเข้ามา", "เมื่อกดปุ่ม Print Screen", "เมื่อกด F11", "เมื่อเปิดหน้าเว็บครั้งแรก"], "correct": "MA=="}, {"id": 79, "question": "ตัวอย่าง ESP-NOW ในเอกสารเน้นการส่งข้อมูลชนิดใด (จากข้อความในเอกสาร)", "options": ["ค่าระยะทาง", "รูปภาพความละเอียดสูง", "ไฟล์ PDF", "เสียงเพลง"], "correct": "MA=="}, {"id": 80, "question": "ข้อใดเป็นเหตุผลที่ loop() ว่างในตัวอย่าง", "options": ["การรับข้อมูลเกิดขึ้นแบบอัตโนมัติผ่าน ESP-NOW", "เพื่อประหยัดโค้ดให้สั้น", "เพราะต้องใช้ MQTT แทน", "เพราะยังไม่ได้ติดตั้ง Node.js"], "correct": "MA=="}, {"id": 81, "question": "ระบบ master/slave ในเอกสารถูกนำไปใช้ควบคุมอุปกรณ์ในสถานที่ใดเป็นตัวอย่าง", "options": ["ในบ้าน", "ในห้องบัญชี", "ในธนาคาร", "ในสนามบิน"], "correct": "MA=="}, {"id": 82, "question": "ข้อใดเป็นการใช้งานที่สอดคล้องกับ 'slave รับจากหลาย master'", "options": ["รวมข้อมูลจากหลายเซนเซอร์มายังจุดเดียว", "สั่งงานอุปกรณ์หลายตัวจากจุดเดียว", "ทำแบบทดสอบหลายชุดในเครื่องเดียว", "พิมพ์หลายหน้าในครั้งเดียว"], "correct": "MA=="}, {"id": 83, "question": "ในเอกสาร กล่าวถึงการแลกเปลี่ยนข้อมูลระหว่างบอร์ดสองตัวว่าอย่างไร", "options": ["สามารถคุยกันและแลกเปลี่ยนข้อมูลกันได้", "ต้องใช้สาย LAN เท่านั้น", "ทำได้เฉพาะผ่านอินเทอร์เน็ต", "ทำไม่ได้"], "correct": "MA=="}, {"id": 84, "question": "คำว่า 'ตัวส่ง' ในเอกสารหมายถึงอะไรในบริบท ESP-NOW", "options": ["บอร์ดที่ส่งข้อมูลออก", "เซนเซอร์ที่ส่งแสง", "คอมพิวเตอร์ที่ส่งไฟล์", "เว็บที่ส่งคะแนน"], "correct": "MA=="}, {"id": 85, "question": "คำว่า 'ตัวรับ' ในเอกสารหมายถึงอะไรในบริบท ESP-NOW", "options": ["บอร์ดที่รับข้อมูลเข้า", "หน้าจอที่รับภาพ", "เครื่องพิมพ์ที่รับคำสั่ง", "นักเรียนที่รับโจทย์"], "correct": "MA=="}, {"id": 86, "question": "ในเอกสาร master/slave ถูกยกเพื่อสื่อให้เห็นรูปแบบการสื่อสารแบบใด", "options": ["หนึ่งไปหลาย / หลายมาหนึ่ง", "หนึ่งไปหนึ่งเท่านั้น", "หลายไปหลายแต่ห้ามรับกลับ", "เฉพาะแบบสาย"], "correct": "MA=="}, {"id": 87, "question": "หลังรับข้อมูล ตัวอย่างแสดงผลที่ใด", "options": ["Serial Monitor", "Node-RED Dashboard", "Google Sheets", "หน้าจอ IPS 7 นิ้ว"], "correct": "MA=="}, {"id": 88, "question": "ข้อใดสอดคล้องกับข้อความในเอกสารเกี่ยวกับบทบาทของบอร์ด", "options": ["ไม่มีการแบ่งบทบาทตายตัว แต่ใช้คำเรียกเพื่ออธิบาย", "แบ่งบทบาทตายตัวห้ามเปลี่ยน", "ต้องกำหนดบทบาทใน Node.js", "ต้องกำหนดบทบาทใน HTML"], "correct": "MA=="}, {"id": 89, "question": "ตัวอย่าง ESP-NOW ในเอกสารเหมาะกับงานประเภทใด", "options": ["งานรีโมทควบคุม/รับส่งข้อมูลระหว่าง ESP32", "งานทำงบการเงิน", "งานทำกฎระเบียบห้องเรียน", "งานตัดต่อรูปภาพ"], "correct": "MA=="}, {"id": 90, "question": "ในเอกสาร องค์ประกอบ 'Cognition' เน้นเรื่องใด", "options": ["การเข้าใจ", "การรับข้อมูลเข้าทาง callback", "การติดตั้ง Node-RED", "การคัดลอกข้อมูลด้วย memcpy"], "correct": "MA=="}, {"id": 91, "question": "ในเอกสาร องค์ประกอบ 'Perception' เน้นเรื่องใด", "options": ["การรับรู้", "การคำนวณคะแนนสอบ", "การพิมพ์ผลสอบ", "การสร้างเว็บเพจ"], "correct": "MA=="}, {"id": 92, "question": "ในเอกสาร องค์ประกอบ 'Manipulation' เน้นเรื่องใด", "options": ["การเคลื่อนไหว/การแสดงออก", "การตั้งค่า MAC Address", "การติดตั้ง Node.js", "การเลือก topic"], "correct": "MA=="}, {"id": 93, "question": "เอกสารระบุ 'ศาสตร์ในการสร้างหุ่นยนต์' รวม 5 สาขา ข้อใดเป็นชุดที่ถูกต้องที่สุด", "options": ["เครื่องกล ไฟฟ้า คอมพิวเตอร์ คณิตศาสตร์ วิทยาศาสตร์", "เครื่องกล ดนตรี ศิลปะ ภาษาไทย สังคม", "ไฟฟ้า การตลาด การบัญชี เศรษฐศาสตร์ ธุรกิจ", "คอมพิวเตอร์ กีฬา ดนตรี ศิลปะ สุขศึกษา"], "correct": "MA=="}, {"id": 94, "question": "ใบกิจกรรม 'หุ่นยนต์ของฉัน' เน้นให้ผู้เรียนทำอะไร", "options": ["ระบุชื่อหุ่นยนต์และอธิบายองค์ประกอบ/ความสามารถ", "ติดตั้ง Node-RED ลงเครื่อง", "ตั้งค่า IP ในเบราว์เซอร์", "สร้างบัญชีผู้ใช้เว็บ"], "correct": "MA=="}, {"id": 95, "question": "เอกสารยกตัวอย่างโดราเอม่อนเพื่อชี้ให้เห็นความสามารถของหุ่นยนต์ด้านใด", "options": ["การเข้าใจ (Cognition) เช่น แยกใบหน้า", "การติดตั้งโปรแกรม", "การส่งข้อมูลผ่าน ESP-NOW", "การสุ่มข้อสอบ"], "correct": "MA=="}, {"id": 96, "question": "ในตัวอย่าง ESP-NOW การแสดงผลผ่าน Serial Monitor ช่วยในการทำงานด้านใดมากที่สุด", "options": ["ตรวจสอบ/ดีบักข้อมูลที่รับมา", "สร้าง Flow ใน Node-RED", "ติดตั้ง Node.js", "ตั้งค่ากฎระเบียบห้องเรียน"], "correct": "MA=="}, {"id": 97, "question": "ข้อใดเป็นคำที่เอกสารใช้เพื่ออธิบายว่าบอร์ดสามารถ 'คุยกัน' ได้", "options": ["แลกเปลี่ยนข้อมูลกันได้", "บันทึกคะแนนอัตโนมัติ", "บล็อกปุ่ม F11", "สแกน QR Code"], "correct": "MA=="}, {"id": 98, "question": "เอกสาร MQTT ระบุว่าจะใช้ Node-RED ร่วมกับอุปกรณ์ใดเพื่อควบคุม IoTs", "options": ["ESP32", "ESP-NOW callback เท่านั้น", "Serial Monitor", "Jamboard"], "correct": "MA=="}, {"id": 99, "question": "จากหัวข้อเอกสาร Node.js ถูกอธิบายด้วยวลีใด", "options": ["Run JavaScript Everywhere", "Write Once Run Anywhere", "Think Different", "Just Do It"], "correct": "MA=="}, {"id": 100, "question": "เอกสารเทคโนโลยีหุ่นยนต์กล่าวถึงองค์ประกอบใดที่เกี่ยวกับ 'การเข้าใจ'", "options": ["Cognition", "macAddr", "Node.js", "loop()"], "correct": "MA=="}];
+
+function decodeAnswer(b64) {
+  try {
+    return parseInt(atob(b64), 10);
+  } catch (e) {
+    return NaN;
+  }
+}
+
+/* =========================
+   UI Helpers
+========================= */
+const $ = (id) => document.getElementById(id);
+
+function toast(msg, type="info") {
+  const t = $("toast");
+  t.textContent = msg;
+  t.className = `toast ${type}`;
+  t.style.display = "block";
+  setTimeout(()=> t.style.display="none", 2600);
+}
+
+function formatTime(sec) {
+  const h = Math.floor(sec/3600);
+  const m = Math.floor((sec%3600)/60);
+  const s = sec%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i=a.length-1;i>0;i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+/* =========================
+   Exam State
+========================= */
+let examStarted = false;
+let examFinished = false;
+let timeLeft = TOTAL_TIME;
+let timerHandle = null;
+let startAt = null;
+
+let drawnQuestions = []; // 40 ข้อที่สุ่มมา
+let answers = [];        // user selected (0-3) or null
+let currentIndex = 0;
+
+function getStoredResult() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return null;
+  try { return JSON.parse(raw); } catch { return null; }
+}
+
+function showAlready(res) {
+  $("screenStart").style.display = "none";
+  $("screenAlready").style.display = "block";
+  $("prevName").textContent = `${res.firstName||""} ${res.lastName||""}`.trim() || "-";
+  $("prevScore").textContent = `${res.score||0}/${res.total||DRAW_COUNT}`;
+  $("prevDate").textContent = res.submitDate || "-";
+  $("prevTime").textContent = res.timeUsed || "-";
+}
+
+function updateTimerUI() {
+  $("timerText").textContent = formatTime(timeLeft);
+  const timer = $("timer");
+  timer.classList.remove("pulse-warn","pulse-bad");
+  if (timeLeft <= 60) timer.classList.add("pulse-bad");
+  else if (timeLeft <= 5*60) timer.classList.add("pulse-warn");
+}
+
+function startTimer() {
+  updateTimerUI();
+  timerHandle = setInterval(()=>{
+    timeLeft--;
+    updateTimerUI();
+    if (timeLeft <= 0) {
+      clearInterval(timerHandle);
+      toast("หมดเวลา! ระบบจะส่งข้อสอบอัตโนมัติ", "warn");
+      submitExam("timeout");
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerHandle) clearInterval(timerHandle);
+  timerHandle = null;
+}
+
+function requestFullScreen() {
+  const el = document.documentElement;
+  if (el.requestFullscreen) return el.requestFullscreen();
+  if (el.webkitRequestFullscreen) return el.webkitRequestFullscreen();
+  if (el.msRequestFullscreen) return el.msRequestFullscreen();
+  return Promise.resolve();
+}
+
+/* =========================
+   Lockdown / Proctoring-ish
+   (Best effort within browser limits)
+========================= */
+function hardBlockKeys(e) {
+  const key = (e.key || "").toLowerCase();
+  const ctrl = e.ctrlKey || e.metaKey;
+  const shift = e.shiftKey;
+
+  // Block devtools / view-source / refresh / print / save / fullscreen toggles
+  const blocked =
+    key === "f11" ||
+    key === "f12" ||
+    (ctrl && shift && (key === "i" || key === "j" || key === "c")) ||
+    (ctrl && (key === "u" || key === "s" || key === "p" || key === "r")) ||
+    key === "printscreen";
+
+  if (blocked) {
+    e.preventDefault();
+    e.stopPropagation();
+    toast("โหมดคุมสอบ: คำสั่งนี้ถูกบล็อก", "warn");
+    return false;
+  }
+
+  // Block tab switching keys (best effort)
+  if (key === "tab" && examStarted && !examFinished) {
+    e.preventDefault();
+    e.stopPropagation();
+    toast("โหมดคุมสอบ: ห้ามกด Tab", "warn");
+    return false;
+  }
+}
+
+function triggerViolation(reason) {
+  if (!examStarted || examFinished) return;
+  console.warn("Violation:", reason);
+  $("lock").style.display = "flex";
+  submitExam("violation:" + reason);
+}
+
+function proctorAttach() {
+  document.addEventListener("contextmenu", (e)=>{ e.preventDefault(); toast("โหมดคุมสอบ: ปิดคลิกขวา", "warn"); });
+  document.addEventListener("keydown", hardBlockKeys, true);
+
+  // Detect focus/visibility changes
+  window.addEventListener("blur", ()=> triggerViolation("window_blur"), true);
+  document.addEventListener("visibilitychange", ()=> {
+    if (document.hidden) triggerViolation("tab_hidden");
+  }, true);
+
+  // Detect fullscreen exit
+  document.addEventListener("fullscreenchange", ()=> {
+    if (examStarted && !examFinished && !document.fullscreenElement) {
+      triggerViolation("exit_fullscreen");
+    }
+  }, true);
+
+  // Attempt to block print (Ctrl+P already); also block beforeprint
+  window.addEventListener("beforeprint", (e)=> {
+    if (examStarted && !examFinished) {
+      e.preventDefault();
+      triggerViolation("print_attempt");
+    }
+  }, true);
+
+  // Prevent leaving page during exam
+  window.addEventListener("beforeunload", (e)=> {
+    if (examStarted && !examFinished) {
+      e.preventDefault();
+      e.returnValue = "กำลังทำข้อสอบอยู่";
+      return "กำลังทำข้อสอบอยู่";
+    }
+  });
+}
+
+/* =========================
+   Render
+========================= */
+function renderProgress() {
+  const pb = $("pb");
+  pb.innerHTML = "";
+  for (let i=0;i<drawnQuestions.length;i++) {
+    const b = document.createElement("button");
+    b.textContent = (i+1);
+    b.addEventListener("click", ()=> scrollTo(i));
+    pb.appendChild(b);
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  const btns = $("pb").querySelectorAll("button");
+  btns.forEach((b,i)=> {
+    b.classList.toggle("answered", answers[i] !== null);
+    b.classList.toggle("current", i === currentIndex);
+  });
+}
+
+function scrollTo(i) {
+  currentIndex = i;
+  const el = document.getElementById("q-" + i);
+  if (el) el.scrollIntoView({behavior:"smooth", block:"start"});
+  updateProgress();
+}
+
+function renderQuestions() {
+  const wrap = $("questions");
+  wrap.innerHTML = "";
+
+  drawnQuestions.forEach((q, idx)=> {
+    const card = document.createElement("div");
+    card.className = "qcard";
+    card.id = "q-" + idx;
+
+    const title = document.createElement("div");
+    title.className = "qtitle";
+    title.innerHTML = `<i class="fa-regular fa-circle-question"></i> ข้อที่ ${idx+1}`;
+
+    const qt = document.createElement("div");
+    qt.style.marginBottom = "10px";
+    qt.style.fontSize = "1.05rem";
+    qt.innerHTML = q.question;
+
+    const optWrap = document.createElement("div");
+    optWrap.className = "options";
+
+    q.options.forEach((opt, oi)=> {
+      const optEl = document.createElement("div");
+      optEl.className = "option";
+      optEl.innerHTML = opt;
+
+      optEl.addEventListener("click", ()=> {
+        // clear
+        [...optWrap.querySelectorAll(".option")].forEach(x=> x.classList.remove("selected"));
+        optEl.classList.add("selected");
+        answers[idx] = oi;
+        updateProgress();
+
+        // auto jump a bit
+        if (idx < drawnQuestions.length-1) {
+          setTimeout(()=> scrollTo(idx+1), 250);
+        }
+      });
+
+      optWrap.appendChild(optEl);
+    });
+
+    card.appendChild(title);
+    card.appendChild(qt);
+    card.appendChild(optWrap);
+    wrap.appendChild(card);
+  });
+}
+
+/* =========================
+   Start / Submit
+========================= */
+function startExam() {
+  // once-per-device
+  const prev = getStoredResult();
+  if (prev) {
+    showAlready(prev);
+    toast("เครื่องนี้สอบแล้ว", "bad");
+    return;
+  }
+
+  const firstName = $("firstName").value.trim();
+  const lastName  = $("lastName").value.trim();
+  const number    = $("number").value.trim();
+  const room      = $("room").value.trim();
+
+  if (!firstName || !lastName || !number || !room) {
+    toast("กรุณากรอกข้อมูลให้ครบก่อนเริ่มสอบ", "bad");
+    return;
+  }
+
+  // draw 40 from 100 (random)
+  drawnQuestions = shuffle(questionBank).slice(0, DRAW_COUNT);
+  answers = new Array(drawnQuestions.length).fill(null);
+
+  $("screenStart").style.display = "none";
+  $("screenExam").style.display = "block";
+  $("progress").style.display = "block";
+  $("examSub").textContent = `ผู้สอบ: ${firstName} ${lastName} | ห้อง: ${room} | เลขที่: ${number}`;
+
+  examStarted = true;
+  examFinished = false;
+  startAt = new Date();
+  timeLeft = TOTAL_TIME;
+
+  renderQuestions();
+  renderProgress();
+
+  // go fullscreen
+  requestFullScreen().catch(()=>{ /* ignored */ });
+  startTimer();
+
+  toast("เริ่มทำข้อสอบแล้ว (โหมดคุมสอบเปิดใช้งาน)", "info");
+
+  // store student info in window for submit
+  window.__student = { firstName, lastName, number, room };
+}
+
+function submitExam(reason="manual") {
+  if (examFinished) return;
+
+  stopTimer();
+  examFinished = true;
+  examStarted = false;
+
+  const endAt = new Date();
+  const usedSec = startAt ? Math.floor((endAt - startAt)/1000) : (TOTAL_TIME - timeLeft);
+
+  // score
+  let correct=0, wrong=0, unanswered=0;
+  drawnQuestions.forEach((q, i)=> {
+    const a = answers[i];
+    const ca = decodeAnswer(q.correct);
+    if (a === null) unanswered++;
+    else if (a === ca) correct++;
+    else wrong++;
+  });
+
+  const total = drawnQuestions.length;
+  const result = {
+    ...window.__student,
+    score: correct,
+    total,
+    correct, wrong, unanswered,
+    timeUsed: formatTime(usedSec),
+    submitDate: new Date().toLocaleDateString("th-TH"),
+    submitTime: new Date().toLocaleTimeString("th-TH"),
+    reason
+  };
+
+  // save once
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
+
+  // show
+  $("screenExam").style.display = "none";
+  $("progress").style.display = "none";
+  $("screenResult").style.display = "block";
+
+  $("rName").textContent = `${result.firstName} ${result.lastName}`;
+  $("rRoom").textContent = result.room;
+  $("rNo").textContent = result.number;
+  $("rScore").textContent = `${result.score}/${result.total}`;
+  $("rCorrect").textContent = result.correct;
+  $("rWrong").textContent = result.wrong;
+  $("rUnanswered").textContent = result.unanswered;
+  $("rTime").textContent = result.timeUsed;
+
+  toast("บันทึกผลสอบเรียบร้อย", "ok");
+}
+
+$("btnStart").addEventListener("click", startExam);
+$("btnSubmit").addEventListener("click", ()=> submitExam("manual"));
+
+$("lockOk").addEventListener("click", ()=> {
+  $("lock").style.display = "none";
+});
+
+// On load: show already if exists
+document.addEventListener("DOMContentLoaded", ()=> {
+  proctorAttach();
+  const prev = getStoredResult();
+  if (prev) showAlready(prev);
+});
+</script>
+</body>
+</html>
