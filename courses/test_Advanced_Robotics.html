@@ -291,28 +291,29 @@ const DRAW_COUNT = 40;      // สุ่ม 40 จาก 100
 // 1) สร้าง Google Apps Script Web App (ดูโค้ดตัวอย่างที่ให้)
 // 2) นำ URL ที่ Deploy แล้วมาใส่ในตัวแปรนี้
 // =========================
-const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxDbUGVc-nbqYy8vYi-bxKUWUIqYyPQTAS304OpM3QOEFIJPTf9WmhojD9gSkIKVA/exec"; // <-- ใส่ Web App URL ที่ได้จาก Apps Script
+const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxDbUGVc-nbqYy8vYi-bxKUWUIqYyPQTAS304OpM3QOEFIJPTf9WmhojD9gSkIKVA/exec";
+
+function toB64Utf8(str){
+  // base64(utf8) แบบไม่เพี้ยนภาษาไทย
+  return btoa(unescape(encodeURIComponent(str)));
+}
 
 async function sendScoreToGoogleSheet(result){
-  if (!SHEET_API_URL) return { ok:false, skipped:true, error:"Missing_SHEET_API_URL" };
+  if (!SHEET_API_URL) return { ok:false, error:"Missing_SHEET_API_URL" };
 
-  const payload = { action: "saveScore", ...result };
+  const payload = { action:"saveScore", ...result };
+  const p = toB64Utf8(JSON.stringify(payload));
 
-  try{
-    await fetch(SHEET_API_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload),
-      keepalive: true
-    });
+  // ✅ ส่งแบบ Image beacon (GET) กัน CORS 100%
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve({ ok:true, sent:true });
+    img.onerror = () => resolve({ ok:false, sent:false });
 
-    // no-cors can't read response, but the request is delivered more reliably to Apps Script
-    return { ok:true, sent:true };
-  }catch(err){
-    return { ok:false, error: String(err && err.message ? err.message : err) };
-  }
+    img.src = `${SHEET_API_URL}?action=saveScore&p=${encodeURIComponent(p)}&t=${Date.now()}`;
+  });
 }
+
 
 // คลังข้อสอบ 100 ข้อ (คำตอบถูกซ่อนไว้เป็น Base64 ของเลข index 0-3)
 const questionBank = [
