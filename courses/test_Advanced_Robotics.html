@@ -281,6 +281,7 @@ h1,h2 { margin:0; }
    CONFIG
 ========================= */
 const STORAGE_KEY = "robot_exam_v3_once";
+const IP_KEY = "robot_exam_v3_ip"; // added for reset
 const TOTAL_TIME = 40 * 60; // 40 นาที (วินาที)
 const DRAW_COUNT = 40;      // สุ่ม 40 จาก 100
 
@@ -295,26 +296,19 @@ const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxDbUGVc-nbqYy8vY
 async function sendScoreToGoogleSheet(result){
   if (!SHEET_API_URL) return { ok:false, skipped:true, error:"Missing_SHEET_API_URL" };
 
-  const payload = {
-    action: "saveScore",
-    ...result
-  };
+  const payload = { action: "saveScore", ...result };
 
-  // ใช้ no-cors ได้กรณีครูไม่อยากยุ่ง CORS (แต่จะอ่านผลตอบกลับไม่ได้)
-  // แนะนำให้เปิด CORS ที่ฝั่ง Apps Script แล้วใช้ mode:"cors"
   try{
-    const res = await fetch(SHEET_API_URL, {
+    await fetch(SHEET_API_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(payload),
-      mode: "cors",
-      redirect: "follow"
+      keepalive: true
     });
 
-    // ถ้า Apps Script ตอบกลับเป็น JSON
-    const ct = res.headers.get("content-type") || "";
-    if (ct.includes("application/json")) return await res.json();
-    return { ok: res.ok, status: res.status };
+    // no-cors can't read response, but the request is delivered more reliably to Apps Script
+    return { ok:true, sent:true };
   }catch(err){
     return { ok:false, error: String(err && err.message ? err.message : err) };
   }
