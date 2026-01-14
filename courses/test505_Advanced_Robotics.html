@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบทดสอบวิชาหุ่นยนต์เบื้องต้น | โรงเรียนพรตพิทยพยัต</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0066cc;
+            --secondary-blue: #3399ff;
+            --accent-orange: #ff6600;
+            --light-blue: #e6f2ff;
+            --dark-blue: #004d99;
+            --success-green: #33cc33;
+            --warning-orange: #ff9900;
+            --danger-red: #ff3333;
+            --purple: #9966cc;
+            --light-gray: #f5f5f5;
+            --medium-gray: #dddddd;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', 'Sarabun', sans-serif;
+            user-select: none;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e6f2ff 0%, #f0f8ff 100%);
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 100px;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDUwIDUwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNTB2NTBIMHoiLz48cGF0aCBkPSJNMjUgMjVjNi45MDMgMCAxMi41LTUuNTk3IDEyLjUtMTIuNVMzMS45MDMgMCAyNSAwUzEyLjUgNS41OTcgMTIuNSAxMi41UzE4LjA5NyAyNSAyNSAyNXptMCAyNWM2LjkwMyAwIDEyLjUtNS41OTcgMTIuNS0xMi41UzMxLjkwMyAyNSAyNSAyNSA0MCAzMC41OTซ 40IDM3LjVTMjUgNTAgMjUgNTB6IiBmaWxsPSIjMDA2NmNjIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+');
+            opacity: 0.3;
+            z-index: -1;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 4px solid var(--accent-orange);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .logo img {
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid white;
+            padding: 2px;
+            background-color: white;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-orange);
+            transition: var(--transition);
+        }
+        
+        .nav-menu a:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+        
+        .login-btn {
+            background: linear-gradient(to right, var(--accent-orange), #ff9933);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 3px 8px rgba(255, 102, 0, 0.3);
+        }
+        
+        .login-btn:hover {
+            background: linear-gradient(to right, #e55a00, #ff8000);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(255, 102, 0, 0.4);
+        }
+        
+        .exam-page {
+            min-height: calc(100vh - 120px);
+            padding: 2rem 0;
+        }
+        
+        .exam-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .exam-header {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid var(--accent-orange);
+        }
+        
+        .exam-title {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .exam-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.2rem;
+        }
+        
+        .timer {
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 3px 8px rgba(0, 102, 204, 0.3);
+            transition: var(--transition);
+        }
+        
+        .timer.warning {
+            background: linear-gradient(to right, var(--warning-orange), #ffb366);
+            animation: pulse 1s infinite;
+        }
+        
+        .timer.danger {
+            background: linear-gradient(to right, var(--danger-red), #ff6666);
+            animation: pulse 0.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .exam-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--medium-gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .exam-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-blue), var(--accent-orange));
+        }
+        
+        /* Section for already submitted */
+        .already-submitted {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .already-submitted h2 {
+            color: var(--danger-red);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .already-submitted .result-box {
+            background: var(--light-blue);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--accent-orange);
+        }
+        
+        .already-submitted .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .already-submitted .result-label {
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+        
+        .already-submitted .result-value {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        .ip-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        /* Exam sections */
+        .start-exam, .question-container, .result-container {
+            text-align: left;
+            padding: 1rem 0 0;
+        }
+        
+        .start-exam h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .start-exam h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-orange);
+        }
+        
+        .start-exam p {
+            color: #666;
+            margin-bottom: 0.8rem;
+        }
+        
+        .exam-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .stat-card {
+            background: var(--light-blue);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--secondary-blue);
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.3rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--dark-blue);
+            font-weight: 500;
+        }
+
+        .student-info, .exam-info {
+            margin: 1.5rem 0 1rem;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: var(--light-blue);
+            border: 1px solid var(--secondary-blue);
+            box-shadow: inset 0 0 10px rgba(0, 102, 204, 0.1);
+        }
+
+        .student-info-title, .exam-info-title {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .student-info-title i, .exam-info-title i {
+            color: var(--accent-orange);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .form-group {
+            flex: 1 1 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+            color: var(--dark-blue);
+        }
+
+        .form-group input {
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--medium-gray);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.2);
+        }
+
+        .start-btn {
+            margin-top: 1.5rem;
+            background: linear-gradient(to right, var(--secondary-blue), var(--primary-blue));
+            color: white;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .start-btn:hover {
+            background: linear-gradient(to right, var(--primary-blue), var(--dark-blue));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 102, 204, 0.4);
+        }
+        
+        .start-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .question-container {
+            display: none;
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, var(--purple), #aa77cc);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .question {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            background-color: #fff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--light-gray);
+            transition: var(--transition);
+        }
+        
+        .question:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        
+        .question-number {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .question-number::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-orange);
+            border-radius: 50%;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        /* Matching question styles */
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .matching-column {
+            background: #f9f9f9;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .matching-title {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-blue);
+            text-align: center;
+        }
+        
+        .matching-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            background: white;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--medium-gray);
+            transition: var(--transition);
+        }
+        
+        .matching-item:hover {
+            border-color: var(--secondary-blue);
+            background-color: var(--light-blue);
+        }
+        
+        .matching-letter {
+            background: var(--primary-blue);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .matching-answer {
+            background: var(--accent-orange);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .matching-text {
+            flex: 1;
+        }
+        
+        .matching-select {
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid var(--medium-gray);
+            background: white;
+            font-size: 1rem;
+            min-width: 80px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .matching-select:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 2px rgba(51, 153, 255, 0.2);
+        }
+
+        .question-image {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin: 0.8rem 0 1rem;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            background: #fff;
+        }
+
+        .option-image {
+            max-width: 120px;
+            max-height: 80px;
+            object-fit: contain;
+            border-radius: 4px;
+            background-color: #fff;
+            flex-shrink: 0;
+        }
+        
+        .option:hover {
+            border-color: var(--secondary-blue);
+            background-color: var(--light-blue);
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            background-color: rgba(51, 153, 255, 0.1);
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.2);
+        }
+        
+        .option.selected::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            color: var(--success-green);
+        }
+        
+        .option input {
+            display: none;
+        }
+        
+        .submit-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, var(--accent-orange), #ff9933);
+            color: white;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to right, #e55a00, #ff8000);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 102, 0, 0.4);
+        }
+        
+        .result-container {
+            display: none;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .result-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .result-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-orange);
+        }
+        
+        .score {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-blue);
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .result-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+        }
+        
+        .result-card p {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-blue);
+        }
+        
+        .back-btn {
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 102, 204, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(to right, var(--dark-blue), var(--primary-blue));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 102, 204, 0.4);
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-orange);
+        }
+        
+        .footer-col a {
+            display: block;
+            color: #ddd;
+            margin-bottom: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-col a:hover {
+            color: var(--accent-orange);
+            padding-left: 8px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-orange);
+            transform: translateY(-5px) rotate(10deg);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1.2rem;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+            z-index: 100;
+            border-top: 3px solid var(--primary-blue);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .progress-title {
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary-blue);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .progress-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .progress-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--medium-gray);
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .progress-btn.answered {
+            background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+            color: white;
+            border-color: var(--secondary-blue);
+            transform: scale(1.05);
+        }
+        
+        .progress-btn.current {
+            border-color: var(--accent-orange);
+            transform: scale(1.1);
+            font-weight: bold;
+            background-color: var(--light-blue);
+            box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2);
+        }
+        
+        .progress-btn:hover {
+            border-color: var(--secondary-blue);
+            transform: scale(1.05);
+        }
+        
+        .unanswered-warning {
+            color: var(--danger-red);
+            font-weight: 600;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .exam-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .result-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .progress-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+            }
+            
+            .exam-card {
+                padding: 1.5rem;
+            }
+            
+            .matching-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .exam-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            color: white;
+            font-weight: 500;
+            box-shadow: var(--box-shadow);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
+            display: none;
+        }
+        
+        .notification.success {
+            background: linear-gradient(to right, var(--success-green), #66cc66);
+        }
+        
+        .notification.error {
+            background: linear-gradient(to right, var(--danger-red), #ff6666);
+        }
+        
+        .notification.info {
+            background: linear-gradient(to right, var(--secondary-blue), var(--primary-blue));
+        }
+        
+        .notification.warning {
+            background: linear-gradient(to right, var(--warning-orange), #ffb366);
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/learning-by-ratchapon/index.html" class="logo">
+                <img src="https://avatars.githubusercontent.com/u/67259782?s=400&u=9a07ea2e64a9d37ca64a03e1bdd3bf27726dda33&v=4" alt="สื่อการสอน By Ratchapon">
+                <span class="logo-text">สื่อการสอนออนไลน์</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="/learning-by-ratchapon/index.html"><i class="fas fa-home"></i> หน้าหลัก</a></li>
+                <li><a href="/learning-by-ratchapon/about.html"><i class="fas fa-user-tie"></i> ประวัติครู</a></li>
+                <li><a href="/learning-by-ratchapon/achievements.html"><i class="fas fa-trophy"></i> ผลงาน</a></li>
+                <li><a href="/learning-by-ratchapon/courses.html"><i class="fas fa-book-open"></i> วิชาทั้งหมด</a></li>
+                <li><a href="/learning-by-ratchapon/knowledge.html"><i class="fas fa-brain"></i> คลังความรู้</a></li>
+                <li><a href="/learning-by-ratchapon/contact.html"><i class="fas fa-envelope"></i> ติดต่อเรา</a></li>
+            </ul>
+            
+            <button class="login-btn" onclick="window.location.href='/learning-by-ratchapon/auth/login.html'">
+                <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
+            </button>
+        </div>
+    </header>
+    
+    <!-- Exam Page -->
+    <section class="exam-page">
+        <div class="exam-container">
+            <div class="exam-header">
+                <div>
+                    <h1 class="exam-title" id="exam-title-text">แบบทดสอบวิชาหุ่นยนต์เบื้องต้น</h1>
+                    <div class="exam-subtitle" id="exam-subtitle-text"></div>
+                </div>
+                <div class="timer" id="timer">00:40:00</div>
+            </div>
+            
+            <div class="exam-card">
+                <!-- Section for already submitted -->
+                <div class="already-submitted" id="already-submitted" style="display: none;">
+                    <h2><i class="fas fa-exclamation-triangle"></i> คุณได้ทำแบบทดสอบนี้แล้ว</h2>
+                    <div class="ip-warning">
+                        <i class="fas fa-desktop"></i> ระบบตรวจพบว่าคอมพิวเตอร์เครื่องนี้ได้ทำแบบทดสอบแล้ว
+                    </div>
+                    
+                    <div class="result-box">
+                        <h3>ผลการสอบครั้งล่าสุด</h3>
+                        <div class="result-item">
+                            <span class="result-label">ชื่อ-สกุล:</span>
+                            <span class="result-value" id="previous-name">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">คะแนน:</span>
+                            <span class="result-value" id="previous-score">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">วันที่สอบ:</span>
+                            <span class="result-value" id="previous-date">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">เวลาที่ใช้:</span>
+                            <span class="result-value" id="previous-time">-</span>
+                        </div>
+                    </div>
+                    
+                    <p>หากต้องการทำแบบทดสอบอีกครั้ง กรุณาใช้คอมพิวเตอร์เครื่องอื่น</p>
+                    <p><strong>หมายเหตุ:</strong> ระบบบันทึกข้อมูลตาม IP Address เพื่อป้องกันการสอบซ้ำ</p>
+                    
+                    <button class="back-btn" onclick="window.location.href='/learning-by-ratchapon/index.html'">
+                        <i class="fas fa-home"></i> กลับสู่หน้าหลัก
+                    </button>
+                </div>
+                
+                <!-- Start Exam Section -->
+                <div class="start-exam" id="start-exam">
+                    <h2 id="exam-heading">แบบทดสอบวิชาหุ่นยนต์เบื้องต้น</h2>
+                    <p>แบบทดสอบนี้ประกอบด้วยข้อสอบทั้งหมด <strong>30 ข้อ</strong> มีเวลาในการทำ <strong>40 นาที</strong></p>
+                    
+                    <div class="exam-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">30</div>
+                            <div class="stat-label">ข้อทั้งหมด</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">40</div>
+                            <div class="stat-label">นาที</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">ส่วน</div>
+                        </div>
+                    </div>
+                    
+                    <p>⚠️ <strong>ข้อควรทราบ:</strong> แต่ละเครื่องคอมพิวเตอร์สามารถทำแบบทดสอบได้เพียง 1 ครั้งเท่านั้น</p>
+                    <p><strong>ส่วนที่ 1:</strong> ข้อสอบปรนัย 20 ข้อ</p>
+                    <p><strong>ส่วนที่ 2:</strong> ข้อสอบจับคู่ 10 ข้อ (คัดเลือกจาก 14 ข้อ)</p>
+
+                    <!-- ข้อมูลวิชา / การสอบ -->
+                    <div class="exam-info">
+                        <div class="exam-info-title">
+                            <i class="fas fa-info-circle"></i> ข้อมูลแบบทดสอบ
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-book"></i> วิชา</label>
+                                <input type="text" id="course-name" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-hashtag"></i> รหัสวิชา</label>
+                                <input type="text" id="course-code" disabled>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-clipboard-list"></i> ชื่อแบบทดสอบ</label>
+                                <input type="text" id="exam-name" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-calendar-alt"></i> ภาคเรียน / ปีการศึกษา</label>
+                                <input type="text" id="term-year" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-redo"></i> ครั้งที่สอบ</label>
+                                <input type="text" id="attempt-no" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ข้อมูลผู้สอบ -->
+                    <div class="student-info">
+                        <div class="student-info-title">
+                            <i class="fas fa-user-graduate"></i> ข้อมูลผู้ทำแบบทดสอบ
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-firstname"><i class="fas fa-signature"></i> ชื่อ</label>
+                                <input type="text" id="student-firstname" placeholder="เช่น รัชพล">
+                            </div>
+                            <div class="form-group">
+                                <label for="student-lastname"><i class="fas fa-signature"></i> นามสกุล</label>
+                                <input type="text" id="student-lastname" placeholder="เช่น ไชยวงค์">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="student-number"><i class="fas fa-hashtag"></i> เลขที่</label>
+                                <input type="text" id="student-number" placeholder="เช่น 15">
+                            </div>
+                            <div class="form-group">
+                                <label for="student-room"><i class="fas fa-door-open"></i> ห้อง</label>
+                                <input type="text" id="student-room" placeholder="เช่น ม.4/1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="start-btn" id="start-btn">
+                        <i class="fas fa-play-circle"></i> เริ่มทำแบบทดสอบ
+                    </button>
+                </div>
+                
+                <!-- Questions Section -->
+                <div class="question-container" id="question-container">
+                    <div id="questions"></div>
+                    
+                    <div class="submit-container">
+                        <button class="submit-btn" id="submit-btn">
+                            <i class="fas fa-paper-plane"></i> ส่งคำตอบทั้งหมด
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Result Section -->
+                <div class="result-container" id="result-container">
+                    <h2 class="result-title">ผลการทำแบบทดสอบ</h2>
+                    <div class="score" id="score">0/30</div>
+                    
+                    <div class="result-details">
+                        <div class="result-card">
+                            <h3><i class="fas fa-check-circle"></i> คำตอบที่ถูกต้อง</h3>
+                            <p id="correct-answers">0</p>
+                        </div>
+                        <div class="result-card">
+                            <h3><i class="fas fa-times-circle"></i> คำตอบที่ผิด</h3>
+                            <p id="wrong-answers">0</p>
+                        </div>
+                        <div class="result-card">
+                            <h3><i class="fas fa-question-circle"></i> ข้อที่ไม่ได้ตอบ</h3>
+                            <p id="unanswered">0</p>
+                        </div>
+                        <div class="result-card">
+                            <h3><i class="fas fa-clock"></i> ใช้เวลา</h3>
+                            <p id="time-used">00:00:00</p>
+                        </div>
+                    </div>
+                    
+                    <p style="margin: 1rem 0; color: #666; font-size: 0.9rem;">
+                        <i class="fas fa-info-circle"></i> ระบบได้บันทึกผลการสอบของคุณแล้ว
+                    </p>
+                    
+                    <button class="back-btn" id="back-btn">
+                        <i class="fas fa-home"></i> กลับสู่หน้าหลัก
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- แถบความคืบหน้า -->
+    <div class="progress-container" id="progress-container" style="display: none;">
+        <div class="progress-title">
+            <i class="fas fa-chart-line"></i> ความคืบหน้าแบบทดสอบ (30 ข้อ)
+        </div>
+        <div class="progress-buttons" id="progress-buttons"></div>
+        <div class="unanswered-warning" id="unanswered-warning">คุณยังมีข้อที่ยังไม่ได้ตอบ!</div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>เกี่ยวกับเรา</h3>
+                    <p>สื่อการสอนออนไลน์ By Ratchapon</p>
+                    <p>ติดตามช่องทางอื่นๆ ได้ที่</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/ipaperz/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.youtube.com/@paperkusz-999"><i class="fab fa-youtube"></i></a>
+                        <a href="https://line.me/ti/p/JgvbvajUfU"><i class="fab fa-line"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ลิงก์ด่วน</h3>
+                    <a href="/learning-by-ratchapon/index.html"><i class="fas fa-chevron-right"></i> หน้าหลัก</a>
+                    <a href="/learning-by-ratchapon/about.html"><i class="fas fa-chevron-right"></i> ประวัติครู</a>
+                    <a href="/learning-by-ratchapon/achievements.html"><i class="fas fa-chevron-right"></i> ผลงาน</a>
+                    <a href="/learning-by-ratchapon/courses.html"><i class="fas fa-chevron-right"></i> วิชาทั้งหมด</a>
+                    <a href="/learning-by-ratchapon/knowledge.html"><i class="fas fa-chevron-right"></i> คลังความรู้</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ระบบสมาชิก</h3>
+                    <a href="/learning-by-ratchapon/auth/login.html"><i class="fas fa-chevron-right"></i> เข้าสู่ระบบ</a>
+                    <a href="/learning-by-ratchapon/auth/register.html"><i class="fas fa-chevron-right"></i> สมัครสมาชิก</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i> ลืมรหัสผ่าน</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i> คำถามที่พบบ่อย</a>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ติดต่อเรา</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> โรงเรียนพรตพิทยพยัต 4 ถนนหลวงพรต แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
+                    <p><i class="fas fa-phone"></i> 096-409-929-1</p>
+                    <p><i class="fas fa-envelope"></i> ratchapon@prot.ac.th</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; © 2025 สื่อการสอนออนไลน์ By Ratchapon (Ratchapon@prot.ac.th)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // ==========================
+    //  CONFIG ส่วนกลาง
+    // ==========================
+
+    // <<< เปลี่ยน URL นี้ให้ถูกต้อง >>>
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwwBoLodgNIrMf6GqSL7oQcJM1n80sEjFVOW4wzBqaaDH0l1xOItgZorJNFdQ7U8Zxv/exec";
+
+    // ข้อมูลวิชา / แบบทดสอบ
+    const SCHOOL_NAME   = "โรงเรียนพรตพิทยพยัต";
+    const COURSE_NAME   = "แบบทดสอบวิชาหุ่นยนต์เบื้องต้น";
+    const COURSE_CODE   = "ว30257";
+    const EXAM_TITLE    = "สอบกลางภาค";
+    const TERM          = "2";
+    const ACADEMIC_YEAR = "2568";
+    const ATTEMPT_NO    = 1;
+    const TOTAL_TIME    = 40 * 60; // 40 นาทีในวินาที
+
+    // แสดงข้อมูลวิชาบนหน้าเว็บ
+    document.getElementById("exam-title-text").textContent = `${COURSE_NAME} (${COURSE_CODE})`;
+    document.getElementById("exam-heading").textContent    = EXAM_TITLE;
+    document.getElementById("exam-subtitle-text").textContent =
+        `${SCHOOL_NAME} | ภาคเรียนที่ ${TERM} ปีการศึกษา ${ACADEMIC_YEAR} | ครั้งที่ ${ATTEMPT_NO}`;
+
+    // ตั้งค่าฟิลด์ข้อมูล
+    document.getElementById("course-name").value = COURSE_NAME;
+    document.getElementById("course-code").value = COURSE_CODE;
+    document.getElementById("exam-name").value   = EXAM_TITLE;
+    document.getElementById("term-year").value   = `ภาคเรียนที่ ${TERM} / ${ACADEMIC_YEAR}`;
+    document.getElementById("attempt-no").value  = ATTEMPT_NO;
+
+    // ==========================
+    // ระบบเก็บข้อมูลใน LocalStorage และตรวจสอบ IP
+    // ==========================
+    
+    const STORAGE_KEY = 'robot_exam_submission_30';
+    const IP_STORAGE_KEY = 'exam_ip_tracker_30';
+    
+    // ฟังก์ชันตรวจสอบว่าผู้ใช้เคยสอบแล้วหรือไม่
+    function checkPreviousSubmission() {
+        // ตรวจสอบใน LocalStorage ก่อน
+        const previousData = localStorage.getItem(STORAGE_KEY);
+        
+        if (previousData) {
+            try {
+                const data = JSON.parse(previousData);
+                showAlreadySubmitted(data);
+                return true;
+            } catch (e) {
+                console.error('Error parsing stored data:', e);
+            }
+        }
+        
+        return false;
+    }
+    
+    // แสดงหน้าสำหรับผู้ที่สอบแล้ว
+    function showAlreadySubmitted(previousData) {
+        document.getElementById('start-exam').style.display = 'none';
+        document.getElementById('already-submitted').style.display = 'block';
+        
+        if (previousData) {
+            document.getElementById('previous-name').textContent = 
+                `${previousData.firstName || ''} ${previousData.lastName || ''}`.trim() || '-';
+            document.getElementById('previous-score').textContent = 
+                `${previousData.score || 0}/${previousData.total || 30}`;
+            document.getElementById('previous-date').textContent = 
+                previousData.submitDate || new Date().toLocaleDateString('th-TH');
+            document.getElementById('previous-time').textContent = 
+                previousData.timeUsed || '00:00:00';
+        }
+        
+        // ป้องกันการกด F5 เพื่อเริ่มสอบใหม่
+        disableStartButton();
+    }
+    
+    // ปิดการใช้งานปุ่มเริ่มสอบ
+    function disableStartButton() {
+        const startBtn = document.getElementById('start-btn');
+        startBtn.disabled = true;
+        startBtn.innerHTML = '<i class="fas fa-ban"></i> ทำแบบทดสอบแล้ว (ใช้ได้ครั้งเดียว)';
+    }
+    
+    // ตรวจสอบเมื่อโหลดหน้าเว็บ
+    document.addEventListener('DOMContentLoaded', function() {
+        // ตรวจสอบว่าเคยสอบแล้วหรือไม่
+        const hasSubmitted = checkPreviousSubmission();
+        
+        // ป้องกันการกด F5 เพื่อเริ่มใหม่
+        window.addEventListener('beforeunload', function(e) {
+            if (window.examStarted && !window.examFinished) {
+                e.preventDefault();
+                e.returnValue = 'คุณกำลังทำแบบทดสอบอยู่ ต้องการออกจากหน้าหรือไม่?';
+            }
+        });
+    });
+
+    // ==========================
+    // ข้อมูลข้อสอบ (ส่วนที่ 1: ปรนัย 20 ข้อ)
+    // ==========================
+   // ==========================
+// ข้อสอบใหม่ 40 ข้อ (ปรนัยล้วน แนวสถานการณ์จริง)
+// ==========================
+const encodedQuestions = [
+{ id:1, question:"นักเรียนต่อ DHT11 กับ ESP32 ถูกต้อง อ่านค่าใน Serial Monitor ได้ แต่ Node-RED ไม่ขึ้นข้อมูลเลย ควรตรวจสอบสิ่งใดก่อน", options:["ESP32 ส่งข้อมูลออกไปจริงหรือไม่","สีกราฟใน Dashboard","ความสว่างหน้าจอ","รุ่นสาย USB"], correct:"MA==" },
+{ id:2, question:"กราฟใน Node-RED แสดงค่าแค่ครั้งเดียวแล้วหยุดนิ่ง สาเหตุที่เป็นไปได้มากที่สุดคืออะไร", options:["ESP32 ส่งข้อมูลแค่รอบเดียว","Node-RED เสียทั้งระบบ","คอมพิวเตอร์ช้าเกินไป","สายไฟยาวเกิน"], correct:"MA==" },
+{ id:3, question:"นักเรียนต้องการให้ข้อมูลอัปเดตทุก 1 วินาที แต่กราฟกระตุกมาก ควรแก้ที่จุดใด", options:["ปรับ delay ในโค้ด ESP32","เปลี่ยนธีมหน้าเว็บ","เปลี่ยนเซนเซอร์ใหม่","เพิ่มความละเอียดหน้าจอ"], correct:"MA==" },
+{ id:4, question:"นักเรียนสองคนใช้โค้ดเดียวกัน วงจรเหมือนกัน แต่เครื่องหนึ่งไม่ขึ้นข้อมูล สิ่งแรกที่ควรตรวจคืออะไร", options:["URL หรือปลายทางที่ส่งข้อมูลตรงกับ Node-RED หรือไม่","รุ่นเมาส์","ขนาดจอภาพ","สีสายไฟ"], correct:"MA==" },
+{ id:5, question:"อ่านค่าเซนเซอร์ได้ แต่ลืมเขียนโค้ดส่งค่าออกไป ผลจะเป็นอย่างไร", options:["Node-RED ไม่แสดงข้อมูล","เซนเซอร์เสียทันที","บอร์ดรีสตาร์ตเอง","กราฟขึ้นแต่ค่าศูนย์"], correct:"MA==" },
+
+{ id:6, question:"Ultrasonic ให้ค่าเป็น 0 ตลอดทั้งที่มีวัตถุอยู่ด้านหน้า ควรตรวจสอบอะไรก่อน", options:["ขา TRIG/ECHO ต่อถูกหรือไม่","สีสายไฟ","ความละเอียดหน้าจอ","เวอร์ชัน Windows"], correct:"MA==" },
+{ id:7, question:"เซนเซอร์อ่านค่าขึ้น ๆ ลง ๆ ทั้งที่วัตถุไม่ขยับ สาเหตุที่พบบ่อยคืออะไร", options:["สายหลวม หรือไฟเลี้ยงไม่นิ่ง","จอสว่างเกินไป","คอมพิวเตอร์ช้า","ฟอนต์ไม่รองรับ"], correct:"MA==" },
+{ id:8, question:"Serial Monitor ไม่แสดงค่าใด ๆ ทั้งที่บอร์ดเปิดติด สิ่งแรกที่ควรเช็กคืออะไร", options:["baud rate ตรงกับโค้ดหรือไม่","สีสาย USB","รุ่นเมาส์","ความละเอียดหน้าจอ"], correct:"MA==" },
+{ id:9, question:"ถอด USB แล้วบอร์ดดับทันที แสดงว่าปัญหาคืออะไร", options:["ไม่มีไฟเลี้ยงจากแบตเตอรี่หรือแหล่งจ่ายไฟอื่น","โค้ดผิดแน่นอน","หน้าจอเล็กเกิน","Node-RED พัง"], correct:"MA==" },
+{ id:10, question:"ค่าเซนเซอร์บางครั้งเป็น -999 หรือค่าหลุด ควรจัดการอย่างไรในโค้ด", options:["ตรวจสอบและกรองค่าผิดก่อนนำไปใช้","เพิ่มแรงดันไฟ","เปลี่ยนสาย USB","เปลี่ยนฟอนต์"], correct:"MA==" },
+
+{ id:11, question:"ESP32 สองตัวใช้ ESP-NOW แต่เปลี่ยนบอร์ดตัวรับใหม่แล้วใช้ไม่ได้ สิ่งแรกที่ต้องตรวจคืออะไร", options:["MAC Address ของบอร์ดตัวรับ","สีสายไฟ","ยี่ห้อคอมพิวเตอร์","ความสว่างหน้าจอ"], correct:"MA==" },
+{ id:12, question:"อยากรู้ว่าข้อมูล ESP-NOW ส่งถึงปลายทางหรือไม่ ควรใช้วิธีใดช่วยตรวจสอบ", options:["ใช้ callback ตรวจสถานะการส่งสำเร็จ","รีสตาร์ตคอม","เปลี่ยนสาย","เปิด YouTube"], correct:"MA==" },
+{ id:13, question:"อยากให้บอร์ดสองตัวส่งข้อมูลโต้ตอบกันไปมาได้ ต้องออกแบบอย่างไร", options:["ให้ทั้งสองฝั่งมีทั้งส่วนส่งและรับ","เพิ่มแรงดันไฟ","เปลี่ยนเป็น Bluetooth ทันที","ใช้สาย LAN"], correct:"MA==" },
+{ id:14, question:"ตั้ง MAC Address ผิดเพียง 1 ตัวอักษร จะเกิดอะไรขึ้น", options:["บอร์ดนั้นจะไม่รับข้อมูลเลย","ระบบจะเดาให้เอง","ยังใช้ได้เหมือนเดิม","ESP32 จะปิดตัวเอง"], correct:"MA==" },
+{ id:15, question:"ระบบควบคุมไฟหลายจุดจากบอร์ดเดียว แนวคิดใดเหมาะสมที่สุด", options:["ส่งคำสั่งจากตัวหลักไปหลายตัวรับ","ต่อสายตรงทุกจุด","ใช้หลายตัวส่งกลับครู","ไม่ต้องมีการสื่อสาร"], correct:"MA==" },
+
+{ id:16, question:"นักเรียนเขียนระบบแล้ว แก้โค้ดนิดเดียวแต่พังทั้งระบบ แสดงว่าระบบมีปัญหาเรื่องใด", options:["ยังแยกหน้าที่แต่ละส่วนไม่ชัด","คอมพิวเตอร์ไม่แรง","สายไฟยาวเกิน","ใช้เซนเซอร์ไม่ดี"], correct:"MA==" },
+{ id:17, question:"ระบบที่ออกแบบดี ควรมีลักษณะอย่างไร", options:["แต่ละส่วนทำหน้าที่ของตัวเองชัดเจน","ทุกอย่างผูกกันหมด","ใช้บอร์ดตัวเดียวทำทุกอย่าง","ไม่ต้องวางแผนล่วงหน้า"], correct:"MA==" },
+{ id:18, question:"นักเรียนเจอปัญหาใหม่แต่ยังแก้ได้ แสดงว่ามีทักษะด้านใด", options:["การคิดวิเคราะห์และแก้ปัญหา","การจำ","การพิมพ์เร็ว","การตกแต่งหน้าจอ"], correct:"MA==" },
+{ id:19, question:"ระบบที่ดีควรสามารถเพิ่มอุปกรณ์ใหม่ในอนาคตได้ง่าย แสดงว่าควรออกแบบแบบใด", options:["แยกโมดูลเป็นส่วน ๆ ตั้งแต่แรก","เขียนรวมทุกอย่างในไฟล์เดียว","ใช้ฮาร์ดโค้ดทุกค่า","ไม่ต้องเผื่ออนาคต"], correct:"MA==" },
+{ id:20, question:"นักเรียนที่เข้าใจระบบจริง มักมีพฤติกรรมแบบใด", options:["ไล่ตรวจทีละจุดเมื่อระบบไม่ทำงาน","โทษอุปกรณ์ทันที","เปลี่ยนคอมก่อน","ลอกเพื่อนก่อน"], correct:"MA==" },
+
+// ต่อระดับยากขึ้น
+{ id:21, question:"ถ้า ESP32 ต่อ Wi-Fi ได้แต่ส่งข้อมูลไม่ออก ควรตรวจสอบอะไรก่อน", options:["ปลายทาง API / URL ถูกต้องหรือไม่","ความแรงของเมาส์","สีสาย USB","ความละเอียดหน้าจอ"], correct:"MA==" },
+{ id:22, question:"ระบบอ่านค่าเซนเซอร์ได้แต่ตัดสินใจไม่ทำงาน แสดงว่าขาดส่วนใด", options:["เงื่อนไขการตัดสินใจ (logic)","แรงดันไฟ","สาย LAN","Node-RED"], correct:"MA==" },
+{ id:23, question:"นักเรียนต้องการลดการสั่นของค่ากราฟ ควรใช้แนวคิดใด", options:["ใช้ค่าเฉลี่ยหลายค่าก่อนส่ง","เพิ่มไฟเข้าเซนเซอร์","เปลี่ยนธีมกราฟ","เปลี่ยนสาย USB"], correct:"MA==" },
+{ id:24, question:"ระบบ IoT ที่ดีควรออกแบบให้ถ้า Wi-Fi หลุดแล้วกลับมาเองได้ หมายถึงต้องมีอะไรในโค้ด", options:["ระบบ reconnect อัตโนมัติ","เพิ่ม delay เยอะ ๆ","รีสตาร์ตบอร์ดทุกครั้ง","ปิด Wi-Fi ไปเลย"], correct:"MA==" },
+{ id:25, question:"การใส่ delay ยาว ๆ จำนวนมากใน loop ส่งผลเสียอย่างไร", options:["ระบบตอบสนองช้าและควบคุมยาก","ทำให้เซนเซอร์พัง","ทำให้ Wi-Fi แรงขึ้น","ทำให้กราฟสวยขึ้น"], correct:"MA==" },
+
+{ id:26, question:"ระบบบางครั้งรีสตาร์ตเองเมื่อเปิด Wi-Fi พร้อมเซนเซอร์หลายตัว สาเหตุที่เป็นไปได้คืออะไร", options:["ไฟเลี้ยงไม่พอ / แรงดันตก","ฟอนต์ไม่รองรับ","สาย USB สั้นเกิน","Node-RED เสีย"], correct:"MA==" },
+{ id:27, question:"การ debug ที่ดีควรเริ่มจากขั้นตอนใดก่อน", options:["ตรวจสอบจากจุดง่ายที่สุดก่อน","เปลี่ยนอุปกรณ์ทั้งหมด","ลง Windows ใหม่","เขียนโค้ดใหม่ทันที"], correct:"MA==" },
+{ id:28, question:"นักเรียนดูค่า Serial แล้วเข้าใจทันทีว่าปัญหาอยู่ตรงไหน แสดงถึงทักษะใด", options:["การอ่าน log และวิเคราะห์ระบบ","การจำ syntax","การพิมพ์เร็ว","การตกแต่งหน้าจอ"], correct:"MA==" },
+{ id:29, question:"ถ้าระบบหนึ่งอ่านค่าเซนเซอร์ผิดเฉพาะตอนเปิดอุปกรณ์หลายตัวพร้อมกัน ปัญหาน่าจะเกี่ยวข้องกับอะไร", options:["แหล่งจ่ายไฟไม่เพียงพอ","ฟอนต์หน้าจอ","ความละเอียดจอ","สีสายไฟ"], correct:"MA==" },
+{ id:30, question:"การเขียนโค้ดให้ตรวจสอบค่าผิดก่อนนำไปใช้ เรียกว่าแนวคิดใด", options:["การป้องกันความผิดพลาด (defensive logic)","การตกแต่งโค้ด","การเร่งความเร็ว","การย่อโค้ด"], correct:"MA==" },
+
+{ id:31, question:"ระบบที่ดีควรสามารถอธิบายได้ว่าแต่ละส่วนทำหน้าที่อะไร แสดงว่าระบบมีคุณสมบัติใด", options:["มีโครงสร้างชัดเจน","ใช้โค้ดยาว","ใช้เซนเซอร์แพง","มีสีสวย"], correct:"MA==" },
+{ id:32, question:"นักเรียนเปลี่ยนเซนเซอร์เป็นคนละรุ่นแต่ใช้โค้ดเดิม ผลลัพธ์เพี้ยน เป็นเพราะอะไร", options:["เซนเซอร์แต่ละรุ่นมีวิธีอ่านค่าไม่เหมือนกัน","Windows ไม่รองรับ","จอสว่างเกิน","Node-RED ผิดพลาด"], correct:"MA==" },
+{ id:33, question:"ระบบบางครั้งค้างเมื่อข้อมูลเข้ามาพร้อมกันหลายค่า สะท้อนถึงปัญหาใด", options:["การจัดการลำดับการทำงานไม่ดี","สายไฟสีผิด","ฟอนต์ไม่ชัด","เมาส์หน่วง"], correct:"MA==" },
+{ id:34, question:"นักเรียนออกแบบระบบแล้วสามารถเพิ่มเซนเซอร์ใหม่ได้โดยไม่ต้องแก้โค้ดเดิมมาก แสดงว่าระบบมีคุณสมบัติใด", options:["ยืดหยุ่นและขยายต่อได้ง่าย","ซับซ้อนเกินไป","ใช้ทรัพยากรเยอะ","ผูกกับฮาร์ดแวร์"], correct:"MA==" },
+{ id:35, question:"ระบบที่ต้องพึ่งพา Wi-Fi ตลอดเวลา ควรมีการออกแบบเผื่อกรณีใด", options:["อินเทอร์เน็ตหลุดหรือช้า","เมาส์แบตหมด","หน้าจอมืด","ฟอนต์เพี้ยน"], correct:"MA==" },
+
+{ id:36, question:"ถ้าอยากให้ระบบยังทำงานได้แม้ Node-RED ปิดอยู่ แสดงว่าควรออกแบบแบบใด", options:["ให้ ESP32 ตัดสินใจเองได้โดยไม่พึ่ง Dashboard","เพิ่มสีกราฟ","เปลี่ยนธีมเว็บ","เพิ่ม USB hub"], correct:"MA==" },
+{ id:37, question:"การเขียนโค้ดที่ดีควรอ่านแล้วเข้าใจง่ายในอนาคต ควรทำอย่างไร", options:["ตั้งชื่อตัวแปรและแยกโค้ดเป็นส่วนชัดเจน","ย่อชื่อทุกตัวแปรให้สั้นที่สุด","เขียนทุกอย่างใน loop","ไม่ต้องมีคอมเมนต์"], correct:"MA==" },
+{ id:38, question:"ระบบที่ดีควรสามารถบอกได้ว่าปัญหาอยู่ที่ฝั่งฮาร์ดแวร์หรือซอฟต์แวร์ แสดงว่าผู้ออกแบบมีทักษะใด", options:["เข้าใจระบบทั้งภาพรวม","จำโค้ดเก่ง","พิมพ์เร็ว","ตกแต่งหน้าเว็บเก่ง"], correct:"MA==" },
+{ id:39, question:"การทดสอบระบบทีละส่วน (เช่น ทดสอบเซนเซอร์ก่อน) มีข้อดีอย่างไร", options:["ช่วยหาจุดผิดพลาดได้เร็ว","ทำให้ระบบช้าลง","ทำให้โค้ดยาวขึ้น","ไม่มีประโยชน์"], correct:"MA==" },
+{ id:40, question:"ทักษะที่สำคัญที่สุดสำหรับนักเรียนสายหุ่นยนต์ในระยะยาวคืออะไร", options:["ความสามารถในการแก้ปัญหา","จำ syntax ได้ทุกคำ","มีคอมแรง","มีอินเทอร์เน็ตเร็ว"], correct:"MA==" }
+];
+
+// ถอดรหัสเฉลยตามระบบเดิม
+function decodeAnswer(encoded) {
+    return parseInt(atob(encoded));
+}
+
+const mcQuestions = encodedQuestions.map(q => ({
+    ...q,
+    correctAnswer: decodeAnswer(q.correct),
+    type: 'multiple-choice'
+}));
+
+
+    // ==========================
+    // ตัวแปรระบบ
+    // ==========================
+    let section1Questions = []; // ปรนัย 20 ข้อ
+    let section2Questions = []; // จับคู่ 10 ข้อ (จาก 14 ข้อ)
+    let userAnswers = []; // สำหรับข้อปรนัย
+    let userMatchingAnswers = []; // สำหรับข้อจับคู่
+    let currentQuestionIndex = 0;
+    let timeLeft = TOTAL_TIME;
+    let timerInterval;
+    let startTime;
+    
+    // ตั้งค่า flag สำหรับตรวจสอบสถานะ
+    window.examStarted = false;
+    window.examFinished = false;
+
+    const startBtn = document.getElementById('start-btn');
+    const submitBtn = document.getElementById('submit-btn');
+    const backBtn = document.getElementById('back-btn');
+
+    startBtn.addEventListener('click', startExam);
+    submitBtn.addEventListener('click', submitExam);
+    backBtn.addEventListener('click', () => {
+        window.location.href = '/learning-by-ratchapon/index.html';
+    });
+
+    // ==========================
+    // ฟังก์ชันป้องกันคลิกขวาและ F12
+    // ==========================
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        showNotification('ระบบป้องกันการคัดลอกข้อมูล', 'warning');
+        return false;
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'U')) {
+            e.preventDefault();
+            showNotification('ระบบป้องกันการดูโค้ดต้นฉบับ', 'warning');
+            return false;
+        }
+        
+        // ป้องกันการรีเฟรชหน้าเมื่อกำลังทำข้อสอบ
+        if (window.examStarted && !window.examFinished && e.key === 'F5') {
+            e.preventDefault();
+            showNotification('กำลังทำข้อสอบอยู่ ไม่สามารถรีเฟรชหน้าได้', 'warning');
+            return false;
+        }
+    });
+
+    // ==========================
+    // ฟังก์ชันแสดงข้อความแจ้งเตือน
+    // ==========================
+    function showNotification(message, type = 'info') {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.className = `notification ${type}`;
+        notification.style.display = 'block';
+        
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000);
+    }
+
+    // ==========================
+    // ฟังก์ชันเริ่มสอบ
+    // ==========================
+    function startExam() {
+        // ตรวจสอบอีกครั้งว่าเคยสอบแล้วหรือไม่
+        if (localStorage.getItem(STORAGE_KEY)) {
+            showNotification('คุณได้ทำแบบทดสอบนี้แล้ว', 'error');
+            const previousData = JSON.parse(localStorage.getItem(STORAGE_KEY));
+            showAlreadySubmitted(previousData);
+            return;
+        }
+
+        const firstName = document.getElementById('student-firstname').value.trim();
+        const lastName  = document.getElementById('student-lastname').value.trim();
+        const number    = document.getElementById('student-number').value.trim();
+        const room      = document.getElementById('student-room').value.trim();
+
+        if (!firstName || !lastName || !number || !room) {
+            showNotification('กรุณากรอกข้อมูลให้ครบถ้วนก่อนเริ่มทำแบบทดสอบ', 'error');
+            return;
+        }
+
+        // บันทึกข้อมูลผู้สอบชั่วคราว
+        window.studentInfo = { firstName, lastName, number, room };
+
+        // สุ่มข้อสอบส่วนที่ 1 (ปรนัย 20 ข้อ)
+        section1Questions = shuffleArray([...mcQuestions]).slice(0, 20);
+        userAnswers = new Array(section1Questions.length).fill(null);
+
+        // สุ่มข้อสอบส่วนที่ 2 (จับคู่ 10 ข้อ จาก 14 ข้อ)
+        section2Questions = shuffleArray([...matchingData.questions]).slice(0, 10);
+        userMatchingAnswers = new Array(section2Questions.length).fill(null);
+
+        document.getElementById('start-exam').style.display = 'none';
+        document.getElementById('question-container').style.display = 'block';
+        document.getElementById('progress-container').style.display = 'block';
+
+        renderAllQuestions();
+        renderProgressButtons();
+
+        startTime = new Date();
+        timeLeft = TOTAL_TIME;
+        startTimer();
+        scrollToQuestion(0);
+        
+        // ตั้งค่าสถานะ
+        window.examStarted = true;
+        
+        showNotification('เริ่มทำแบบทดสอบ! คุณมีเวลา 40 นาที', 'info');
+    }
+
+    // แสดงคำถามทั้งหมด (ทั้ง 2 ส่วน)
+    function renderAllQuestions() {
+        const questionsElement = document.getElementById('questions');
+        questionsElement.innerHTML = '';
+
+        // ส่วนที่ 1: ข้อสอบปรนัย
+        const section1Header = document.createElement('div');
+        section1Header.className = 'section-header';
+        section1Header.innerHTML = `<i class="fas fa-list-ol"></i> ส่วนที่ 1: ข้อสอบปรนัย (20 ข้อ)`;
+        questionsElement.appendChild(section1Header);
+
+        // แสดงข้อปรนัย
+        section1Questions.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.id = `question-${index}`;
+
+            const questionNumber = document.createElement('div');
+            questionNumber.className = 'question-number';
+            questionNumber.innerHTML = `<i class="fas fa-question-circle"></i> ข้อที่ ${index + 1}`;
+
+            const questionText = document.createElement('div');
+            questionText.className = 'question-text';
+            questionText.innerHTML = q.question;
+
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            questionDiv.appendChild(questionNumber);
+            questionDiv.appendChild(questionText);
+
+            q.options.forEach((option, optionIndex) => {
+                const optionDiv = document.createElement('label');
+                optionDiv.className = 'option';
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `question-${index}`;
+                input.value = optionIndex;
+
+                const span = document.createElement('span');
+                span.innerHTML = option;
+
+                optionDiv.appendChild(input);
+                optionDiv.appendChild(span);
+
+                optionDiv.addEventListener('click', () => {
+                    optionsDiv.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+
+                    optionDiv.classList.add('selected');
+                    userAnswers[index] = optionIndex;
+                    updateProgressButtons();
+
+                    if (index < section1Questions.length - 1) {
+                        setTimeout(() => {
+                            scrollToQuestion(index + 1);
+                        }, 300);
+                    }
+                });
+
+                optionsDiv.appendChild(optionDiv);
+            });
+
+            questionDiv.appendChild(optionsDiv);
+            questionsElement.appendChild(questionDiv);
+        });
+
+        // ส่วนที่ 2: ข้อสอบจับคู่
+        const section2Header = document.createElement('div');
+        section2Header.className = 'section-header';
+        section2Header.innerHTML = `<i class="fas fa-link"></i> ส่วนที่ 2: ข้อสอบจับคู่ (10 ข้อ)`;
+        questionsElement.appendChild(section2Header);
+
+        // สร้าง container สำหรับข้อจับคู่
+        const matchingContainer = document.createElement('div');
+        matchingContainer.className = 'matching-container';
+
+        // คอลัมน์ซ้าย: คำถาม
+        const questionsColumn = document.createElement('div');
+        questionsColumn.className = 'matching-column';
+        
+        const questionsTitle = document.createElement('div');
+        questionsTitle.className = 'matching-title';
+        questionsTitle.textContent = 'คำถาม';
+        questionsColumn.appendChild(questionsTitle);
+
+        // คอลัมน์ขวา: ตัวเลือก
+        const optionsColumn = document.createElement('div');
+        optionsColumn.className = 'matching-column';
+        
+        const optionsTitle = document.createElement('div');
+        optionsTitle.className = 'matching-title';
+        optionsTitle.textContent = 'ตัวเลือก';
+        optionsColumn.appendChild(optionsTitle);
+
+        // เตรียมตัวเลือกสำหรับ dropdown
+        const optionLetters = matchingData.options.map(opt => opt.letter);
+        const optionMap = {};
+        matchingData.options.forEach(opt => {
+            optionMap[opt.letter] = opt.text;
+        });
+
+        // เพิ่มตัวเลือกทั้งหมดลงในคอลัมน์ขวา
+        matchingData.options.forEach(option => {
+            const optionItem = document.createElement('div');
+            optionItem.className = 'matching-item';
+            
+            const optionLetter = document.createElement('div');
+            optionLetter.className = 'matching-letter';
+            optionLetter.textContent = option.letter;
+            
+            const optionText = document.createElement('div');
+            optionText.className = 'matching-text';
+            optionText.textContent = option.text;
+            
+            optionItem.appendChild(optionLetter);
+            optionItem.appendChild(optionText);
+            optionsColumn.appendChild(optionItem);
+        });
+
+        // เพิ่มคำถามและ dropdown
+        section2Questions.forEach((q, index) => {
+            const questionItem = document.createElement('div');
+            questionItem.className = 'matching-item';
+            
+            const questionNumber = document.createElement('div');
+            questionNumber.className = 'matching-answer';
+            questionNumber.textContent = index + 21; // เริ่มจากข้อที่ 21
+            
+            const questionText = document.createElement('div');
+            questionText.className = 'matching-text';
+            questionText.textContent = q.text;
+            
+            const select = document.createElement('select');
+            select.className = 'matching-select';
+            select.dataset.questionIndex = index;
+            
+            // เพิ่มตัวเลือกว่าง
+            const emptyOption = document.createElement('option');
+            emptyOption.value = '';
+            emptyOption.textContent = '-- เลือกคำตอบ --';
+            select.appendChild(emptyOption);
+            
+            // เพิ่มตัวเลือกทั้งหมด
+            optionLetters.forEach(letter => {
+                const option = document.createElement('option');
+                option.value = letter;
+                option.textContent = `${letter}: ${optionMap[letter]}`;
+                select.appendChild(option);
+            });
+            
+            // ตั้งค่า event listener
+            select.addEventListener('change', function() {
+                const qIndex = parseInt(this.dataset.questionIndex);
+                userMatchingAnswers[qIndex] = this.value;
+                updateProgressButtons();
+            });
+            
+            questionItem.appendChild(questionNumber);
+            questionItem.appendChild(questionText);
+            questionItem.appendChild(select);
+            questionsColumn.appendChild(questionItem);
+        });
+
+        matchingContainer.appendChild(questionsColumn);
+        matchingContainer.appendChild(optionsColumn);
+        questionsElement.appendChild(matchingContainer);
+    }
+
+    // แถบปุ่มข้อสอบด้านล่าง
+    function renderProgressButtons() {
+        const progressButtons = document.getElementById('progress-buttons');
+        progressButtons.innerHTML = '';
+
+        const totalQuestions = section1Questions.length + section2Questions.length;
+        
+        for (let i = 0; i < totalQuestions; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'progress-btn';
+            btn.textContent = i + 1;
+            btn.addEventListener('click', () => scrollToQuestion(i));
+            progressButtons.appendChild(btn);
+        }
+
+        updateProgressButtons();
+    }
+
+    function updateProgressButtons() {
+        const buttons = document.querySelectorAll('.progress-btn');
+        let hasUnanswered = false;
+
+        buttons.forEach((btn, index) => {
+            let answered = false;
+            
+            if (index < section1Questions.length) {
+                // ข้อปรนัย
+                answered = userAnswers[index] !== null;
+            } else {
+                // ข้อจับคู่
+                const matchingIndex = index - section1Questions.length;
+                answered = userMatchingAnswers[matchingIndex] !== null;
+            }
+
+            if (answered) {
+                btn.classList.add('answered');
+            } else {
+                btn.classList.remove('answered');
+                hasUnanswered = true;
+            }
+
+            btn.classList.remove('current');
+            if (index === currentQuestionIndex) {
+                btn.classList.add('current');
+            }
+        });
+
+        document.getElementById('unanswered-warning').style.display =
+            hasUnanswered ? 'block' : 'none';
+    }
+
+    function scrollToQuestion(index) {
+        currentQuestionIndex = index;
+        
+        // แยกส่วนการ scroll ตามประเภทคำถาม
+        if (index < section1Questions.length) {
+            // ข้อปรนัย
+            const questionElement = document.getElementById(`question-${index}`);
+            if (questionElement) {
+                questionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        } else {
+            // ข้อจับคู่ - scroll ไปยังส่วนที่ 2
+            const section2Header = document.querySelector('.section-header:nth-child(2)');
+            if (section2Header) {
+                section2Header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        updateProgressButtons();
+    }
+
+    // ==========================
+    // Timer (40 นาที)
+    // ==========================
+    function startTimer() {
+        updateTimerDisplay();
+
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                showNotification('เวลาทำข้อสอบหมดแล้ว! ระบบจะส่งคำตอบอัตโนมัติ', 'warning');
+                submitExam();
+            }
+
+            if (timeLeft <= 60) {
+                document.getElementById('timer').classList.add('danger');
+            } else if (timeLeft <= 5 * 60) {
+                document.getElementById('timer').classList.add('warning');
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        const hours   = Math.floor(timeLeft / 3600);
+        const minutes = Math.floor((timeLeft % 3600) / 60);
+        const seconds = timeLeft % 60;
+
+        document.getElementById('timer').textContent =
+            `${hours.toString().padStart(2, '0')}:` +
+            `${minutes.toString().padStart(2, '0')}:` +
+            `${seconds.toString().padStart(2, '0')}`;
+    }
+
+    // ==========================
+    // ส่งคำตอบและบันทึกข้อมูล
+    // ==========================
+    function submitExam() {
+        clearInterval(timerInterval);
+        
+        // ตั้งค่าสถานะ
+        window.examFinished = true;
+        window.examStarted = false;
+
+        const endTime  = new Date();
+        const timeUsed = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
+
+        // คำนวณคะแนนส่วนที่ 1 (ปรนัย)
+        let correctMC = 0;
+        let wrongMC = 0;
+        let unansweredMC = 0;
+        
+        section1Questions.forEach((q, index) => {
+            if (userAnswers[index] === null) {
+                unansweredMC++;
+            } else if (userAnswers[index] === q.correctAnswer) {
+                correctMC++;
+            } else {
+                wrongMC++;
+            }
+        });
+
+        // คำนวณคะแนนส่วนที่ 2 (จับคู่)
+        let correctMatch = 0;
+        let wrongMatch = 0;
+        let unansweredMatch = 0;
+        
+        section2Questions.forEach((q, index) => {
+            if (userMatchingAnswers[index] === null) {
+                unansweredMatch++;
+            } else if (userMatchingAnswers[index] === q.answer) {
+                correctMatch++;
+            } else {
+                wrongMatch++;
+            }
+        });
+
+        // รวมคะแนนทั้งหมด
+        const totalCorrect = correctMC + correctMatch;
+        const totalWrong = wrongMC + wrongMatch;
+        const totalUnanswered = unansweredMC + unansweredMatch;
+        const totalQuestions = section1Questions.length + section2Questions.length;
+
+        // บันทึกลง LocalStorage (ป้องกันการสอบซ้ำ)
+        const resultData = {
+            firstName: window.studentInfo.firstName,
+            lastName: window.studentInfo.lastName,
+            number: window.studentInfo.number,
+            room: window.studentInfo.room,
+            courseName: COURSE_NAME,
+            courseCode: COURSE_CODE,
+            examTitle: EXAM_TITLE,
+            score: totalCorrect,
+            total: totalQuestions,
+            correctAnswers: totalCorrect,
+            wrongAnswers: totalWrong,
+            unanswered: totalUnanswered,
+            timeUsed: formatTime(timeUsed),
+            timeUsedSeconds: timeUsed,
+            submitDate: new Date().toLocaleDateString('th-TH'),
+            submitTime: new Date().toLocaleTimeString('th-TH'),
+            timestamp: new Date().toISOString(),
+            // ข้อมูลแยกส่วน
+            section1: {
+                correct: correctMC,
+                wrong: wrongMC,
+                unanswered: unansweredMC,
+                total: section1Questions.length
+            },
+            section2: {
+                correct: correctMatch,
+                wrong: wrongMatch,
+                unanswered: unansweredMatch,
+                total: section2Questions.length
+            }
+        };
+
+        // บันทึกผลลัพธ์ลง LocalStorage
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(resultData));
+        
+        // บันทึก IP ลง LocalStorage
+        try {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const ipInfo = {
+                        ip: data.ip,
+                        timestamp: new Date().toISOString(),
+                        submitted: true
+                    };
+                    localStorage.setItem(IP_STORAGE_KEY, JSON.stringify(ipInfo));
+                })
+                .catch(() => {
+                    // ถ้าไม่สามารถดึง IP ได้
+                    const ipInfo = {
+                        ip: 'unknown',
+                        timestamp: new Date().toISOString(),
+                        submitted: true
+                    };
+                    localStorage.setItem(IP_STORAGE_KEY, JSON.stringify(ipInfo));
+                });
+        } catch (e) {
+            console.log('ไม่สามารถบันทึก IP ได้:', e);
+        }
+
+        // แสดงผลลัพธ์
+        showResult(resultData);
+        
+        // ส่งข้อมูลไปยัง Google Sheets (ถ้ามีการเชื่อมต่อ)
+        sendToGoogleSheets(resultData);
+        
+        // ป้องกันการเริ่มใหม่โดยปิดการใช้งานปุ่ม
+        disableStartButton();
+    }
+
+    // แสดงผลลัพธ์
+    function showResult(data) {
+        document.getElementById('question-container').style.display = 'none';
+        document.getElementById('progress-container').style.display = 'none';
+        document.getElementById('result-container').style.display = 'block';
+
+        document.getElementById('score').textContent = `${data.score}/${data.total}`;
+        document.getElementById('correct-answers').textContent = data.correctAnswers;
+        document.getElementById('wrong-answers').textContent = data.wrongAnswers;
+        document.getElementById('unanswered').textContent = data.unanswered;
+        document.getElementById('time-used').textContent = data.timeUsed;
+
+        // เปลี่ยนสีตามคะแนน
+        const percentage = Math.round((data.score / data.total) * 100);
+        const scoreElement = document.getElementById('score');
+        
+        if (percentage >= 80) {
+            scoreElement.style.color = "var(--success-green)";
+        } else if (percentage >= 50) {
+            scoreElement.style.color = "var(--warning-orange)";
+        } else {
+            scoreElement.style.color = "var(--danger-red)";
+        }
+        
+        showNotification('บันทึกผลสอบเรียบร้อยแล้ว!', 'success');
+    }
+
+    // ส่งข้อมูลไปยัง Google Sheets
+    function sendToGoogleSheets(data) {
+        if (!SHEET_API_URL || SHEET_API_URL.includes("ใส่ URL ของคุณที่นี่")) {
+            console.log('ไม่ได้ตั้งค่า URL Google Sheets');
+            return;
+        }
+
+        // เตรียมข้อมูลสำหรับส่ง
+        const sheetData = {
+            action: 'submitExam',
+            ...data,
+            schoolName: SCHOOL_NAME,
+            term: TERM,
+            academicYear: ACADEMIC_YEAR,
+            attemptNo: ATTEMPT_NO,
+            // เพิ่มข้อมูล IP ถ้ามี
+            ip: localStorage.getItem(IP_STORAGE_KEY) ? 
+                JSON.parse(localStorage.getItem(IP_STORAGE_KEY)).ip : 'unknown'
+        };
+
+        // ส่งข้อมูลแบบไม่ต้องรอ response (fire and forget)
+        fetch(SHEET_API_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(sheetData)
+        }).catch(error => {
+            console.log('ไม่สามารถส่งข้อมูลไปยัง Google Sheets ได้:', error);
+        });
+    }
+
+    // ฟังก์ชันแปลงเวลา
+    function formatTime(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    // Utility: สุ่ม array
+    function shuffleArray(array) {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+        return newArray;
+    }
+    </script>
+</body>
+</html>
+
