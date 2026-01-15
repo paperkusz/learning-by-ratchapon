@@ -2117,60 +2117,62 @@
             `${seconds.toString().padStart(2, '0')}`;
     }
 
-    // ✅ ฟังก์ชันส่งข้อมูลไปยัง Google Sheets (แก้ไขแล้ว)
-    function sendToGoogleSheets(data) {
-        const sheetData = {
-            action: 'submitAdvancedRobotExam',
-            studentInfo: {
-                firstName: data.firstName,
-                lastName: data.lastName,
-                number: data.number,
-                room: data.room
-            },
-            examInfo: {
-                courseName: data.courseName,
-                courseCode: data.courseCode,
-                examTitle: data.examTitle,
-                term: "2",
-                academicYear: "2568",
-                attemptNo: 1
-            },
-            result: {
-                score: data.score,
-                total: data.total,
-                correct: data.correctAnswers,
-                wrong: data.wrongAnswers,
-                unanswered: data.unanswered,
-                timeUsed: data.timeUsed,
-                percentage: Math.round((data.score / data.total) * 100)
-            },
-            submissionInfo: {
-                submitDate: data.submitDate,
-                submitTime: data.submitTime,
-                timestamp: data.timestamp
-            }
-        };
+    // ✅ ฟังก์ชันส่งข้อมูลไปยัง Google Sheets (แก้ไขให้ตรงกับ GAS)
+function sendToGoogleSheets(data) {
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbySe4Hv2VPvi736AyYq1vTofb2hSq3woG4XGz_sxyJDiHTt4I_T4Onlcvgb5l8sCjCC/exec"; // ← URL GAS ของคุณ
+    
+    const sheetData = {
+        action: 'submitAdvancedRobotExam',
+        studentInfo: {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            number: data.number,
+            room: data.room
+        },
+        examInfo: {
+            courseCode: data.courseCode,
+            courseName: data.courseName,
+            examTitle: data.examTitle,
+            term: "2",                    // ← ต้องตรงกับใน GAS
+            academicYear: "2568",         // ← ต้องตรงกับใน GAS
+            attemptNo: 1                  // ← ต้องตรงกับใน GAS
+        },
+        result: {
+            score: data.score,
+            total: data.total,
+            correct: data.correctAnswers,
+            wrong: data.wrongAnswers,
+            unanswered: data.unanswered,
+            percentage: Math.round((data.score / data.total) * 100),
+            timeUsed: data.timeUsed
+        },
+        submissionInfo: {
+            submitDate: data.submitDate,
+            submitTime: data.submitTime
+            // ไม่ต้องมี timestamp เพราะ GAS ใช้ new Date() ของตัวเอง
+        }
+    };
 
-        console.log('📤 ส่งข้อมูลไป Google Sheets:', sheetData);
-        
-        // ✅ ใช้การส่งข้อมูลแบบ form data เพื่อหลีกเลี่ยง CORS
-        const formData = new FormData();
-        formData.append('data', JSON.stringify(sheetData));
-        
-        fetch(SHEET_API_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: formData
-        })
-        .then(() => {
-            console.log('✅ ส่งข้อมูลสำเร็จ (no-cors mode)');
-            showNotification('✅ บันทึกผลสอบลงระบบกลางสำเร็จ!', 'success');
-        })
-        .catch(error => {
-            console.error('❌ ส่งข้อมูลไม่สำเร็จ:', error);
-            showNotification('⚠️ บันทึกผลสอบในเครื่องสำเร็จ (ระบบออนไลน์ชั่วคราว)', 'warning');
-        });
-    }
+    console.log('📤 ส่งข้อมูลไป Google Sheets:', sheetData);
+    
+    // ✅ ส่งเป็น JSON โดยตรง (ไม่ใช่ FormData)
+    fetch(SHEET_API_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(sheetData)
+    })
+    .then(() => {
+        console.log('✅ ส่งข้อมูลสำเร็จ');
+        showNotification('✅ บันทึกผลสอบลงระบบกลางสำเร็จ!', 'success');
+    })
+    .catch(error => {
+        console.error('❌ ส่งข้อมูลไม่สำเร็จ:', error);
+        showNotification('⚠️ บันทึกผลสอบในเครื่องสำเร็จ', 'warning');
+    });
+}
 
     // ==========================
     // ส่งคำตอบและตรวจสอบ
