@@ -2118,54 +2118,57 @@
     }
 
     // ✅ ฟังก์ชันส่งข้อมูลไปยัง Google Sheets (แก้ไขให้ตรงกับ GAS)
+// ✅ ฟังก์ชันส่งข้อมูลไปยัง Google Sheets (แก้ไขแล้ว)
 function sendToGoogleSheets(data) {
-    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbySe4Hv2VPvi736AyYq1vTofb2hSq3woG4XGz_sxyJDiHTt4I_T4Onlcvgb5l8sCjCC/exec"; // ← URL GAS ของคุณ
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbySe4Hv2VPvi736AyYq1vTofb2hSq3woG4XGz_sxyJDiHTt4I_T4Onlcvgb5l8sCjCC/exec";
     
+    console.log('📤 กำลังส่งข้อมูลไปยัง Google Sheets...');
+    
+    // ✅ แก้ไขโครงสร้างข้อมูลให้ตรงกับ GAS
     const sheetData = {
         action: 'submitAdvancedRobotExam',
         studentInfo: {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            number: data.number,
-            room: data.room
+            firstName: data.firstName || '',
+            lastName: data.lastName || '',
+            number: data.number || '',
+            room: data.room || ''
         },
         examInfo: {
-            courseCode: data.courseCode,
-            courseName: data.courseName,
-            examTitle: data.examTitle,
-            term: "2",                    // ← ต้องตรงกับใน GAS
-            academicYear: "2568",         // ← ต้องตรงกับใน GAS
-            attemptNo: 1                  // ← ต้องตรงกับใน GAS
+            courseCode: data.courseCode || 'ว30258',
+            courseName: data.courseName || 'วิชาหุ่นยนต์ขั้นสูง',
+            examTitle: data.examTitle || 'สอบกลางภาค',
+            term: "2",
+            academicYear: "2568",
+            attemptNo: 1
         },
         result: {
-            score: data.score,
-            total: data.total,
-            correct: data.correctAnswers,
-            wrong: data.wrongAnswers,
-            unanswered: data.unanswered,
-            percentage: Math.round((data.score / data.total) * 100),
-            timeUsed: data.timeUsed
+            score: data.score || 0,
+            total: data.total || 40,
+            correct: data.correctAnswers || 0,
+            wrong: data.wrongAnswers || 0,
+            unanswered: data.unanswered || 0,
+            percentage: Math.round(((data.score || 0) / (data.total || 40)) * 100),
+            timeUsed: data.timeUsed || '00:00:00'
         },
         submissionInfo: {
-            submitDate: data.submitDate,
-            submitTime: data.submitTime
-            // ไม่ต้องมี timestamp เพราะ GAS ใช้ new Date() ของตัวเอง
+            submitDate: data.submitDate || new Date().toLocaleDateString('th-TH'),
+            submitTime: data.submitTime || new Date().toLocaleTimeString('th-TH')
         }
     };
-
-    console.log('📤 ส่งข้อมูลไป Google Sheets:', sheetData);
     
-    // ✅ ส่งเป็น JSON โดยตรง (ไม่ใช่ FormData)
+    console.log('ข้อมูลที่ส่ง:', sheetData);
+    
+    // ✅ แก้ไข: ส่งเป็น JSON โดยตรง (ไม่ใช่ FormData)
     fetch(SHEET_API_URL, {
         method: 'POST',
-        mode: 'no-cors',
+        mode: 'no-cors', // ใช้ no-cors สำหรับ GAS
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(sheetData)
     })
     .then(() => {
-        console.log('✅ ส่งข้อมูลสำเร็จ');
+        console.log('✅ ส่งข้อมูลสำเร็จ (no-cors mode)');
         showNotification('✅ บันทึกผลสอบลงระบบกลางสำเร็จ!', 'success');
     })
     .catch(error => {
