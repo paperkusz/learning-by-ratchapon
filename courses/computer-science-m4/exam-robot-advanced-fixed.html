@@ -1166,7 +1166,7 @@
     const ANSWER_KEY_URL = "https://raw.githubusercontent.com/RatchaponJKS/learning-by-ratchapon/main/exam-answer-key.json";
     
     // ✅ URL Google Apps Script ที่แก้ไขแล้ว (ใช้ deployment URL จริง)
-    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbx6CDjTdjQfweInPOz59L5xpOj-8EZqnU3N3WluPfbHSkuXS2vku6oSJfZQVsEnHAL9/exec";
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbzBj-ULk1R4x8ZzfYVSPrJi6YqgTB5_Hjk4DQxSOBCc68FeEeajBNYddP8ah3-55dkL/exec";
     
     // ข้อมูลวิชา / แบบทดสอบ
     const SCHOOL_NAME   = "โรงเรียนพรตพิทยพยัต";
@@ -2119,12 +2119,14 @@
 
     // ✅ ฟังก์ชันส่งข้อมูลไปยัง Google Sheets (แก้ไขให้ตรงกับ GAS)
 // ✅ ฟังก์ชันส่งข้อมูลไปยัง Google Sheets (แก้ไขแล้ว)
+// ✅ ฟังก์ชันส่งข้อมูลไปยัง Google Sheets (เวอร์ชันที่ใช้งานได้)
 function sendToGoogleSheets(data) {
-    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbx6CDjTdjQfweInPOz59L5xpOj-8EZqnU3N3WluPfbHSkuXS2vku6oSJfZQVsEnHAL9/exec";
+    const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbzBj-ULk1R4x8ZzfYVSPrJi6YqgTB5_Hjk4DQxSOBCc68FeEeajBNYddP8ah3-55dkL/exec";
     
     console.log('📤 กำลังส่งข้อมูลไปยัง Google Sheets...');
+    console.log('ข้อมูลที่จะส่ง:', data);
     
-    // ✅ แก้ไขโครงสร้างข้อมูลให้ตรงกับ GAS
+    // ✅ สร้างโครงสร้างข้อมูลให้ตรงกับ GAS
     const sheetData = {
         action: 'submitAdvancedRobotExam',
         studentInfo: {
@@ -2137,9 +2139,9 @@ function sendToGoogleSheets(data) {
             courseCode: data.courseCode || 'ว30258',
             courseName: data.courseName || 'วิชาหุ่นยนต์ขั้นสูง',
             examTitle: data.examTitle || 'สอบกลางภาค',
-            term: "2",
-            academicYear: "2568",
-            attemptNo: 1
+            term: data.term || "2",
+            academicYear: data.academicYear || "2568",
+            attemptNo: data.attemptNo || 1
         },
         result: {
             score: data.score || 0,
@@ -2147,7 +2149,7 @@ function sendToGoogleSheets(data) {
             correct: data.correctAnswers || 0,
             wrong: data.wrongAnswers || 0,
             unanswered: data.unanswered || 0,
-            percentage: Math.round(((data.score || 0) / (data.total || 40)) * 100),
+            percentage: data.percentage || Math.round(((data.score || 0) / (data.total || 40)) * 100),
             timeUsed: data.timeUsed || '00:00:00'
         },
         submissionInfo: {
@@ -2156,115 +2158,140 @@ function sendToGoogleSheets(data) {
         }
     };
     
-    console.log('ข้อมูลที่ส่ง:', sheetData);
+    console.log('โครงสร้างข้อมูล:', sheetData);
     
-    // ✅ แก้ไข: ส่งเป็น JSON โดยตรง (ไม่ใช่ FormData)
-    fetch(SHEET_API_URL, {
-        method: 'POST',
-        mode: 'no-cors', // ใช้ no-cors สำหรับ GAS
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(sheetData)
-    })
-    .then(() => {
-        console.log('✅ ส่งข้อมูลสำเร็จ (no-cors mode)');
-        showNotification('✅ บันทึกผลสอบลงระบบกลางสำเร็จ!', 'success');
-    })
-    .catch(error => {
-        console.error('❌ ส่งข้อมูลไม่สำเร็จ:', error);
-        showNotification('⚠️ บันทึกผลสอบในเครื่องสำเร็จ', 'warning');
-    });
+    // ✅ วิธีที่ 1: ส่งด้วย XMLHttpRequest (ทำงานได้ดีกับ GAS)
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', SHEET_API_URL);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    
+    xhr.onload = function() {
+        if (xhr.status === 200 || xhr.status === 0) {
+            console.log('✅ ส่งข้อมูลสำเร็จ!');
+            try {
+                const response = JSON.parse(xhr.responseText);
+                console.log('Response:', response);
+                if (response.success) {
+                    showNotification('✅ บันทึกผลสอบลงระบบกลางสำเร็จ!', 'success');
+                } else {
+                    showNotification('⚠️ บันทึกผลสอบสำเร็จ แต่มีข้อผิดพลาดเล็กน้อย', 'warning');
+                }
+            } catch (e) {
+                console.log('Response (text):', xhr.responseText);
+                showNotification('✅ บันทึกผลสอบสำเร็จ!', 'success');
+            }
+        } else {
+            console.error('❌ ส่งข้อมูลไม่สำเร็จ:', xhr.status, xhr.statusText);
+            showNotification('⚠️ บันทึกผลสอบในเครื่องสำเร็จ', 'warning');
+        }
+    };
+    
+    xhr.onerror = function() {
+        console.error('❌ Network error');
+        showNotification('⚠️ ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้', 'warning');
+    };
+    
+    xhr.send(JSON.stringify(sheetData));
+    
+    // ✅ วิธีที่ 2: ส่งด้วย fetch (ทางเลือก)
+    // fetch(SHEET_API_URL, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(sheetData)
+    // })
+    // .then(response => response.text())
+    // .then(text => {
+    //     console.log('Response:', text);
+    //     try {
+    //         const data = JSON.parse(text);
+    //         if (data.success) {
+    //             showNotification('✅ บันทึกผลสอบลงระบบกลางสำเร็จ!', 'success');
+    //         }
+    //     } catch (e) {
+    //         console.log('ไม่สามารถ parse JSON:', e);
+    //         showNotification('✅ บันทึกผลสอบสำเร็จ!', 'success');
+    //     }
+    // })
+    // .catch(error => {
+    //     console.error('Error:', error);
+    //     showNotification('⚠️ บันทึกผลสอบในเครื่องสำเร็จ', 'warning');
+    // });
+}
 }
 
     // ==========================
     // ส่งคำตอบและตรวจสอบ
     // ==========================
-    function submitExam() {
-        clearInterval(timerInterval);
-        
-        window.examFinished = true;
-        window.examStarted = false;
+    // ==========================
+// ส่งคำตอบและตรวจสอบ
+// ==========================
+function submitExam() {
+    clearInterval(timerInterval);
+    
+    window.examFinished = true;
+    window.examStarted = false;
 
-        const endTime  = new Date();
-        const timeUsed = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
+    const endTime  = new Date();
+    const timeUsed = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
 
-        // ตรวจคำตอบ
-        let correct = 0;
-        let wrong = 0;
-        let unanswered = 0;
-        
-        if (answerKey && answerKey.answers) {
-            examQuestions.forEach((q, index) => {
-                if (userAnswers[index] === null) {
-                    unanswered++;
-                } else if (userAnswers[index] === answerKey.answers[index]) {
-                    correct++;
-                } else {
-                    wrong++;
-                }
-            });
-        }
-
-        // บันทึกลง LocalStorage
-        const resultData = {
-            firstName: window.studentInfo.firstName,
-            lastName: window.studentInfo.lastName,
-            number: window.studentInfo.number,
-            room: window.studentInfo.room,
-            courseName: COURSE_NAME,
-            courseCode: COURSE_CODE,
-            examTitle: EXAM_TITLE,
-            score: correct,
-            total: examQuestions.length,
-            correctAnswers: correct,
-            wrongAnswers: wrong,
-            unanswered: unanswered,
-            timeUsed: formatTime(timeUsed),
-            timeUsedSeconds: timeUsed,
-            submitDate: new Date().toLocaleDateString('th-TH'),
-            submitTime: new Date().toLocaleTimeString('th-TH'),
-            timestamp: new Date().toISOString(),
-            section1: {
-                score: correct,
-                total: examQuestions.length
+    // ตรวจคำตอบ
+    let correct = 0;
+    let wrong = 0;
+    let unanswered = 0;
+    
+    if (answerKey && answerKey.answers) {
+        examQuestions.forEach((q, index) => {
+            if (userAnswers[index] === null) {
+                unanswered++;
+            } else if (userAnswers[index] === answerKey.answers[index]) {
+                correct++;
+            } else {
+                wrong++;
             }
-        };
-
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(resultData));
-        
-        // บันทึก IP
-        try {
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json())
-                .then(data => {
-                    const ipInfo = {
-                        ip: data.ip,
-                        timestamp: new Date().toISOString(),
-                        submitted: true
-                    };
-                    localStorage.setItem(IP_STORAGE_KEY, JSON.stringify(ipInfo));
-                })
-                .catch(() => {
-                    const ipInfo = {
-                        ip: 'unknown',
-                        timestamp: new Date().toISOString(),
-                        submitted: true
-                    };
-                    localStorage.setItem(IP_STORAGE_KEY, JSON.stringify(ipInfo));
-                });
-        } catch (e) {
-            console.log('ไม่สามารถบันทึก IP ได้:', e);
-        }
-
-        // แสดงผลลัพธ์
-        showResult(resultData);
-        
-        // ✅ ส่งข้อมูลไปยัง Google Sheets
-        sendToGoogleSheets(resultData);
-        
-        disableStartButton();
+        });
     }
+
+    // คำนวณเปอร์เซ็นต์
+    const totalQuestions = examQuestions.length;
+    const percentage = Math.round((correct / totalQuestions) * 100);
+
+    // ✅ บันทึกลง LocalStorage
+    const resultData = {
+        firstName: window.studentInfo.firstName,
+        lastName: window.studentInfo.lastName,
+        number: window.studentInfo.number,
+        room: window.studentInfo.room,
+        courseCode: COURSE_CODE,
+        courseName: COURSE_NAME,
+        examTitle: EXAM_TITLE,
+        term: TERM,
+        academicYear: ACADEMIC_YEAR,
+        attemptNo: ATTEMPT_NO,
+        score: correct,
+        total: totalQuestions,
+        correctAnswers: correct,
+        wrongAnswers: wrong,
+        unanswered: unanswered,
+        percentage: percentage,
+        timeUsed: formatTime(timeUsed),
+        timeUsedSeconds: timeUsed,
+        submitDate: new Date().toLocaleDateString('th-TH'),
+        submitTime: new Date().toLocaleTimeString('th-TH'),
+        timestamp: new Date().toISOString()
+    };
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(resultData));
+    
+    // แสดงผลลัพธ์
+    showResult(resultData);
+    
+    // ✅ ส่งข้อมูลไปยัง Google Sheets
+    sendToGoogleSheets(resultData);
+    
+    disableStartButton();
+}
 
     // แสดงผลลัพธ์
     function showResult(data) {
