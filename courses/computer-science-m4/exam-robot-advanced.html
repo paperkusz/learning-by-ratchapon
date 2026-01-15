@@ -988,9 +988,6 @@
                     </div>
                     
                     <p>⚠️ <strong>ข้อควรทราบ:</strong> แต่ละเครื่องคอมพิวเตอร์สามารถทำแบบทดสอบได้เพียง 1 ครั้งเท่านั้น</p>
-                    <p><strong>ส่วนที่ 1:</strong> ข้อสอบปรนัยพื้นฐาน 20 ข้อ</p>
-                    <p><strong>ส่วนที่ 2:</strong> ข้อสอบสถานการณ์ 20 ข้อ</p>
-                    <p><strong>เนื้อหาที่ออกสอบ:</strong> การควบคุมหุ่นยนต์, MQTT, ESP-NOW, Node-RED, การประยุกต์ใช้ IoT</p>
 
                     <!-- ข้อมูลวิชา / การสอบ -->
                     <div class="exam-info">
@@ -1926,7 +1923,6 @@
         // ส่วนที่ 2: ข้อสอบสถานการณ์
         const section2Header = document.createElement('div');
         section2Header.className = 'section-header';
-        section2Header.innerHTML = `<i class="fas fa-scroll"></i> ส่วนที่ 2: ข้อสอบสถานการณ์ (20 ข้อ)`;
         questionsElement.appendChild(section2Header);
 
         // แสดงข้อ 21-40
@@ -1947,7 +1943,6 @@
                 
                 const scenarioTitle = document.createElement('div');
                 scenarioTitle.className = 'scenario-title';
-                scenarioTitle.innerHTML = `<i class="fas fa-map-marker-alt"></i> สถานการณ์`;
                 
                 const scenarioText = document.createElement('div');
                 scenarioText.textContent = q.scenarioText;
@@ -2212,7 +2207,7 @@
 
     // ส่งข้อมูลไปยัง Google Sheets
     function sendToGoogleSheets(data) {
-        const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbyK8HG3MSBGVshC8auPkSJ0IbxgThEXY3yAcFqTBSF_sbB_dOnufz0qH1x2WoyGZ6Sp/exec";
+        const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbySe4Hv2VPvi736AyYq1vTofb2hSq3woG4XGz_sxyJDiHTt4I_T4Onlcvgb5l8sCjCC/exec";
         
         if (!SHEET_API_URL) {
             console.log('ไม่ได้ตั้งค่า URL Google Sheets');
